@@ -16,7 +16,7 @@ variables:
   releaseBranchName: master
   serviceCon: conAzTenant
   apifolder: food-api
-  appservice: foodapi
+  appservice: foodapi-release-strategy
   envflag: staging
 
 pool:
