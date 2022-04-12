@@ -4,6 +4,7 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
+using HealthChecks.UI.Client;
 
 namespace FoodApi
 {
@@ -122,6 +124,18 @@ namespace FoodApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                if (cfg.App.UseKubernetes)
+                {
+                    endpoints.MapHealthChecks("/hc", new HealthCheckOptions
+                    {
+                        Predicate = _ => true,
+                        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                    });
+                    endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
+                    {
+                        Predicate = r => r.Name.Contains("self")
+                    });
+                }
             });
         }
     }

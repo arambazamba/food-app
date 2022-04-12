@@ -5,6 +5,5 @@ namespace FoodApi
         public decimal getDeliveryCost(decimal Distance){
             return Distance * baseRate;
         }
-
     }
 }
