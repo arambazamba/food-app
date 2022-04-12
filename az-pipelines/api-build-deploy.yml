@@ -15,7 +15,7 @@ variables:
   buildConfiguration: Release
   releaseBranchName: master
   # serviceCon: conAzTenant
-  serviceCon: conAzconAzTenantMITenant
+  serviceCon: conAzconAzTenantMI
   apifolder: food-api
   appservice: foodapi-release-strategy-17611
 
