@@ -14,8 +14,7 @@ variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: Release
   releaseBranchName: master
-  # serviceCon: conAzTenant
-  serviceCon: conAzconAzTenantMI
+  serviceCon: conAzTenant
   apifolder: food-api
   appservice: foodapi-release-strategy-17611
 
