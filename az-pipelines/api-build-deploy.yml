@@ -16,7 +16,7 @@ variables:
   releaseBranchName: master
   serviceCon: conAzTenant
   apifolder: food-api
-  appservice: foodapi-release-strategy
+  appservice: foodapi-release-strategy-17611
 
 pool:
   vmImage: "ubuntu-20.04"
