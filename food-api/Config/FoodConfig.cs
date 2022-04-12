@@ -11,6 +11,7 @@ namespace FoodApp
         public bool AuthEnabled { get; set; } 
         public bool UseSQLite {get;set;}
         public bool UseAppConfig {get;set;}
+        public bool UseKubernetes {get;set;}
         public ConnectionStrings ConnectionStrings { get; set; } 
     }
    

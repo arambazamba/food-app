@@ -88,7 +88,7 @@ namespace FoodApi
             return val;
         }
 
-        //TODO: Refactor to action filter
+        //TODO: Refactor to filter
         [NonAction]
         public void verfiyScope()
         {
