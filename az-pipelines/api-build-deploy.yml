@@ -14,7 +14,7 @@ variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: Release
   releaseBranchName: master
-  serviceCon: conAzTenant
+  serviceCon: scDemo
   apifolder: food-api
   appservice: foodapi-release-strategy-17611
 
@@ -27,7 +27,6 @@ stages:
     jobs:
       - job: "Build"
         displayName: "Build job"
-
         steps:
           - template: templates/netcore-build.yaml
             parameters:
@@ -35,12 +34,11 @@ stages:
               folder: $(apifolder)
   - stage: Deploy
     displayName: Deploy
-    dependsOn: Build
-
+    dependsOn: Build    
     jobs:
       - deployment: DeployAppService
         displayName: Deploy to Appservice
-        environment: $(envflag)
+        environment: staging
         strategy:
           runOnce:
             deploy:
