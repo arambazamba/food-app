@@ -14,7 +14,7 @@ variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: Release
   releaseBranchName: master
-  azSubscription: az400-mod10-subscription
+  azSubscription: scCLI
   apifolder: food-api
   appservice: foodapi-staging-cli
   envflag: staging-cli
