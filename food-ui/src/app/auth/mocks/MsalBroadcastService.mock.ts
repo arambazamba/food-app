@@ -18,5 +18,5 @@ export class MsalBroadcastServiceMock {
     });
   }
   msalSubject$: Observable<EventMessage>;
-  inProgress$: Observable<InteractionStatus>;
+  inProgress$: Observable<InteractionStatus> | null = null;
 }

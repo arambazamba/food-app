@@ -2,45 +2,39 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FoodItem } from '../food.model';
+import { FoodItem } from '../food-item.model';
 
 @Component({
   selector: 'app-food-edit',
   templateUrl: './food-edit.component.html',
   styleUrls: ['./food-edit.component.scss'],
 })
-export class FoodEditComponent implements OnInit {
+export class FoodEditComponent {
+  @Input() food: FoodItem = new FoodItem();
+  @Output() saveFood: EventEmitter<FoodItem> = new EventEmitter();
+  form: FormGroup;
+
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      id: 0,
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      amount: [0],
-      pictureUrl: '',
-      code: '',
-      date: new Date(),
+      id: this.food.id,
+      name: [this.food.name, [Validators.required, Validators.minLength(3)]],
+      inStock: [this.food.inStock, [Validators.required, Validators.min(1)]],
+      price: this.food.price,
     });
   }
 
-  @Input() food: FoodItem;
-  @Output() onSaveFood: EventEmitter<FoodItem> = new EventEmitter();
-  @Output() onMailFood: EventEmitter<FoodItem> = new EventEmitter();
-
-  form: FormGroup;
-
-  ngOnInit() {}
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['food']) {
-      this.form.setValue(changes['food']?.currentValue);
+      this.form.setValue(changes['food'].currentValue);
     }
   }
 
-  saveForm(form: FormGroup) {
-    this.onSaveFood.emit(form.value);
+  saveForm(form: any) {
+    console.log('food to save', form.value);
+    this.saveFood.emit(form.value);
   }
 }

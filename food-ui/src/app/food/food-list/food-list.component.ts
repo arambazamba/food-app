@@ -1,67 +1,59 @@
 import {
   Component,
-  EventEmitter,
+  OnInit,
   Input,
   Output,
+  EventEmitter,
   SimpleChanges,
+  OnChanges,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
-import { AppInsightsService } from '../../core/app-insights/app-insights.service';
-import { FoodItem } from '../food.model';
+import { FoodItem } from '../food-item.model';
 
 @Component({
   selector: 'app-food-list',
   templateUrl: './food-list.component.html',
   styleUrls: ['./food-list.component.scss'],
 })
-export class FoodListComponent {
-  @Input() food: FoodItem[] | null;
-  @Output()
-  onEditSelected: EventEmitter<FoodItem> = new EventEmitter();
-  @Output()
-  onDeleteSelected: EventEmitter<FoodItem> = new EventEmitter();
-  @Output()
-  onAddNew: EventEmitter<any> = new EventEmitter();
+export class FoodListComponent implements OnInit, OnChanges {
+  constructor() {}
 
-  filter$ = new FormControl('');
-
-  constructor(private ai: AppInsightsService) {}
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.dataSource = new MatTableDataSource(changes['food']?.currentValue);
-  }
+  @Input() food: FoodItem[] = [];
+  @Output() foodSelected: EventEmitter<FoodItem> = new EventEmitter<FoodItem>();
+  @Output()
+  foodDeleted: EventEmitter<FoodItem> = new EventEmitter<FoodItem>();
+  @Output()
+  foodAdding: EventEmitter<FoodItem> = new EventEmitter<FoodItem>();
 
   displayedColumns: string[] = [
+    'id',
     'name',
     'price',
-    'calories',
-    'addItemToCart',
-    'removeItemFromCart',
+    'instock',
     'deleteItem',
     'editItem',
   ];
-  dataSource: MatTableDataSource<FoodItem> = new MatTableDataSource<FoodItem>(
-    []
-  );
+  dataSource = new MatTableDataSource([]);
+
+  ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.dataSource = new MatTableDataSource(changes['food'].currentValue);
+  }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  addFood() {
-    this.onAddNew.emit();
-  }
-
   selectFood(p: FoodItem) {
-    this.ai.logEvent('FoodUI:FoodList:SelectFood', p);
-    this.onEditSelected.emit(p);
+    this.foodSelected.emit(p);
   }
 
-  deleteFood(p: FoodItem) {
-    this.ai.logEvent('FoodUI:FoodList:DeleteFood', p);
-    this.onDeleteSelected.emit(p);
+  deleteFood(item: FoodItem) {
+    this.foodDeleted.emit(item);
   }
 
-  addItemToCart(f: FoodItem) {}
+  addFood() {
+    this.foodAdding.emit(new FoodItem());
+  }
 }

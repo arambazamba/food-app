@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './core/login/login.component';
-import { AboutComponent } from './about/about.component';
 import { MsalGuard } from '@azure/msal-angular';
-import { HomeComponent } from './home/home.component';
 import { environment } from 'src/environments/environment';
+import { AboutComponent } from './about/about.component';
+import { LoginComponent } from './core/login/login.component';
+import { HomeComponent } from './home/home.component';
 
 //allow disabling auth for e2e tests
 const guards: any[] = environment.authEnabled ? [MsalGuard] : [];
@@ -25,7 +25,7 @@ const isIframe = window !== window.parent && !window.opener;
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      initialNavigation: !isIframe ? 'enabled' : 'disabled',
+      initialNavigation: isIframe == false ? 'enabledNonBlocking' : 'disabled',
     }),
   ],
   exports: [RouterModule],

@@ -5,7 +5,7 @@ export const login = createAction('[Auth] login');
 
 export const loginSuccess = createAction(
   '[Auth] loginSuccess',
-  props<{ authResponse: MsalAuthResponse }>()
+  props<{ authResponse: any }>()
 );
 
 export const loginFailure = createAction(

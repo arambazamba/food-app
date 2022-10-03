@@ -1,7 +1,7 @@
 (function (window) {
   window["env"] = window["env"] || {};
   window["env"].authEnabled = "false";
-  window["env"].apiUrl = "https://localhost:5001/";
+  window["env"].api = "https://localhost:5001/";
   window["env"].applicationInsights = "";
   window["env"].signalREndpoint = "";
   window["env"].clientId = "d23642f7-9ccf-4165-92e7-919f625a5acc";
