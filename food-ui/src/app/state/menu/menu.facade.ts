@@ -3,17 +3,12 @@ import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import {
-  changeSideNavPosition,
-  changeSideNavVisible,
-  setSideNavEnabled,
-  toggleSideNav,
-} from './menu.actions';
+import { SideNavActions } from './menu.actions';
 import { MenuState } from './menu.reducer';
 import {
   getSideNavEnabled,
-  getSideNavPosition,
   getSideNavVisible,
+  getSideNavPosition,
 } from './menu.selectors';
 
 @Injectable({
@@ -52,13 +47,13 @@ export class MenuFacade {
         ? 'side'
         : 'over';
 
-      this.store.dispatch(changeSideNavPosition({ position }));
-      this.store.dispatch(changeSideNavVisible({ visible }));
+      this.store.dispatch(SideNavActions.setsidenavposition({ position }));
+      this.store.dispatch(SideNavActions.setsidenavvisible({ visible }));
     });
   }
 
   setSideNavEnabled(val: boolean) {
-    this.store.dispatch(setSideNavEnabled({ enabled: val }));
+    this.store.dispatch(SideNavActions.setsidenavenabled({ enabled: val }));
   }
 
   adjustSidenavToScreen(mq: string): boolean {
@@ -75,6 +70,6 @@ export class MenuFacade {
   }
 
   toggleMenuVisibility() {
-    this.store.dispatch(toggleSideNav());
+    this.store.dispatch(SideNavActions.togglesidenav());
   }
 }

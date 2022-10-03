@@ -36,7 +36,7 @@ namespace FoodApp
         
     public class FeatureManagement{
         public bool PublishEvent { get; set; } 
-        public bool ConverterApi { get; set; }
+        public bool FeatureABC { get; set; }
     }
     
     public class LogLevel    {
