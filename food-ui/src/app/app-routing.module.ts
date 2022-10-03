@@ -23,18 +23,11 @@ const routes: Routes = [
 const isIframe = window !== window.parent && !window.opener;
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      initialNavigation: isIframe == false ? 'enabledNonBlocking' : 'disabled',
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
-
-// TODO: investigate why this is needed
-// @NgModule({
-//   imports: [
-//     RouterModule.forRoot(routes, {
-//       initialNavigation: isIframe == false ? 'enabled' : 'disabled',
-//     }),
-//   ],
-//   exports: [RouterModule],
-// })
-// export class AppRoutingModule {}
