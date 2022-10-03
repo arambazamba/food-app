@@ -23,14 +23,14 @@ namespace FoodApi
 
         public async void PublishEvent(FoodItem item, FoodEventType type)
         {
-            var evtItem = new CloudEvent<FoodItem>(item);
-            var client = new HttpClient { BaseAddress = new Uri(cfg.Azure.EventGridEP) };
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));            
-            client.DefaultRequestHeaders.Add("aeg-sas-key", cfg.Azure.EventGridKey);
-            var json = JsonConvert.SerializeObject(evtItem);
+            var ce = new CloudEvent<FoodItem>(item);
+            var gridClient = new HttpClient { BaseAddress = new Uri(cfg.Azure.EventGridEP) };
+            gridClient.DefaultRequestHeaders.Accept.Clear();
+            gridClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));            
+            gridClient.DefaultRequestHeaders.Add("aeg-sas-key", cfg.Azure.EventGridKey);
+            var json = JsonConvert.SerializeObject(ce);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync(string.Empty, content);
+            var response = await gridClient.PostAsync(string.Empty, content);
 
             //TODO: Update Event to use CloudEventV10 schema
             // EventGridEvent evt = new EventGridEvent()

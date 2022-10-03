@@ -7,7 +7,7 @@ declare global {
 export const environment = {
   production: true,
   authEnabled: false,
-  apiUrl: window['env'].apiUrl,
+  api: window['env'].api,
   azure: {
     applicationInsights: window['env'].applicationInsights,
     signalREndpoint: window['env'].signalREndpoint,

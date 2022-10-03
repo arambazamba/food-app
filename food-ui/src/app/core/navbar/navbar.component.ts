@@ -10,15 +10,13 @@ import { NavItem } from './nav-item.model';
 export class NavbarComponent implements OnInit {
   constructor(private mf: MenuFacade) {}
 
-  menuItems: NavItem[];
+  menuItems: NavItem[] = [
+    { title: 'Home', url: '/' },
+    { title: 'Food', url: '/food' },
+    { title: 'About', url: '/about' },
+  ];
 
-  ngOnInit() {
-    this.menuItems = [
-      { title: 'Home', url: '/' },
-      { title: 'Food', url: '/food' },
-      { title: 'About', url: '/about' },
-    ];
-  }
+  ngOnInit() {}
 
   toggleMenu() {
     this.mf.toggleMenuVisibility();

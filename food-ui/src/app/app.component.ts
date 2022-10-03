@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDrawerMode } from '@angular/material/sidenav';
 import { MsalAuthFacade } from './auth/state/auth.facade';
-import { FoodFacade } from './food/state/food.facade';
+// import { FoodFacade } from './food/state/food.facade';
 import { MenuFacade } from './state/menu/menu.facade';
 
 @Component({
@@ -18,16 +18,16 @@ export class AppComponent implements OnInit {
 
   constructor(
     private af: MsalAuthFacade,
-    public mf: MenuFacade,
-    public ff: FoodFacade
-  ) {}
+    public mf: MenuFacade
+  ) // public ff: FoodFacade
+  {}
 
   ngOnInit(): void {
     this.mf.sideNavPosition.subscribe(
-      (mode) => (this.sidenavMode = mode as MatDrawerMode)
+      (mode: any) => (this.sidenavMode = mode as MatDrawerMode)
     );
 
-    this.af.isInitAndAuthenticated().subscribe((proceed) => {
+    this.af.isInitAndAuthenticated().subscribe((proceed: boolean) => {
       if (proceed) {
         this.authenticated = proceed;
       }
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
 
   getWorbenchStyle() {
     let result = {};
-    this.mf.sideNavVisible.subscribe((visible) => {
+    this.mf.sideNavVisible.subscribe((visible: boolean) => {
       result = visible
         ? {
             'padding-left': '10px',

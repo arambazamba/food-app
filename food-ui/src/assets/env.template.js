@@ -1,7 +1,7 @@
 (function (window) {
   window["env"] = window["env"] || {};
   window["env"].authEnabled = "${authEnabled}";
-  window["env"].apiUrl = "${apiUrl}";
+  window["env"].api = "${apiUrl}";
   window["env"].applicationInsights = "${applicationInsights}";
   window["env"].signalREndpoint = "${signalREndpoint}";
   window["env"].clientId = "${clientId}";

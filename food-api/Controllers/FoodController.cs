@@ -57,7 +57,7 @@ namespace FoodApi
 
             ctx.SaveChanges();
             
-            if(cfg.FeatureManagement.Reactive){                
+            if(cfg.FeatureManagement.PublishEvent){                
                 publisher.PublishEvent(item, FoodEventType.Update);
             }
 
@@ -69,12 +69,17 @@ namespace FoodApi
         public ActionResult Delete(int id)
         {
             verfiyScope();
-            var v = GetById(id);
-            if (v != null)
+            var item = GetById(id);
+            if (item != null)
             {
-                ctx.Remove(v);
+                ctx.Remove(item);
                 ctx.SaveChanges();
             }
+
+            if(cfg.FeatureManagement.PublishEvent){                
+                publisher.PublishEvent(item, FoodEventType.Update);
+            }
+
             return Ok();
         }
 

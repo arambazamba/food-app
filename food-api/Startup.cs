@@ -114,6 +114,7 @@ namespace FoodApi
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            //Set Authorize Attribute on Controllers using a policy
             if (cfg.App.AuthEnabled)
             {
                 Console.WriteLine($"Using auth with App Reg: {cfg.Azure.ClientId}");

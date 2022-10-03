@@ -35,7 +35,7 @@ namespace FoodApp
     }
         
     public class FeatureManagement{
-        public bool Reactive { get; set; } 
+        public bool PublishEvent { get; set; } 
         public bool ConverterApi { get; set; }
     }
     

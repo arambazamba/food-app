@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   MsalBroadcastService,
   MsalGuardConfiguration,
@@ -17,10 +17,10 @@ import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { MsalAuthResponse } from '../auth.model';
+import { MsalBroadcastServiceMock } from '../mocks/MsalBroadcastService.mock';
 import { loginSuccess, logout } from './auth.actions';
 import { MsalAuthState } from './auth.reducer';
 import { getUser, isAuthenticated } from './auth.selectors';
-import { MsalBroadcastServiceMock } from '../mocks/MsalBroadcastService.mock';
 
 @Injectable()
 export class MsalAuthFacade {
@@ -51,9 +51,13 @@ export class MsalAuthFacade {
         )
       )
       .subscribe((result: EventMessage) => {
-        let resp: MsalAuthResponse = result.payload as MsalAuthResponse;
+        //TODO: handle broadcast
+        let resp = result.payload;
         this.store.dispatch(loginSuccess({ authResponse: resp }));
         console.log(`MSAL Event ${result.eventType}`, result.payload);
+        // let resp: MsalAuthResponse = result.payload;
+        // this.store.dispatch(loginSuccess({ authResponse: resp }));
+        // console.log(`MSAL Event ${result.eventType}`, result.payload);
       });
   };
 
