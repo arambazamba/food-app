@@ -6,6 +6,7 @@ import { FoodContainerComponent } from './food-container/food-container.componen
 import { FoodEditComponent } from './food-edit/food-edit.component';
 import { FoodListComponent } from './food-list/food-list.component';
 import { FoodRoutingModule } from './food-routing.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [FoodContainerComponent, FoodListComponent, FoodEditComponent],
@@ -15,6 +16,7 @@ import { FoodRoutingModule } from './food-routing.module';
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    FlexLayoutModule,
   ],
 })
 export class FoodModule {}
