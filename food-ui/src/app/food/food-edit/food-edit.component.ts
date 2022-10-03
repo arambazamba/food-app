@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FoodItem } from '../food.model';
+import { FoodItem } from '../food-item.model';
 
 @Component({
   selector: 'app-food-edit',
@@ -22,8 +22,8 @@ export class FoodEditComponent {
     this.form = this.fb.group({
       id: this.food.id,
       name: [this.food.name, [Validators.required, Validators.minLength(3)]],
-      price: [this.food.price, [Validators.required, Validators.min(1)]],
-      calories: this.food.calories,
+      inStock: [this.food.inStock, [Validators.required, Validators.min(1)]],
+      price: this.food.price,
     });
   }
 

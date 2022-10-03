@@ -8,7 +8,7 @@ import {
   OnChanges,
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { FoodItem } from '../food.model';
+import { FoodItem } from '../food-item.model';
 
 @Component({
   selector: 'app-food-list',
@@ -29,6 +29,7 @@ export class FoodListComponent implements OnInit, OnChanges {
     'id',
     'name',
     'price',
+    'instock',
     'deleteItem',
     'editItem',
   ];

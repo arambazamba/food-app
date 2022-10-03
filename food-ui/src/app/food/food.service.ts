@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { FoodItem } from './food.model';
+import { FoodItem } from './food-item.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,7 @@ export class FoodService {
   }
 
   updateFood(food: FoodItem) {
-    return this.httpClient.put<FoodItem>(`${this.url}/${food.id}`, food);
+    return this.httpClient.put<FoodItem>(`${this.url}`, food);
   }
 
   deleteFood(id: number) {
