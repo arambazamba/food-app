@@ -42,25 +42,31 @@ namespace FoodApi
 
         // http://localhost:PORT/food
         [HttpPost()]
-        public FoodItem SaveFood(FoodItem item)
+        public FoodItem InsertFood(FoodItem item)
         {
             verfiyScope();
-            if (item.ID == 0)
-            {
-                ctx.Food.Add(item);
-            }
-            else
-            {
-                ctx.Food.Attach(item);
-                ctx.Entry(item).State = EntityState.Modified;
-            }            
-
+            ctx.Food.Add(item);
             ctx.SaveChanges();
-            
-            if(cfg.FeatureManagement.PublishEvent){                
+
+            if (cfg.FeatureManagement.PublishEvent)
+            {
                 publisher.PublishEvent(item, FoodEventType.Update);
             }
+            return item;
+        }
 
+        [HttpPut()]
+        public FoodItem UpdateFood(FoodItem item)
+        {
+            verfiyScope();
+            ctx.Food.Attach(item);
+            ctx.Entry(item).State = EntityState.Modified;
+            ctx.SaveChanges();
+
+            if (cfg.FeatureManagement.PublishEvent)
+            {
+                publisher.PublishEvent(item, FoodEventType.Update);
+            }
             return item;
         }
 
@@ -76,7 +82,8 @@ namespace FoodApi
                 ctx.SaveChanges();
             }
 
-            if(cfg.FeatureManagement.PublishEvent){                
+            if (cfg.FeatureManagement.PublishEvent)
+            {
                 publisher.PublishEvent(item, FoodEventType.Update);
             }
 
