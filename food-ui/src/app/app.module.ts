@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MsalRedirectComponent } from '@azure/msal-angular';
+import { EntityDataModule } from '@ngrx/data';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -47,6 +48,7 @@ const bootstrap = environment.authEnabled
       },
     }),
     EffectsModule.forRoot([]),
+    EntityDataModule.forRoot({}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     MsalAuthUtilModule,
   ],
