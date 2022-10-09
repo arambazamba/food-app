@@ -19,7 +19,7 @@ import { MsalAuthFacade } from 'src/app/auth/state/auth.facade';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  entryPic = '/assets/images/burger.png';
+  entryPic = '/assets/images/food.png';
   isIframe = false;
 
   constructor(

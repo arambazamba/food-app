@@ -18,7 +18,8 @@ import { filter } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { MsalAuthResponse } from '../auth.model';
 import { MsalBroadcastServiceMock } from '../mocks/MsalBroadcastService.mock';
-import { loginSuccess, logout } from './auth.actions';
+import { AuthActions } from './auth.actions';
+// import { loginSuccess, logout } from './auth.actions';
 import { MsalAuthState } from './auth.reducer';
 import { getUser, isAuthenticated } from './auth.selectors';
 
@@ -52,7 +53,9 @@ export class MsalAuthFacade {
       )
       .subscribe((result: EventMessage) => {
         //TODO: handle broadcast
-        this.store.dispatch(loginSuccess({ authResponse: result.payload }));
+        this.store.dispatch(
+          AuthActions.loginsuccess({ authResponse: result.payload })
+        );
         console.log(`MSAL Event ${result.eventType}`, result.payload);
         // let resp: MsalAuthResponse = result.payload;
         // this.store.dispatch(loginSuccess({ authResponse: resp }));
@@ -61,7 +64,7 @@ export class MsalAuthFacade {
   };
 
   logout() {
-    this.store.dispatch(logout());
+    this.store.dispatch(AuthActions.logout());
   }
 }
 

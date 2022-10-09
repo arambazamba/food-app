@@ -23,12 +23,12 @@ import { FoodDataService } from './state/food-data.service';
   ],
 })
 export class FoodModule {
-  constructor(
-    entityDefinitionService: EntityDefinitionService,
-    entityDataService: EntityDataService,
-    skillsDataService: FoodDataService
-  ) {
-    entityDefinitionService.registerMetadataMap(entityMetadata);
-    entityDataService.registerService('Skill', skillsDataService);
-  }
+  // constructor(
+  //   entityDefinitionService: EntityDefinitionService,
+  //   entityDataService: EntityDataService,
+  //   foodDataService: FoodDataService
+  // ) {
+  //   entityDefinitionService.registerMetadataMap(entityMetadata);
+  //   entityDataService.registerService('Food', foodDataService);
+  // }
 }

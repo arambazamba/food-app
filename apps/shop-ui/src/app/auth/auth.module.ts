@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import {
   MsalAuthFacade,
   MSALGuardConfigFactory,
@@ -19,10 +19,10 @@ import {
   MSAL_INTERCEPTOR_CONFIG,
 } from '@azure/msal-angular';
 
-import { authFeatureKey, authReducer } from './state/auth.reducer';
 import { StoreModule } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { MsalBroadcastServiceMock } from './mocks/MsalBroadcastService.mock';
+import { authFeatureKey, authReducer } from './state/auth.reducer';
 
 const modules = environment.authEnabled
   ? [

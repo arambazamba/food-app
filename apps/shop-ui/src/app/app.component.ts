@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDrawerMode } from '@angular/material/sidenav';
 import { MsalAuthFacade } from './auth/state/auth.facade';
-// import { FoodFacade } from './food/state/food.facade';
 import { MenuFacade } from './state/menu/menu.facade';
 
 @Component({
@@ -16,11 +15,7 @@ export class AppComponent implements OnInit {
   sidenavVisible = this.mf.sideNavVisible;
   isIframe = window !== window.parent && !window.opener;
 
-  constructor(
-    private af: MsalAuthFacade,
-    public mf: MenuFacade
-  ) // public ff: FoodFacade
-  {}
+  constructor(private af: MsalAuthFacade, public mf: MenuFacade) {}
 
   ngOnInit(): void {
     this.mf.sideNavPosition.subscribe(

@@ -1,5 +1,5 @@
 mat-card img {
-  object-fit: none;
+  object-fit: contain;
 }
 
 mat-card-title {
@@ -15,12 +15,12 @@ mat-card {
   margin-bottom: 0.5rem;
 }
 
-.mat-card-header {
-  background-color: #8d6e63;
-  color: white;
-}
-
 mat-card-footer {
   min-height: 3.5rem;
   vertical-align: middle;
+}
+
+.webfont{
+  font-family: 'MuseoModerno', cursive;
+  font-size: 3rem;
 }
