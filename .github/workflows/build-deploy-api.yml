@@ -1,4 +1,4 @@
-name: .Net Core Api AppService
+name: catalog api ci/cd
 
 on:
   push:
