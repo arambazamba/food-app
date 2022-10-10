@@ -17,7 +17,7 @@ variables:
   username: foodacrdev
   dns: food-catalog-$(env)
   azSubs: conFood
-  script: "deploy/az-cli/create-container-instance.azcli"
+  script: "deploy/az-cli/create-container-instance.sh"
 
   # important !!!!
   # set pipeline vars: password
