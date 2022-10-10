@@ -1,4 +1,4 @@
-name: api-build-docker-img
+name: catalog-build-docker-img
 
 # trigger:
 #   branches:
@@ -13,9 +13,9 @@ trigger: none
 pr: none
 
 variables:
-  apiPath: apps/catalog-api/
-  conACR: conAZ
-  imageName: catalog-api
+  apiPath: apps/catalog-api/api/
+  con: conACR
+  imageName: food-catalog-api
 
 pool:
   vmImage: "ubuntu-latest"
@@ -30,7 +30,7 @@ stages:
             displayName: Login to ACR
             inputs:
               command: login
-              containerRegistry: $(conACR)
+              containerRegistry: $(con)
 
           - task: Docker@2
             displayName: Build and Push
@@ -44,4 +44,4 @@ stages:
             displayName: Logout of ACR
             inputs:
               command: logout
-              containerRegistry: $(conACR)
+              containerRegistry: $(con)
