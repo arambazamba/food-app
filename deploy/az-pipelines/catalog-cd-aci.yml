@@ -17,6 +17,7 @@ variables:
   username: foodacrdev
   dns: food-catalog-$(env)
   azSubs: conFood
+  script: "deploy/az-cli/create-container-instance.azcli"
 
   # important !!!!
   # set pipeline vars: password
@@ -31,11 +32,17 @@ stages:
       - job: deploy
         steps:
         
+        - task: CmdLine@2
+          inputs:
+            script: |
+              cd deploy/az-cli/
+              ls
+        
         - task: AzureCLI@2
           displayName: 'Deploy to ACI'
           inputs:
             azureSubscription: $(azSubs)
             scriptType: 'bash'
             scriptLocation: 'scriptPath'
-            scriptPath: '$(System.DefaultWorkingDirectory)/deploy/az-cli/create-container-instance.azcli'
+            scriptPath: '$(System.DefaultWorkingDirectory)/$(script)'
             arguments: '$(env) $(img) $(dns) $(username) $(password)'
