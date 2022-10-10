@@ -1,7 +1,7 @@
 env=$1
 grp=az400-food-$env
 loc=westeurope
-app=foodui
+app=foodshopui
 img=$2
 dns=$3
 usr=$4
