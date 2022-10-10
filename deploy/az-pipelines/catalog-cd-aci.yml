@@ -17,6 +17,8 @@ variables:
   username: foodacrdev
   dns: food-catalog-$(env)
   azSubs: conFood
+
+  # important !!!!
   # set pipeline vars: password
 
 pool:
@@ -35,5 +37,5 @@ stages:
             azureSubscription: $(azSubs)
             scriptType: 'bash'
             scriptLocation: 'scriptPath'
-            scriptPath: '$(System.DefaultWorkingDirectory)/deploy/az-cli/create-container-instance.sh'
+            scriptPath: '$(System.DefaultWorkingDirectory)/deploy/az-cli/create-container-instance.azcli'
             arguments: '$(env) $(img) $(dns) $(username) $(password)'
