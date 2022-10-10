@@ -14,13 +14,12 @@ pr: none
 variables:
   env: dev
   img: foodacrdev.azurecr.io/food-catalog-api
-  username: foodacrdev
   dns: food-catalog-$(env)
   azSubs: conFood
   script: "deploy/az-cli/create-container-instance.sh"
 
   # important !!!!
-  # set pipeline vars: password
+  # set pipeline vars: username, password
 
 pool:
   vmImage: ubuntu-latest
