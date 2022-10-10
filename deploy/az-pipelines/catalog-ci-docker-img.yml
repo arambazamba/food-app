@@ -13,7 +13,7 @@ trigger: none
 pr: none
 
 variables:
-  apiPath: apps/catalog-api/
+  apiPath: apps/catalog-api/api/
   con: conACR
   imageName: food-catalog-api
 
