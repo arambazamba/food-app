@@ -9,12 +9,10 @@ name: catalog-build-docker-img
 #       - apps/catalog-api/*
 
 trigger: none      
-
 pr: none
 
 variables:
   apiPath: apps/catalog-api/api/
-  con: conACR
   imageName: food-catalog-api
 
 pool:
@@ -30,7 +28,7 @@ stages:
             displayName: Login to ACR
             inputs:
               command: login
-              containerRegistry: $(con)
+              containerRegistry: $(conACR)
 
           - task: Docker@2
             displayName: Build and Push
@@ -44,4 +42,4 @@ stages:
             displayName: Logout of ACR
             inputs:
               command: logout
-              containerRegistry: $(con)
+              containerRegistry: $(conACR)

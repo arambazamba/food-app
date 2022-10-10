@@ -1,15 +1,11 @@
-env=container
-grp=az400-m015-$env
+env=$1
+grp=az400-food-$env
 loc=westeurope
 app=foodui
-acr=foodacrcontainer.azurecr.io
-img=$acr/foodui:3.0.0
-dns=foodui-$env
-usr=foodacrcontainer
-pwd=P8rYlw7iF6f...
+img=$2
+dns=$3
+usr=$4
+pwd=$5
 
 az group create -n $grp -l $loc
-
-token=$(az acr login -n $acr --expose-token -o tsv --query accessToken)
-az acr update -n $acr --admin-enabled true
 az container create -g $grp -l $loc -n $app --image $img --cpu 1 --memory 1 --dns-name-label $dns --port 80 --registry-username $usr --registry-password $pwd
