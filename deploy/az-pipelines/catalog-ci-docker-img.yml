@@ -14,7 +14,7 @@ pr: none
 
 variables:
   apiPath: apps/catalog-api/
-  con: conFood
+  con: conACR
   imageName: food-catalog-api
 
 pool:
