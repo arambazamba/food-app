@@ -1,4 +1,4 @@
-name: api-template
+name: catalog-api-build-template-unittest
 
 # trigger:
 #   branches:
@@ -9,13 +9,16 @@ name: api-template
 #       - food-api
 
 trigger: none
+pr: none
 
 variables:
   dotnetSdkVersion: "6.x"
-  buildConfiguration: "Release"
-  releaseBranchName: "master"
-  apifolder: food-api
-  apitestfolder: food-api-test
+  buildConfiguration: Release
+  releaseBranchName: master
+  azSubscription: conFood
+  apifolder: apps/catalog-api/api/
+  apitestfolder: apps/catalog-api/api-tests/
+  appservice: food-catalog-api-prod
 
 pool:
   vmImage: "ubuntu-20.04"
