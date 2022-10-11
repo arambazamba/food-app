@@ -16,7 +16,7 @@ variables:
   buildConfiguration: Release
   releaseBranchName: master
   azSubscription: conFood
-  path: apps/catalog-api/api/
+  folder: apps/catalog-api/api/
   appservice: food-catalog-api-prod
 
 pool:
@@ -39,20 +39,20 @@ stages:
             displayName: "Restore project dependencies"
             inputs:
               command: "restore"
-              projects: "$(path)/*.csproj"
+              projects: "$(folder)/*.csproj"
 
           - task: DotNetCoreCLI@2
             displayName: "Build the project - $(buildConfiguration)"
             inputs:
               command: "build"
               arguments: "--no-restore --configuration $(buildConfiguration)"
-              projects: "$(path)/*.csproj"
+              projects: "$(folder)/*.csproj"
 
           - task: DotNetCoreCLI@2
             displayName: "Publish the project - $(buildConfiguration)"
             inputs:
               command: "publish"
-              projects: "$(path)/*.csproj"
+              projects: "$(folder)/*.csproj"
               publishWebProjects: false
               arguments: "--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)"
               zipAfterPublish: true
