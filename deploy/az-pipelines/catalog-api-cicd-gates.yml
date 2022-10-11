@@ -20,7 +20,7 @@ variables:
   appservice: food-catalog-api-prod
 
 pool:
-  vmImage: "ubuntu-20.04"
+  vmImage: ubuntu-latest
 
 stages:
   - stage: Build
@@ -30,9 +30,10 @@ stages:
 
         steps:
           - task: UseDotNet@2
-            displayName: "Use .NET Core SDK $(dotnetSdkVersion)"
+            displayName: "Install .NET 6 SDK"
             inputs:
-              version: "$(dotnetSdkVersion)"
+              packageType: "sdk"
+              version: "6.x"
 
           - task: DotNetCoreCLI@2
             displayName: "Restore project dependencies"
@@ -68,7 +69,7 @@ stages:
     jobs:
       - deployment: DeployAppService
         displayName: Deploy to prod Appservice
-        environment: prod
+        environment: catalog-api-production
         strategy:
           runOnce:
             deploy:
