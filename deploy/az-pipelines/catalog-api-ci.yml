@@ -1,4 +1,4 @@
-name: ".net core api build"
+name: "catalog-api-ci"
 
 # trigger:
 #   branches:
@@ -6,13 +6,14 @@ name: ".net core api build"
 #       - master
 #   paths:
 #     include:
-#       - food-api
+#       - apps/catalog-api/*
 
 trigger: none
+pr: none
 
 variables:
   buildConfiguration: Release
-  apifolder: food-api
+  apifolder: apps/catalog-api/api/
 
 pool:
   vmImage: "ubuntu-20.04"
