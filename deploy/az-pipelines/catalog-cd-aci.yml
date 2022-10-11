@@ -31,12 +31,6 @@ stages:
       - job: deploy
         steps:
         
-        - task: CmdLine@2
-          inputs:
-            script: |
-              cd deploy/az-cli/
-              ls
-        
         - task: AzureCLI@2
           displayName: 'Deploy to ACI'
           inputs:
