@@ -74,11 +74,6 @@ stages:
           runOnce:
             deploy:
               steps:
-                - task: DownloadPipelineArtifact@2
-                  inputs:
-                    artifact: apidrop
-                    downloadPath: "$(System.ArtifactsDirectory)"
-
                 - task: AzureRmWebAppDeployment@4
                   displayName: "Azure App Service Deploy: $(appservice)"
                   inputs:
