@@ -18,7 +18,6 @@ variables:
   azSubscription: conFood
   path: apps/catalog-api/api/
   appservice: food-catalog-api-prod
-  env: prod
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -69,7 +68,7 @@ stages:
     jobs:
       - deployment: DeployAppService
         displayName: Deploy to prod Appservice
-        environment: $(prod)
+        environment: prod
         strategy:
           runOnce:
             deploy:
