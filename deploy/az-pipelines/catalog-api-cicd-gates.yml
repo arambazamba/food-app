@@ -73,12 +73,12 @@ stages:
         strategy:
           runOnce:
             deploy:
-              steps:
-                - task: AzureRmWebAppDeployment@4
-                  displayName: "Azure App Service Deploy: $(appservice)"
-                  inputs:
-                    ConnectionType: "AzureRM"
-                    azureSubscription: $(azSubscription)
-                    appType: "webApp"
-                    WebAppName: $(appservice)
-                    packageForLinux: "$(System.ArtifactsDirectory)/**/*.zip"
+              steps:                          
+              - task: AzureRmWebAppDeployment@4
+                displayName: "Azure App Service Deploy: $(appservice)"
+                inputs:
+                  ConnectionType: "AzureRM"
+                  azureSubscription: $(azSubscription)
+                  appType: "webApp"
+                  WebAppName: $(appservice)
+                  packageForLinux: "$(Agent.BuildDirectory)/**/*.zip"
