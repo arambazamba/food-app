@@ -14,11 +14,10 @@ variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: Release
   releaseBranchName: master
-  azSubscription: az400-mod11-subscription
-  apifolder: food-api
-  apitestfolder: food-api-test
-  appservice: foodapi
-  envflag: staging
+  azSubscription: conFood
+  apifolder: apps/catalog-api/api/
+  apitestfolder: apps/catalog-api/api-tests/
+  appservice: food-catalog-api-prod
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -63,19 +62,6 @@ stages:
               PathtoPublish: "$(Build.ArtifactStagingDirectory)"
               ArtifactName: "drop"
               publishLocation: "Container"
-
-      - job: Provision
-
-        steps:
-        
-        - task: AzureCLI@2
-          displayName: 'Provision AppService'
-          inputs:
-            azureSubscription: '$(azSubscription)'
-            scriptType: 'bash'
-            scriptLocation: 'scriptPath'
-            scriptPath: '$(System.DefaultWorkingDirectory)/az-cli/create-api.sh'
-            arguments: '$(envflag)'
   
   - stage: "Test"
     displayName: "Unit Test"
@@ -96,22 +82,18 @@ stages:
     dependsOn: Test
 
     jobs:
-      - job: deploy
-        displayName: Deploy
-
-        steps:
-          - task: DownloadBuildArtifacts@0
-            inputs:
-              buildType: "current"
-              downloadType: "single"
-              artifactName: "drop"
-              downloadPath: "$(System.ArtifactsDirectory)"
-
-          - task: AzureRmWebAppDeployment@4
-            displayName: "Azure App Service Deploy: $(appservice)"
-            inputs:
-              ConnectionType: "AzureRM"
-              azureSubscription: $(azSubscription)
-              appType: "webApp"
-              WebAppName: "$(appservice)-$(envflag)"
-              packageForLinux: "$(System.ArtifactsDirectory)/**/*.zip"
+      - deployment: DeployAppService
+        displayName: Deploy to prod Appservice
+        environment: catalog-api-production
+        strategy:
+          runOnce:
+            deploy:
+              steps:                          
+              - task: AzureRmWebAppDeployment@4
+                displayName: "Azure App Service Deploy: $(appservice)"
+                inputs:
+                  ConnectionType: "AzureRM"
+                  azureSubscription: $(azSubscription)
+                  appType: "webApp"
+                  WebAppName: $(appservice)
+                  packageForLinux: "$(Agent.BuildDirectory)/**/*.zip"
