@@ -12,10 +12,11 @@ name: spfx-build-deploy
 #       - _images/*
 
 trigger: none
+pr: none
 
 variables:
-  nodeVersion: "14.x"
-  sppkg: foodlist-wp.sppkg
+  nodeVersion: "16.x"
+  sppkg: teams-devops.sppkg
   fld: food-spfx-wp
   # set pipeline vars: username, password
 
