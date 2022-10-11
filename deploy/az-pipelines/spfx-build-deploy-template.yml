@@ -49,6 +49,6 @@ stages:
                 - template: templates/t-spfx-deploy-cli.yaml
                   parameters:
                     nodeVersion: $(nodeVersion)
-                    pkg: foodlist-wp
+                    pkg: foodlist-wp.sppkg
                     username: $(username)
                     password: $(password)
