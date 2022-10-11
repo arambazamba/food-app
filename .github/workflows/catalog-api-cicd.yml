@@ -1,11 +1,11 @@
-name: catalog api ci/cd
+name: catalog-api-cicd
 
 on:
   push:
     branches:
       - master
     paths:
-      - "food-api/**"
+      - "apps/catalog-api/api/**"
   workflow_dispatch:
     inputs:
       logLevel:
@@ -39,10 +39,10 @@ jobs:
           dotnet-version: "6.0.x"
 
       - name: Build with dotnet
-        run: dotnet build ${{ github.workspace }}/food-api/food-api.csproj --configuration Release
+        run: dotnet build ${{ github.workspace }}/apps/catalog-api/api/catalog-api.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ${{ github.workspace }}/food-api/food-api.csproj -c Release -o ${{env.DOTNET_ROOT}}/api
+        run: dotnet publish ${{ github.workspace }}/apps/catalog-api/api/catalog-api.csproj -c Release -o ${{env.DOTNET_ROOT}}/api
                         
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
