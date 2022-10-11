@@ -1,4 +1,4 @@
-name: api-build-unittest-deploy
+name: catalog-api-build-unittest-deploy
 
 # trigger:
 #   branches:
@@ -9,6 +9,7 @@ name: api-build-unittest-deploy
 #       - food-api
 
 trigger: none
+pr: none
 
 variables:
   dotnetSdkVersion: "6.x"
@@ -65,6 +66,7 @@ stages:
   
   - stage: "Test"
     displayName: "Unit Test"
+    dependsOn: []
 
     jobs:
       - job: test
