@@ -25,7 +25,7 @@ pool:
 
 stages:
   - stage: "Build"
-    displayName: "Build and Provision"
+    displayName: "Build"
     jobs:
       - job: "Build"
         displayName: "Build job"
@@ -81,7 +81,7 @@ stages:
 
   - stage: "Deploy"
     displayName: "Deploy"
-    dependsOn: Test
+    dependsOn: [Build, Test]
 
     jobs:
       - deployment: DeployAppService
