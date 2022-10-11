@@ -73,13 +73,7 @@ stages:
         strategy:
           runOnce:
             deploy:
-              steps:
-
-              - task: Bash@3
-                inputs:
-                  targetType: 'inline'
-                  script: |
-                    ls                               
+              steps:                          
               - task: AzureRmWebAppDeployment@4
                 displayName: "Azure App Service Deploy: $(appservice)"
                 inputs:
