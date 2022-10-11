@@ -85,5 +85,5 @@ stages:
                     ConnectionType: "AzureRM"
                     azureSubscription: $(azSubscription)
                     appType: "webApp"
-                    WebAppName: "$(appservice)-$(envflag)"
+                    WebAppName: $(appservice)
                     packageForLinux: "$(System.ArtifactsDirectory)/**/*.zip"
