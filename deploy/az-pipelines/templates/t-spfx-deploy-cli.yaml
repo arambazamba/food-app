@@ -32,7 +32,7 @@ steps:
   - script: "m365 login -t password -u ${{ parameters.username }} -p ${{ parameters.password }}"      
     displayName: 'Connect to M365'
 
-  - script: "m365 spo app add -p $(Agent.BuildDirectory)/drop/food-spfx-wp/sharepoint/solution/${{ parameters.pkg }} --overwrite"
+  - script: "m365 spo app add -p $(Agent.BuildDirectory)/drop/apps/teams-spfx-wp/sharepoint/solution/${{ parameters.pkg }} --overwrite"
     displayName: 'Upload to App Catalog'
 
   - script: "m365 spo app deploy --name ${{ parameters.pkg }}"
