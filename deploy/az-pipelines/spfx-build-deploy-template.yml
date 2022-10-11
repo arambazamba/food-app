@@ -15,7 +15,7 @@ trigger: none
 pr: none
 
 variables:
-  nodeVersion: "16.x"
+  nodeVersion: "14.x"
   sppkg: teams-devops.sppkg
   fld: apps/teams-spfx-wp
   # set pipeline vars: username, password
