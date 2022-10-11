@@ -17,7 +17,7 @@ pr: none
 variables:
   nodeVersion: "16.x"
   sppkg: teams-devops.sppkg
-  fld: food-spfx-wp
+  fld: apps/teams-spfx-wp
   # set pipeline vars: username, password
 
 pool:
@@ -33,6 +33,7 @@ stages:
             parameters:
               nodeVersion: $(nodeVersion)
               pkg: $(sppkg)
+              fld: $(fld)
 
   - stage: Deploy
     displayName: Deploy to M365
