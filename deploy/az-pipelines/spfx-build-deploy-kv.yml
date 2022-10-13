@@ -16,6 +16,7 @@ pr: none
 
 variables:
   nodeVersion: "14.x"
+  fld: apps/teams-spfx-wp
   sppkg: teams-devops.sppkg
   azSubs: scPatterns
   vault: deployment-vault-11246
@@ -35,7 +36,7 @@ stages:
             parameters:
               nodeVersion: $(nodeVersion)
               pkg: $(sppkg)
-              fld: "food-spfx-wp"
+              fld: $(fld)
 
   - stage: Deploy
     displayName: Deploy to M365
