@@ -46,9 +46,9 @@ namespace FoodApi
             ctx.Food.Add(item);
             ctx.SaveChanges();
 
-            if (cfg.FeatureManagement.PublishEvent)
+            if (cfg.FeatureManagement.PublishEvents)
             {
-                publisher.PublishEvent(item, FoodEventType.Update);
+                Console.WriteLine("Publishing event to Service Bus - mock");
             }
             return item;
         }
@@ -62,9 +62,9 @@ namespace FoodApi
             ctx.Entry(item).State = EntityState.Modified;
             ctx.SaveChanges();
 
-            if (cfg.FeatureManagement.PublishEvent)
+            if (cfg.FeatureManagement.PublishEvents)
             {
-                publisher.PublishEvent(item, FoodEventType.Update);
+                Console.WriteLine("Publishing event to Service Bus - mock");
             }
             return item;
         }
@@ -81,9 +81,9 @@ namespace FoodApi
                 ctx.SaveChanges();
             }
 
-            if (cfg.FeatureManagement.PublishEvent)
+            if (cfg.FeatureManagement.PublishEvents)
             {
-                publisher.PublishEvent(item, FoodEventType.Update);
+                Console.WriteLine("Publishing event to Service Bus - mock");
             }
 
             return Ok();
