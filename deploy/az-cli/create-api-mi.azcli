@@ -1,27 +1,24 @@
-rnd=030
-grp=foodapp-$rnd
+env=secure
+grp=foodapp-$env
 loc=westeurope
-appPlan=foodplan-$rnd
-app=foodapi-$rnd
-vault=foodvault-$rnd
-identity=ui-food-$rnd
+appPlan=foodplan-$env
+app=foodapi-$env
+vault=foodvault-$env
+identity=foodidentity-$env
+
+# grp and vault
+# az keyvault delete -n $vault
+# az keyvault purge -n $vault
+az group create -n $grp -l $loc
+az keyvault create -l $loc -n $vault -g $grp --sku standard 
+az keyvault secret set --vault-name $vault --name "conSQLite" --value "Data Source=./food.db"
 
 # appservice
-
-az group create -n $grp -l $loc
-
 az appservice plan create -n $appPlan -g $grp --sku FREE 
-
 az webapp create -n $app -g $grp --plan $appPlan --runtime "DOTNET|6.0"
 
-echo "FoodApi Url: http://$app.azurewebsites.net"
-
 # managed identity
-
-az webapp identity assign -g $grp -n $app 
-
-mi=$(az webapp identity show  -g $grp -n $app --query principalId -o tsv)
-
-echo "managed identity object id: $mi"
-
-az keyvault set-policy -n $vault --object-id $mi --secret-permissions list get
+miid=$(az identity create -g $grp -l $loc -n $identity --query id -o tsv)
+miobj=$(az identity show --ids $miid --query principalId -o tsv)
+az webapp identity assign -g $grp -n $app --identities $miid
+az keyvault set-policy -n $vault --object-id $miobj --secret-permissions list get
