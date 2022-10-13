@@ -1,0 +1,73 @@
+name: api-build-provision-deploy-mi
+
+# trigger:
+#   branches:
+#     include:
+#       - master
+#   paths:
+#     include:
+#       - food-api
+
+trigger: none
+
+variables:
+  dotnetSdkVersion: "6.x"
+  buildConfiguration: Release
+  releaseBranchName: master
+  azSubscription: scMI
+  apifolder: food-api
+  appservice: foodapi
+  envflag: secure
+
+pool:
+  vmImage: "ubuntu-20.04"
+
+stages:
+  - stage: Build
+    displayName: Build and Provision
+    jobs:
+      - job: Build
+        steps:
+          - template: templates/netcore-build.yaml
+            parameters:
+              cfg: $(buildConfiguration)
+              folder: $(apifolder)
+      
+      - job: Provision
+        steps:        
+        - task: AzureCLI@2
+          displayName: 'Provision AppService'
+          inputs:
+            azureSubscription: '$(azSubscription)'
+            scriptType: 'bash'
+            scriptLocation: 'scriptPath'
+            scriptPath: '$(System.DefaultWorkingDirectory)/az-cli/create-api-mi.sh'
+            arguments: '$(envflag)'
+
+  - stage: Deploy
+    displayName: Deploy
+    dependsOn: Build
+
+    jobs:
+      - deployment: DeployAppService
+        displayName: Deploy to Appservice
+        environment: SecureProd
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DownloadBuildArtifacts@0
+                  inputs:
+                    buildType: "current"
+                    downloadType: "single"
+                    artifactName: "drop"
+                    downloadPath: "$(System.ArtifactsDirectory)"
+
+                - task: AzureRmWebAppDeployment@4
+                  displayName: "Azure App Service Deploy: $(appservice)"
+                  inputs:
+                    ConnectionType: "AzureRM"
+                    azureSubscription: $(azSubscription)
+                    appType: "webApp"
+                    WebAppName: "$(appservice)-$(envflag)"
+                    packageForLinux: "$(System.ArtifactsDirectory)/**/*.zip"
