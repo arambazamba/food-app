@@ -1,22 +1,25 @@
-name: spfx-build-deploy
+name: spfx-build-deploy-kv
 
-trigger:
-  branches:
-    include:
-      - master
-  paths:
-    include:
-      - food-spfx-wp/*
-    exclude:
-      - az-pipelines/*
-      - _images/*
+# trigger:
+#   branches:
+#     include:
+#       - master
+#   paths:
+#     include:
+#       - food-spfx-wp/*
+#     exclude:
+#       - az-pipelines/*
+#       - _images/*
+
+trigger: none
+pr: none
 
 variables:
-  sppkg: foodlist-wp.sppkg
   nodeVersion: "14.x"
-  azSubs: scSPFx
-  vault: spfxvault
-  envflag: secure
+  fld: apps/teams-spfx-wp
+  sppkg: teams-devops.sppkg
+  azSubs: scPatterns
+  vault: deployment-vault-11246
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -33,7 +36,7 @@ stages:
             parameters:
               nodeVersion: $(nodeVersion)
               pkg: $(sppkg)
-              fld: "food-spfx-wp"
+              fld: $(fld)
 
   - stage: Deploy
     displayName: Deploy to M365
@@ -49,12 +52,12 @@ stages:
                 - task: AzureKeyVault@1
                   displayName: 'Azure Key Vault: $(vault)'
                   inputs:
-                    azureSubscription: '$(azSubs)'
-                    KeyVaultName: '$(vault)-$(envflag)'
+                    azureSubscription: $(azSubs)
+                    KeyVaultName: $(vault)
 
                 - template: templates/t-spfx-deploy-cli.yaml
                   parameters:
                     nodeVersion: $(nodeVersion)
-                    pkg: $(sppkg)
+                    pkg: foodlist-wp.sppkg
                     username: $(m365user)
                     password: $(m365pwd)
