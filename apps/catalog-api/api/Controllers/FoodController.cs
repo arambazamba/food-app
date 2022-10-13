@@ -13,16 +13,14 @@ namespace FoodApi
     [ApiController]
     public class FoodController : ControllerBase
     {
-        public FoodController(FoodDBContext context, IConfiguration config, EventGridPublisher evtpub)
+        public FoodController(FoodDBContext context, IConfiguration config)
         {
             ctx = context;
             cfg = config.Get<FoodConfig>();
-            publisher = evtpub;
         }
 
         FoodDBContext ctx;
         FoodConfig cfg;
-        EventGridPublisher publisher;
 
         // http://localhost:PORT/food
         [HttpGet()]
@@ -48,9 +46,9 @@ namespace FoodApi
             ctx.Food.Add(item);
             ctx.SaveChanges();
 
-            if (cfg.FeatureManagement.PublishEvent)
+            if (cfg.FeatureManagement.PublishEvents)
             {
-                publisher.PublishEvent(item, FoodEventType.Update);
+                Console.WriteLine("Publishing event to Service Bus - mock");
             }
             return item;
         }
@@ -64,9 +62,9 @@ namespace FoodApi
             ctx.Entry(item).State = EntityState.Modified;
             ctx.SaveChanges();
 
-            if (cfg.FeatureManagement.PublishEvent)
+            if (cfg.FeatureManagement.PublishEvents)
             {
-                publisher.PublishEvent(item, FoodEventType.Update);
+                Console.WriteLine("Publishing event to Service Bus - mock");
             }
             return item;
         }
@@ -83,9 +81,9 @@ namespace FoodApi
                 ctx.SaveChanges();
             }
 
-            if (cfg.FeatureManagement.PublishEvent)
+            if (cfg.FeatureManagement.PublishEvents)
             {
-                publisher.PublishEvent(item, FoodEventType.Update);
+                Console.WriteLine("Publishing event to Service Bus - mock");
             }
 
             return Ok();

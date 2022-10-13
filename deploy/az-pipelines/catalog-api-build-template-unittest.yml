@@ -28,7 +28,6 @@ stages:
     displayName: "Build"
     jobs:
       - job: "Build"
-        displayName: "Build job"
 
         steps:
           - template: templates/netcore-build.yaml

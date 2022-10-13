@@ -1,5 +1,6 @@
 using System;
 using FoodApp;
+using HealthChecks.UI.Client;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -7,13 +8,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
-using HealthChecks.UI.Client;
 
 namespace FoodApi
 {
@@ -35,21 +37,35 @@ namespace FoodApi
             var cfg = Configuration.Get<FoodConfig>();
 
             //Aplication Insights
-            services.AddApplicationInsightsTelemetry(cfg.Azure.ApplicationInsights);
-            services.AddSingleton<ITelemetryInitializer, FoodTelemetryInitializer>();
-            services.AddSingleton<AILogger>();
-
-            //EventGrid
-            services.AddSingleton<EventGridPublisher>();
+            if(cfg.FeatureManagement.UseApplicationInsights)        {
+                services.AddApplicationInsightsTelemetry();
+                services.AddSingleton<ITelemetryInitializer, FoodTelemetryInitializer>();
+                services.AddSingleton<AILogger>();   
+            }
 
             //Database
             if (cfg.App.UseSQLite)
             {
-                services.AddDbContext<FoodDBContext>(opts => opts.UseSqlite(cfg.App.ConnectionStrings.SQLiteDBConnection));
+                string dbconstring = cfg.App.ConnectionStrings.SQLiteDBConnection;
+
+                if(cfg.FeatureManagement.UseKeyVaultWithMI)
+                {
+                    var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                    var kvClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));            
+                    dbconstring = (kvClient.GetSecretAsync(cfg.Azure.KeyVault, "conSQLite").Result).Value;
+                    Console.WriteLine($"Using SQLLite with connection string from KeyVault: {cfg.Azure.KeyVault}");                                
+                }
+                else
+                {
+                    Console.WriteLine($"Using SQLite with connection string: {dbconstring}");                   
+                }
+
+                 services.AddDbContext<FoodDBContext>(options => options.UseSqlite(dbconstring));
             }
             else
             {
-                services.AddDbContext<FoodDBContext>(opts => opts.UseSqlServer(cfg.App.ConnectionStrings.SQLiteDBConnection));
+                Console.WriteLine("Using SQL Server");
+                services.AddDbContext<FoodDBContext>(opts => opts.UseSqlServer(cfg.App.ConnectionStrings.SQLServerConnection));
             }
 
             //Microsoft Identity auth
@@ -125,7 +141,7 @@ namespace FoodApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                if (cfg.App.UseKubernetes)
+                if (cfg.FeatureManagement.UseHealthChecks)
                 {
                     endpoints.MapHealthChecks("/hc", new HealthCheckOptions
                     {

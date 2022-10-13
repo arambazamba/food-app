@@ -11,7 +11,6 @@ namespace FoodApp
         public bool AuthEnabled { get; set; } 
         public bool UseSQLite {get;set;}
         public bool UseAppConfig {get;set;}
-        public bool UseKubernetes {get;set;}
         public ConnectionStrings ConnectionStrings { get; set; } 
     }
    
@@ -25,8 +24,6 @@ namespace FoodApp
         public string KeyVault { get; set; } 
         public string EventGridKey { get; set; }
         public string EventGridEP { get; set; }
-        public string SignalREndpoint { get; set; }
-        public string SignalRConString { get; set; }
     }    
 
     public class ConnectionStrings    {
@@ -35,8 +32,11 @@ namespace FoodApp
     }
         
     public class FeatureManagement{
-        public bool PublishEvent { get; set; } 
-        public bool FeatureABC { get; set; }
+        public bool PublishEvents { get; set; } 
+        public bool UseKeyVaultWithMI { get; set; }
+        public bool UseAppConfiguration { get; set; }
+        public bool UseHealthChecks { get; set; }
+        public bool UseApplicationInsights { get; set; }
     }
     
     public class LogLevel    {
