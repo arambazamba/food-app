@@ -14,10 +14,9 @@ variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: Release
   releaseBranchName: master
-  azSubscription: scMI
-  apifolder: food-api
-  appservice: foodapi
-  envflag: secure
+  azSubscription: scPatterns
+  folder: apps/catalog-api/api/
+  appservice: catalog-api-mi-11246
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -31,18 +30,7 @@ stages:
           - template: templates/netcore-build.yaml
             parameters:
               cfg: $(buildConfiguration)
-              folder: $(apifolder)
-      
-      - job: Provision
-        steps:        
-        - task: AzureCLI@2
-          displayName: 'Provision AppService'
-          inputs:
-            azureSubscription: '$(azSubscription)'
-            scriptType: 'bash'
-            scriptLocation: 'scriptPath'
-            scriptPath: '$(System.DefaultWorkingDirectory)/az-cli/create-api-mi.sh'
-            arguments: '$(envflag)'
+              folder: $(folder)
 
   - stage: Deploy
     displayName: Deploy
@@ -69,5 +57,5 @@ stages:
                     ConnectionType: "AzureRM"
                     azureSubscription: $(azSubscription)
                     appType: "webApp"
-                    WebAppName: "$(appservice)-$(envflag)"
+                    WebAppName: $(appservice)
                     packageForLinux: "$(System.ArtifactsDirectory)/**/*.zip"
