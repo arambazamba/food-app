@@ -15,7 +15,7 @@ variables:
   buildConfiguration: Release
   releaseBranchName: master
   azSubscription: scIaC
-  folder: apps/catalog-api/
+  folder: apps/catalog-api/api/
   appservice: foodcatalog-iac
   env: IaC
 
