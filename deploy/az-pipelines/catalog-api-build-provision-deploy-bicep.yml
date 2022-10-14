@@ -1,4 +1,4 @@
-name: catalog-api-build-provision-deploy-cli
+name: catalog-api-build-provision-deploy-bicep
 
 # trigger:
 #   branches:
@@ -17,7 +17,9 @@ variables:
   releaseBranchName: master
   azSubscription: scIaC
   folder: apps/catalog-api/api/
-  appservice: foodcatalog-cli
+  appservice: foodcatalog-bicep
+  rg: az400-m06-IaC
+  templateFile: deploy/bicep/webapp-windows.bicep
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -41,9 +43,11 @@ stages:
           inputs:
             azureSubscription: '$(azSubscription)'
             scriptType: 'bash'
-            scriptLocation: 'scriptPath'
-            scriptPath: '$(System.DefaultWorkingDirectory)/deploy/az-cli/create-api.sh'
-            arguments: $(appservice)
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              az deployment group create --resource-group $(rg) \
+                --template-file $(templateFile) \
+                --parameters webAppName=$(appservice)
 
   - stage: Deploy
     displayName: Deploy
