@@ -1,8 +1,7 @@
-env=$1
 loc=westeurope
 grp=az400-m06-IaC
-appPlan=food-iac-$env
-app=foodcatalog-$env
+appPlan=foodplan-iac
+app=$1
 
 az group create -n $grp -l $loc
 
