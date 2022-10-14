@@ -1,4 +1,4 @@
-name: api-build-provision-deploy-mi
+name: catalog-api-cicd-appcfg
 
 # trigger:
 #   branches:
