@@ -12,7 +12,6 @@ trigger: none
 pr: none
 
 variables:
-  env: dev
   img: foodacrdev.azurecr.io/food-catalog-api
   dns: food-catalog-api
   azSubs: scFood
