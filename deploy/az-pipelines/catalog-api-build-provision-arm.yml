@@ -1,4 +1,4 @@
-name: catalog-api-build-provision-deploy
+name: catalog-api-build-provision-deploy-arm
 
 # trigger:
 #   branches:
