@@ -1,4 +1,4 @@
-name: api-build-provision-arm
+name: catalog-api-build-provision-deploy
 
 # trigger:
 #   branches:
@@ -9,17 +9,17 @@ name: api-build-provision-arm
 #       - apps/catalog-api/*
 
 trigger: none
+pr: none
 
 variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: Release
   releaseBranchName: master
-  azSubscription: az400-mod10-subscription
-  apifolder: food-api
-  rgname: 'az400-mod10-armpipeline'
-  appservice: foodapi-staging-arm  
-  plan: foodplan-staging-arm
-  artefact: apidrop
+  azSubscription: scIaC
+  folder: apps/catalog-api/api/
+  appservice: foodcatalog-arm
+  plan: foodplan-iac
+  rg: az400-m06-IaC
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -29,45 +29,11 @@ stages:
     displayName: Build and Provision
     jobs:
       - job: Build
-
         steps:
-          - task: UseDotNet@2
-            displayName: "Use .NET Core SDK $(dotnetSdkVersion)"
-            inputs:
-              version: "$(dotnetSdkVersion)"
-
-          - task: DotNetCoreCLI@2
-            displayName: "Restore project dependencies"
-            inputs:
-              command: "restore"
-              projects: "$(apifolder)/*.csproj"
-
-          - task: DotNetCoreCLI@2
-            displayName: "Build the project - $(buildConfiguration)"
-            inputs:
-              command: "build"
-              arguments: "--no-restore --configuration $(buildConfiguration)"
-              projects: "$(apifolder)/*.csproj"
-
-          - task: DotNetCoreCLI@2
-            displayName: "Publish the project - $(buildConfiguration)"
-            inputs:
-              command: "publish"
-              projects: "$(apifolder)/*.csproj"
-              publishWebProjects: false
-              arguments: "--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)"
-              zipAfterPublish: true
-
-          - task: PublishPipelineArtifact@1
-            inputs:
-              artifactName: $(artefact)
-            displayName: "Publish Artifact: apidrop"
-
-          # - task: PublishBuildArtifacts@1
-          #   inputs:
-          #     PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-          #     ArtifactName: "drop"
-          #     publishLocation: "Container"
+          - template: templates/t-net-build.yaml
+            parameters:
+              cfg: $(buildConfiguration)
+              folder: $(folder)
       
       - job: Provision
 
@@ -79,9 +45,37 @@ stages:
             azureResourceManagerConnection: $(azSubscription)
             subscriptionId: '78033352-805c-4acd-af80-f8f95083268d'
             action: 'Create Or Update Resource Group'
-            resourceGroupName: '$(rgname)'
+            resourceGroupName: '$(rg)'
             location: 'West Europe'
             templateLocation: 'Linked artifact'
-            csmFile: '$(System.DefaultWorkingDirectory)/arm/api-azuredeploy.json'
+            csmFile: '$(System.DefaultWorkingDirectory)/deploy/arm/api-azuredeploy.json'
             overrideParameters: '-webapp $(appservice) -serviceplan $(plan)'
             deploymentMode: 'Incremental'
+  
+  - stage: Deploy
+    displayName: Deploy
+    dependsOn: Build
+
+    jobs:
+      - deployment: DeployAppService
+        displayName: Deploy to Appservice
+        environment: catalog-api-arm
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DownloadBuildArtifacts@0
+                  inputs:
+                    buildType: "current"
+                    downloadType: "single"
+                    artifactName: "drop"
+                    downloadPath: "$(System.ArtifactsDirectory)"
+
+                - task: AzureRmWebAppDeployment@4
+                  displayName: "Azure App Service Deploy: $(appservice)"
+                  inputs:
+                    ConnectionType: "AzureRM"
+                    azureSubscription: $(azSubscription)
+                    appType: "webApp"
+                    WebAppName: $(appservice)
+                    packageForLinux: "$(System.ArtifactsDirectory)/**/*.zip"
