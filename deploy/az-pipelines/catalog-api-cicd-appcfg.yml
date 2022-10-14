@@ -18,7 +18,7 @@ variables:
   folder: apps/catalog-api/api/
   appservice: catalog-api-config
   'App:UseKeyVaultWithMI': false
-  'App:Authenabled': true
+  'App:UseAppConfiguration': true
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -31,7 +31,7 @@ stages:
       - job: Build
         steps:        
           - task: FileTransform@1
-            displayName: Replace Api Url
+            displayName: Update Configuration
             inputs:
               folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
               fileType: 'json'
