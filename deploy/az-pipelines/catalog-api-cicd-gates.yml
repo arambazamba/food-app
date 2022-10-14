@@ -15,7 +15,7 @@ variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: Release
   releaseBranchName: master
-  azSubscription: conFood
+  azSubscription: scFood
   folder: apps/catalog-api/api/
   appservice: food-catalog-api-prod
 

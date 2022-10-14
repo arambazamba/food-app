@@ -9,9 +9,10 @@ name: ng-build-deploy-app-service-file-transform.yml
 #       - FoodUI
 
 trigger: none
+pr: none
 
 variables:
-  azSubscription: conFoodApp
+  azSubscription: scFood
   uiPath: food-ui/
   env: 'file-replacement'
   appservice: 'foodui'

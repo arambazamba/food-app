@@ -9,9 +9,10 @@ name: ng-build-deploy-cli
 #       - FoodUI
 
 trigger: none
+pr: none
 
 variables:
-  azSubscription: conFoodApp
+  azSubscription: scFood
   uiPath: FoodUI/
   env: 'simple'
   appservice: 'foodui'
