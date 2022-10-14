@@ -17,6 +17,7 @@ variables:
   azSubscription: scPatterns
   folder: apps/catalog-api/api/
   appservice: catalog-api-config
+  'App:UseKeyVaultWithMI': false
   'App:Authenabled': true
 
 pool:
@@ -29,12 +30,12 @@ stages:
     jobs:
       - job: Build
         steps:        
-          # - task: FileTransform@1
-          #   displayName: Replace Api Url
-          #   inputs:
-          #     folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
-          #     fileType: 'json'
-          #     targetFiles: '**/appsettings.json'
+          - task: FileTransform@1
+            displayName: Replace Api Url
+            inputs:
+              folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
+              fileType: 'json'
+              targetFiles: '**/appsettings.json'
 
           - template: templates/t-net-build.yaml
             parameters:
