@@ -4,7 +4,6 @@ param runtimeStack string = 'DOTNET|6.0' // The runtime stack of web app
 param location string = resourceGroup().location // Location for all resources
 
 var appServicePlanName = toLower('biceplan-${webAppName}')
-var webSiteName = toLower('${webAppName}-${uniqueString(resourceGroup().id)}')
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
   name: appServicePlanName
@@ -19,7 +18,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
 }
 
 resource appService 'Microsoft.Web/sites@2020-06-01' = {
-  name: webSiteName
+  name: webAppName
   location: location
   kind: 'app'
   properties: {
@@ -29,3 +28,4 @@ resource appService 'Microsoft.Web/sites@2020-06-01' = {
     }
   }
 }
+
