@@ -14,7 +14,7 @@ pr: none
 variables:
   env: dev
   img: foodacrdev.azurecr.io/food-catalog-api
-  dns: food-catalog-$(env)
+  dns: food-catalog-api
   azSubs: scFood
   script: deploy/az-cli/create-container-instance.sh
 
