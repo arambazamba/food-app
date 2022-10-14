@@ -6,7 +6,7 @@ name: api-build-deploy-iis
 #       - master
 #   paths:
 #     include:
-#       - food-api
+#       - apps/catalog-api/*
 
 trigger: none
 

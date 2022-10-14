@@ -6,7 +6,7 @@ name: catalog-api-build-template-unittest
 #       - master
 #   paths:
 #     include:
-#       - food-api
+#       - apps/catalog-api/*
 
 trigger: none
 pr: none

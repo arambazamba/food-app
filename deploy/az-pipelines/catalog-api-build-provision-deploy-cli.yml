@@ -6,9 +6,10 @@ name: api-build-deploy-cli
 #       - master
 #   paths:
 #     include:
-#       - food-api
+#       - apps/catalog-api/*
 
 trigger: none
+pr: none
 
 variables:
   dotnetSdkVersion: "6.x"

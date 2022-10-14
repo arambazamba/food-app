@@ -6,7 +6,7 @@ name: api-build-provision-deploy-mi
 #       - master
 #   paths:
 #     include:
-#       - food-api
+#       - apps/catalog-api/*
 
 trigger: none
 
