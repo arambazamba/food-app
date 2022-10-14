@@ -12,9 +12,8 @@ trigger: none
 pr: none
 
 variables:
-  env: dev
-  img: foodacrdev.azurecr.io/food-catalog-api
-  dns: food-catalog-$(env)
+  img: foodacrcontainer.azurecr.io/food-catalog-api:latest
+  dns: food-catalog-api
   azSubs: scFood
   script: deploy/az-cli/create-container-instance.sh
 
@@ -29,6 +28,7 @@ stages:
     displayName: catalog cd aci
     jobs:
       - job: deploy
+        displayName: Deploy to ACI
         steps:
         
         - task: AzureCLI@2
