@@ -17,16 +17,25 @@ variables:
   azSubscription: scPatterns
   folder: apps/catalog-api/api/
   appservice: catalog-api-mi-11246
+  'App:Authenabled': true
 
 pool:
   vmImage: "ubuntu-20.04"
 
 stages:
   - stage: Build
-    displayName: Build and Provision
+    displayName: Build and Provision      
+    
     jobs:
       - job: Build
-        steps:
+        steps:        
+          - task: FileTransform@1
+            displayName: Replace Api Url
+            inputs:
+              folderPath: '$(System.DefaultWorkingDirectory)/**/apps/catalog-api/api/'
+              fileType: 'json'
+              targetFiles: '**/appsettings.json'
+
           - template: templates/t-net-build.yaml
             parameters:
               cfg: $(buildConfiguration)
@@ -35,7 +44,7 @@ stages:
   - stage: Deploy
     displayName: Deploy
     dependsOn: Build
-
+    
     jobs:
       - deployment: DeployAppService
         displayName: Deploy to Appservice
