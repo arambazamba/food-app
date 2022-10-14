@@ -16,26 +16,12 @@ variables:
   releaseBranchName: master
   azSubscription: scPatterns
   folder: apps/catalog-api/api/
-  appservice: catalog-api-mi-11246
-  'App:Authenabled': true
+  appservice: catalog-api-mi-11246  
 
 pool:
   vmImage: "ubuntu-20.04"
 
-stages:
-  - stage: Config
-    displayName: Transform Config
-
-    jobs:
-      - job: Transform 
-        steps:    
-        - task: FileTransform@1
-          displayName: Replace Api Url
-          inputs:
-            folderPath: '$(System.DefaultWorkingDirectory)/**/apps/catalog-api/api/'
-            fileType: 'json'
-            targetFiles: '**/appsettings.json'
-  
+stages: 
   - stage: Build
     displayName: Build and Provision
       dependsOn:Config
