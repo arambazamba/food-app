@@ -1,10 +1,10 @@
-param webAppName string = uniqueString(resourceGroup().id) // Generate unique String for web app name
-param sku string = 'F1' // The SKU of App Service Plan
+param webAppName string = 'catalog-api' // Web app name
+param sku string = 'B1' // The SKU of App Service Plan
 param runtimeStack string = 'DOTNET|6.0' // The runtime stack of web app
 param location string = resourceGroup().location // Location for all resources
 
 var appServicePlanName = toLower('biceplan-${webAppName}')
-var webSiteName = toLower('${webAppName}')
+var webSiteName = toLower('${webAppName}-${uniqueString(resourceGroup().id)}')
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
   name: appServicePlanName
@@ -12,7 +12,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
   sku: {
     name: sku
   }
-  kind: 'windows'
+  kind: 'linux'
   properties: {
     reserved: true
   }
@@ -25,7 +25,7 @@ resource appService 'Microsoft.Web/sites@2020-06-01' = {
   properties: {
     serverFarmId: appServicePlan.id
     siteConfig: {
-      windowsFxVersion: runtimeStack
+      linuxFxVersion: runtimeStack
     }
   }
 }
