@@ -1,0 +1,51 @@
+name: "catalog-api-ci"
+
+# trigger:
+#   branches:
+#     include:
+#       - master
+#   paths:
+#     include:
+#       - apps/catalog-api/*
+
+trigger: none
+pr: none
+
+variables:
+  buildConfiguration: Release
+  apifolder: apps/catalog-api/api/
+
+pool:
+  vmImage: "ubuntu-20.04"
+
+stages:
+  - stage: "Build"
+    jobs:
+      - job: "Build"
+        displayName: "Build Api"
+
+        steps:
+          - task: UseDotNet@2
+            displayName: "Install .NET 6 SDK"
+            inputs:
+              packageType: "sdk"
+              version: "6.x"
+
+          - task: DotNetCoreCLI@2
+            displayName: Build
+            inputs:
+              command: build
+              projects: "$(apifolder)/*.csproj"
+              arguments: "--configuration $(buildConfiguration)"
+
+          - task: DotNetCoreCLI@2
+            displayName: Publish
+            inputs:
+              command: "publish"
+              publishWebProjects: true
+              arguments: "--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)"
+
+          - task: PublishPipelineArtifact@1
+            inputs:
+              artifactName: apidrop
+            displayName: "Publish Artifact: apidrop"

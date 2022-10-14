@@ -1,0 +1,89 @@
+name: catalog-api-cicd-appcfg
+
+# trigger:
+#   branches:
+#     include:
+#       - master
+#   paths:
+#     include:
+#       - apps/catalog-api/*
+
+trigger: none
+
+variables:
+  dotnetSdkVersion: "6.x"
+  buildConfiguration: Release
+  releaseBranchName: master
+  azSubscription: scPatterns
+  folder: apps/catalog-api/api/
+  appservice: catalog-api-config
+  'App:UseKeyVaultWithMI': false
+
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: "AppConfig"
+    jobs:    
+      - job: AppConfig
+
+        steps:
+        - task: AzureAppConfiguration@5
+          displayName: Read App Config
+          inputs:
+            azureSubscription: $(azSubscription)
+            # assign permissions to service connections
+            AppConfigurationEndpoint: 'https://foodconfig-11246.azconfig.io'
+            KeyFilter: '*'
+        - task: CmdLine@2
+          displayName: Printing Env
+          inputs:
+            script: |
+              printenv
+
+  - stage: Build
+    displayName: Build and Provision      
+    
+    jobs:
+      - job: Build
+        steps:        
+          - task: FileTransform@1
+            displayName: Update Configuration
+            inputs:
+              folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
+              fileType: 'json'
+              targetFiles: '**/appsettings.json'
+
+          - template: templates/t-net-build.yaml
+            parameters:
+              cfg: $(buildConfiguration)
+              folder: $(folder)
+
+  - stage: Deploy
+    displayName: Deploy
+    dependsOn: Build
+    
+    jobs:
+      - deployment: DeployAppService
+        displayName: Deploy to Appservice
+        environment: SecureProd
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DownloadBuildArtifacts@0
+                  inputs:
+                    buildType: "current"
+                    downloadType: "single"
+                    artifactName: "drop"
+                    downloadPath: "$(System.ArtifactsDirectory)"
+
+                - task: AzureRmWebAppDeployment@4
+                  displayName: "Azure App Service Deploy: $(appservice)"
+                  inputs:
+                    ConnectionType: "AzureRM"
+                    azureSubscription: $(azSubscription)
+                    appType: "webApp"
+                    WebAppName: $(appservice)
+                    packageForLinux: "$(System.ArtifactsDirectory)/**/*.zip"

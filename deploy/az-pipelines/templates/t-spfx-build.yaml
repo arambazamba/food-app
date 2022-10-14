@@ -1,0 +1,56 @@
+parameters:
+  - name: nodeVersion
+    type: string
+    default: "16.x"
+
+  - name: pkg
+    type: string
+    default: "drop"
+
+  - name: fld
+    type: string
+
+steps:
+  - task: NodeTool@0
+    displayName: "Use Node ${{ parameters.nodeVersion }}"
+    inputs:
+      versionSpec: "${{ parameters.nodeVersion }}"
+
+  - task: Cache@2
+    inputs:
+      key: '$(System.DefaultWorkingDirectory)/${{ parameters.fld }}/package-lock.json'
+      path: '$(System.DefaultWorkingDirectory)/${{ parameters.fld }}/node_modules'
+      cacheHitVar: 'CacheRestored'      
+    
+  - task: CmdLine@2
+    displayName: npm install
+    condition: eq(variables['CacheRestored'],False)
+    inputs:
+      script: "npm install"
+      workingDirectory: "${{ parameters.fld }}/"
+
+  - task: gulp@1
+    displayName: "gulp bundel"
+    inputs:
+      gulpFile: "${{ parameters.fld }}/gulpfile.js"
+      targets: "bundle"
+      arguments: "--ship"
+      enableCodeCoverage: false
+
+  - task: gulp@1
+    displayName: "gulp package solution"
+    inputs:
+      gulpFile: "${{ parameters.fld }}/gulpfile.js"
+      targets: "package-solution"
+      arguments: "--ship"
+
+  - task: CopyFiles@2
+    displayName: "Copy Files to: $(build.artifactstagingdirectory)/${{ parameters.pkg }}"
+    inputs:
+      Contents: "${{ parameters.fld }}/sharepoint/solution/*.sppkg"
+      TargetFolder: "$(build.artifactstagingdirectory)/spfx"
+
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish artifacts: ${{ parameters.pkg }}"
+    inputs:
+        PathtoPublish: "$(Build.ArtifactStagingDirectory)/spfx"    

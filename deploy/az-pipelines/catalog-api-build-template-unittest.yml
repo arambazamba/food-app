@@ -1,0 +1,46 @@
+name: catalog-api-build-template-unittest
+
+# trigger:
+#   branches:
+#     include:
+#       - master
+#   paths:
+#     include:
+#       - apps/catalog-api/*
+
+trigger: none
+pr: none
+
+variables:
+  dotnetSdkVersion: "6.x"
+  buildConfiguration: Release
+  releaseBranchName: master
+  azSubscription: conFood
+  folder: apps/catalog-api/api/
+  testfolder: apps/catalog-api/api-tests/
+  appservice: food-catalog-api-prod
+
+pool:
+  vmImage: "ubuntu-20.04"
+
+stages:
+  - stage: "Build"
+    displayName: "Build"
+    jobs:
+      - job: "Build"
+        steps:
+          - template: templates/t-net-build.yaml
+            parameters:
+              cfg: $(buildConfiguration)
+              folder: $(folder)
+
+      - job: test_dotnet
+        displayName: "Test"
+
+        steps:
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: "test"
+              projects: "testfolder/*.csproj"
+              arguments: "--configuration $(buildConfiguration)"
+

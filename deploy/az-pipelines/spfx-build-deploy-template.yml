@@ -1,0 +1,54 @@
+name: spfx-build-deploy
+
+# trigger:
+#   branches:
+#     include:
+#       - master
+#   paths:
+#     include:
+#       - "*"
+#     exclude:
+#       - az-pipelines/*
+#       - _images/*
+
+trigger: none
+pr: none
+
+variables:
+  nodeVersion: "14.x"
+  sppkg: teams-devops.sppkg
+  fld: apps/teams-spfx-wp
+  # set pipeline vars: username, password
+
+pool:
+  vmImage: "ubuntu-20.04"
+
+stages:
+  - stage: Build
+    jobs:
+      - job: BuildJob
+        displayName: Build SPFx
+        steps:
+          - template: templates/t-spfx-build.yaml
+            parameters:
+              nodeVersion: $(nodeVersion)
+              pkg: $(sppkg)
+              fld: $(fld)
+
+  - stage: Deploy
+    displayName: Deploy to M365
+    dependsOn: Build
+    jobs:
+      - deployment: DeployM365
+        displayName: Deploy to M365
+        environment: M365Prod
+        strategy:
+          runOnce:
+            deploy:
+              steps:            
+                - template: templates/t-spfx-deploy-cli.yaml
+                  parameters:
+                    nodeVersion: $(nodeVersion)
+                    pkg: foodlist-wp.sppkg
+                    username: $(username)
+                    password: $(password)

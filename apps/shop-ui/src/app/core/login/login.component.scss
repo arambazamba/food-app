@@ -1,0 +1,26 @@
+mat-card img {
+  object-fit: contain;
+}
+
+mat-card-title {
+  text-align: center;
+  width: 400px;
+}
+
+mat-card-subtitle {
+  text-align: center;
+}
+
+mat-card {
+  margin-bottom: 0.5rem;
+}
+
+mat-card-footer {
+  min-height: 3.5rem;
+  vertical-align: middle;
+}
+
+.webfont{
+  font-family: 'MuseoModerno', cursive;
+  font-size: 3rem;
+}

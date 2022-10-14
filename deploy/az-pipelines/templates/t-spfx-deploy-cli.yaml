@@ -1,0 +1,39 @@
+parameters:
+  - name: nodeVersion
+    type: string
+    default: "14.x"
+
+  - name: pkg
+    type: string
+    default: ""
+
+  - name: username
+    type: string
+    default: ""
+
+  - name: password
+    type: string
+    default: ""    
+
+steps:
+
+  - task: NodeTool@0
+    displayName: "Use Node ${{ parameters.nodeVersion }}"
+    inputs:
+      versionSpec: "${{ parameters.nodeVersion }}"
+                  
+  - task: Npm@1
+    displayName: 'npm i -g @pnp/cli-microsoft365'
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: 'install -g @pnp/cli-microsoft365'
+  
+  - script: "m365 login -t password -u ${{ parameters.username }} -p ${{ parameters.password }}"      
+    displayName: 'Connect to M365'
+
+  - script: "m365 spo app add -p $(Agent.BuildDirectory)/drop/apps/teams-spfx-wp/sharepoint/solution/${{ parameters.pkg }} --overwrite"
+    displayName: 'Upload to App Catalog'
+
+  - script: "m365 spo app deploy --name ${{ parameters.pkg }}"
+    displayName: 'Deploy App'

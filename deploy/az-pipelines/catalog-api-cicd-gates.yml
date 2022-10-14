@@ -1,0 +1,84 @@
+name: catalog-api-cicd-gates
+
+# trigger:
+#   branches:
+#     include:
+#       - master
+#   paths:
+#     include:
+#       - apps/catalog-api/*
+
+trigger: none
+pr: none
+
+variables:
+  dotnetSdkVersion: "6.x"
+  buildConfiguration: Release
+  releaseBranchName: master
+  azSubscription: conFood
+  folder: apps/catalog-api/api/
+  appservice: food-catalog-api-prod
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: Build
+    displayName: Build
+    jobs:
+      - job: Build
+
+        steps:
+          - task: UseDotNet@2
+            displayName: "Install .NET 6 SDK"
+            inputs:
+              packageType: "sdk"
+              version: "6.x"
+
+          - task: DotNetCoreCLI@2
+            displayName: "Restore project dependencies"
+            inputs:
+              command: "restore"
+              projects: "$(folder)/*.csproj"
+
+          - task: DotNetCoreCLI@2
+            displayName: "Build the project - $(buildConfiguration)"
+            inputs:
+              command: "build"
+              arguments: "--no-restore --configuration $(buildConfiguration)"
+              projects: "$(folder)/*.csproj"
+
+          - task: DotNetCoreCLI@2
+            displayName: "Publish the project - $(buildConfiguration)"
+            inputs:
+              command: "publish"
+              projects: "$(folder)/*.csproj"
+              publishWebProjects: false
+              arguments: "--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)"
+              zipAfterPublish: true
+
+          - task: PublishPipelineArtifact@1
+            inputs:
+              artifactName: apidrop
+            displayName: "Publish Artifact: apidrop"
+
+  - stage: Deploy
+    displayName: Deploy
+    dependsOn: Build
+
+    jobs:
+      - deployment: DeployAppService
+        displayName: Deploy to prod Appservice
+        environment: catalog-api-production
+        strategy:
+          runOnce:
+            deploy:
+              steps:                          
+              - task: AzureRmWebAppDeployment@4
+                displayName: "Azure App Service Deploy: $(appservice)"
+                inputs:
+                  ConnectionType: "AzureRM"
+                  azureSubscription: $(azSubscription)
+                  appType: "webApp"
+                  WebAppName: $(appservice)
+                  packageForLinux: "$(Agent.BuildDirectory)/**/*.zip"

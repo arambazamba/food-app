@@ -1,0 +1,12 @@
+# create resource group
+az group create --name az400-m06-bicep --location westeurope
+
+# preview changes
+az deployment group what-if --resource-group az400-m06-bicep \
+   --template-file webapp-windows.bicep \
+   --parameters webAppName='bicep-site'
+
+# deploy the web app using Bicep
+az deployment group create --resource-group az400-m06-bicep \
+    --template-file webapp-windows.bicep \
+    --parameters webAppName='bicep-013'

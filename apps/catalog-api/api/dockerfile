@@ -1,0 +1,28 @@
+# Build Image
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
+WORKDIR /build
+
+COPY . .
+RUN dotnet restore "catalog-api.csproj"
+RUN dotnet publish -c Release -o /app
+
+# Runtime Image
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
+WORKDIR /app
+COPY --from=build /app .
+ENTRYPOINT ["dotnet", "catalog-api.dll"]
+
+# Build Image
+# docker build --rm -f Dockerfile -t catalog-api .
+# docker run -it --rm -p 5051:80 catalog-api
+# docker tag catalog-api arambazamba/catalog-api
+# docker push arambazamba/catalog-api
+
+# docker build --rm -f Dockerfile -t catalog-api:env .
+# docker run -it --rm -p 5051:80 catalog-api:env -e "Azure__0__TenantId"="d92b247e-90e0-4469-a129-6a32866c0d0a" "Azure__0__ApplicationInsights"="da2aaf3f-cfcd-4741-a0f0-b6b15a0ff47c"
+# docker tag catalog-api:env arambazamba/catalog-api:env
+# docker push arambazamba/catalog-api:env
+
+# Browse using: 
+# http://localhost:5051/food
+# http://localhost:5051/env

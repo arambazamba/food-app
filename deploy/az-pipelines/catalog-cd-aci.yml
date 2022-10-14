@@ -1,0 +1,41 @@
+name: catalog-cd-aci
+
+# trigger:
+#   branches:
+#     include:
+#       - master
+#   paths:
+#     include:
+#       - apps/catalog-api/*
+
+trigger: none
+pr: none
+
+variables:
+  env: dev
+  img: foodacrdev.azurecr.io/food-catalog-api
+  dns: food-catalog-$(env)
+  azSubs: conFood
+  script: "deploy/az-cli/create-container-instance.sh"
+
+  # important !!!!
+  # set pipeline vars: username, password
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: CD
+    displayName: catalog cd aci
+    jobs:
+      - job: deploy
+        steps:
+        
+        - task: AzureCLI@2
+          displayName: 'Deploy to ACI'
+          inputs:
+            azureSubscription: $(azSubs)
+            scriptType: 'bash'
+            scriptLocation: 'scriptPath'
+            scriptPath: '$(System.DefaultWorkingDirectory)/$(script)'
+            arguments: '$(env) $(img) $(dns) $(username) $(password)'
