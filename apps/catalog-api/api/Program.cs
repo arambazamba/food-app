@@ -14,8 +14,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
 
-// IConfiguration Configuration { get; }
-// IWebHostEnvironment env;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +21,8 @@ var builder = WebApplication.CreateBuilder(args);
 IConfiguration Configuration = builder.Configuration;
 builder.Services.AddSingleton<IConfiguration>(Configuration);
 var cfg = Configuration.Get<FoodConfig>();
+
+
 
 // App insights using Feature Flag
 if (cfg.FeatureManagement.UseApplicationInsights)

@@ -10,7 +10,6 @@ namespace FoodApp
      public class AppConfig    {
         public bool AuthEnabled { get; set; } 
         public bool UseSQLite {get;set;}
-        public bool UseAppConfiguration {get;set;}
         public ConnectionStrings ConnectionStrings { get; set; } 
     }
    
@@ -20,7 +19,7 @@ namespace FoodApp
         public string Instance {get;set;}
         public string cacheLocation { get; set; } 
         public string ApplicationInsights { get; set; } 
-        public string AppConfiguration { get; set; } 
+        public string AppConfigurationCS { get; set; } 
         public string KeyVault { get; set; } 
         public string EventGridKey { get; set; }
         public string EventGridEP { get; set; }
