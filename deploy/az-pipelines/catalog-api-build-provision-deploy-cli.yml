@@ -42,7 +42,7 @@ stages:
             azureSubscription: '$(azSubscription)'
             scriptType: 'bash'
             scriptLocation: 'scriptPath'
-            scriptPath: '$(System.DefaultWorkingDirectory)/az-cli/create-api.sh'
+            scriptPath: '$(System.DefaultWorkingDirectory)/deploy/az-cli/create-api.sh'
             arguments: '$(env)'
 
   - stage: Deploy
