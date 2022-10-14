@@ -10,7 +10,7 @@ namespace FoodApp
      public class AppConfig    {
         public bool AuthEnabled { get; set; } 
         public bool UseSQLite {get;set;}
-        public bool UseAppConfig {get;set;}
+        public bool UseAppConfiguration {get;set;}
         public ConnectionStrings ConnectionStrings { get; set; } 
     }
    
@@ -34,7 +34,6 @@ namespace FoodApp
     public class FeatureManagement{
         public bool PublishEvents { get; set; } 
         public bool UseKeyVaultWithMI { get; set; }
-        public bool UseAppConfiguration { get; set; }
         public bool UseHealthChecks { get; set; }
         public bool UseApplicationInsights { get; set; }
     }
