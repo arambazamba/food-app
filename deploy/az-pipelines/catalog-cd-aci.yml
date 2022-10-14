@@ -29,6 +29,7 @@ stages:
     displayName: catalog cd aci
     jobs:
       - job: deploy
+        displayName: Deploy to ACI
         steps:
         
         - task: AzureCLI@2
