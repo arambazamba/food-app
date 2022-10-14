@@ -12,7 +12,7 @@ trigger: none
 pr: none
 
 variables:
-  img: foodacrcontainer.azurecr.io/food-catalog-api
+  img: foodacrcontainer.azurecr.io/food-catalog-api:latest
   dns: food-catalog-api
   azSubs: scFood
   script: deploy/az-cli/create-container-instance.sh
