@@ -9,6 +9,7 @@ name: catalog-api-build-provision-deploy
 #       - apps/catalog-api/*
 
 trigger: none
+pr: none
 
 variables:
   dotnetSdkVersion: "6.x"
@@ -16,7 +17,7 @@ variables:
   releaseBranchName: master
   azSubscription: scIaC
   folder: apps/catalog-api/api/
-  appservice: foodcatalog-iac
+  appservice: foodcatalog-cli
 
 pool:
   vmImage: "ubuntu-20.04"
