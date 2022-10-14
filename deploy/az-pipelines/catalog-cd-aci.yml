@@ -16,7 +16,7 @@ variables:
   img: foodacrdev.azurecr.io/food-catalog-api
   dns: food-catalog-$(env)
   azSubs: scFood
-  script: "deploy/az-cli/create-container-instance.sh"
+  script: deploy/az-cli/create-container-instance.sh
 
   # important !!!!
   # set pipeline vars: username, password
@@ -38,4 +38,4 @@ stages:
             scriptType: 'bash'
             scriptLocation: 'scriptPath'
             scriptPath: '$(System.DefaultWorkingDirectory)/$(script)'
-            arguments: '$(env) $(img) $(dns) $(username) $(password)'
+            arguments: $(img) $(dns) $(username) $(password)
