@@ -16,19 +16,26 @@ variables:
   releaseBranchName: master
   azSubscription: scPatterns
   folder: apps/catalog-api/api/
-  appservice: catalog-api-mi-11246  
+  appservice: catalog-api-mi-11246
+  'App:UseKeyVaultWithMI': true  
 
 pool:
-  vmImage: "ubuntu-20.04"
+  vmImage: ubuntu-latest
 
 stages: 
   - stage: Build
     displayName: Build and Provision
-      dependsOn:Config
     
     jobs:
       - job: Build
         steps:
+          - task: FileTransform@1
+            displayName: Update Configuration
+            inputs:
+              folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
+              fileType: 'json'
+              targetFiles: '**/appsettings.json'
+
           - template: templates/t-net-build.yaml
             parameters:
               cfg: $(buildConfiguration)
