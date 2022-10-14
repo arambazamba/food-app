@@ -32,7 +32,7 @@ stages:
           - task: FileTransform@1
             displayName: Replace Api Url
             inputs:
-              folderPath: '$(System.DefaultWorkingDirectory)/**/apps/catalog-api/api/'
+              folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
               fileType: 'json'
               targetFiles: '**/appsettings.json'
 
