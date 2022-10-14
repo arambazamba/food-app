@@ -36,8 +36,7 @@ steps:
       arguments: "--no-build --configuration ${{ parameters.cfg }} --output $(Build.ArtifactStagingDirectory)/${{ parameters.cfg }}"
       zipAfterPublish: true
 
-  - task: PublishBuildArtifacts@1
+  - task: PublishPipelineArtifact@1
     inputs:
-      PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-      ArtifactName: "drop"
-      publishLocation: "Container"
+      artifactName: netdrop
+    displayName: "Publish Artifact: netdrop"

@@ -28,7 +28,7 @@ stages:
       - job: "Build"
         displayName: "Build job"
         steps:
-          - template: templates/netcore-build.yaml
+          - template: templates/t-net-build.yaml
             parameters:
               cfg: $(buildConfiguration)
               folder: $(apifolder)

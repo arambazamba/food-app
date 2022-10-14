@@ -16,8 +16,8 @@ variables:
   buildConfiguration: Release
   releaseBranchName: master
   azSubscription: conFood
-  apifolder: apps/catalog-api/api/
-  apitestfolder: apps/catalog-api/api-tests/
+  folder: apps/catalog-api/api/
+  testfolder: apps/catalog-api/api-tests/
   appservice: food-catalog-api-prod
 
 pool:
@@ -28,12 +28,11 @@ stages:
     displayName: "Build"
     jobs:
       - job: "Build"
-
         steps:
-          - template: templates/netcore-build.yaml
+          - template: templates/t-net-build.yaml
             parameters:
               cfg: $(buildConfiguration)
-              folder: $(apifolder)
+              folder: $(folder)
 
       - job: test_dotnet
         displayName: "Test"
@@ -42,6 +41,6 @@ stages:
           - task: DotNetCoreCLI@2
             inputs:
               command: "test"
-              projects: "apitestfolder/*.csproj"
+              projects: "testfolder/*.csproj"
               arguments: "--configuration $(buildConfiguration)"
 
