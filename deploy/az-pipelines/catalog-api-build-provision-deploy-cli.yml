@@ -17,7 +17,6 @@ variables:
   azSubscription: scIaC
   folder: apps/catalog-api/api/
   appservice: foodcatalog-iac
-  env: IaC
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -43,7 +42,7 @@ stages:
             scriptType: 'bash'
             scriptLocation: 'scriptPath'
             scriptPath: '$(System.DefaultWorkingDirectory)/deploy/az-cli/create-api.sh'
-            arguments: '$(env)'
+            arguments: $(appservice)
 
   - stage: Deploy
     displayName: Deploy
@@ -70,5 +69,5 @@ stages:
                     ConnectionType: "AzureRM"
                     azureSubscription: $(azSubscription)
                     appType: "webApp"
-                    WebAppName: "$(appservice)-$(env)"
+                    WebAppName: $(appservice)
                     packageForLinux: "$(System.ArtifactsDirectory)/**/*.zip"
