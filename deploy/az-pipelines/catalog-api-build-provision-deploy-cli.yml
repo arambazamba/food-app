@@ -6,19 +6,18 @@ name: api-build-deploy-cli
 #       - master
 #   paths:
 #     include:
-#       - apps/catalog-api/*
+#       - food-api
 
 trigger: none
-pr: none
 
 variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: Release
   releaseBranchName: master
-  azSubscription: az400-mod13-subscription
-  apifolder: food-api
-  appservice: foodapi
-  envflag: testing
+  azSubscription: scIaC
+  folder: apps/catalog-api/
+  appservice: foodcatalog-iac
+  env: IaC
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -28,45 +27,15 @@ stages:
     displayName: Build and Provision
     jobs:
       - job: Build
-
         steps:
-          - task: UseDotNet@2
-            displayName: "Use .NET Core SDK $(dotnetSdkVersion)"
-            inputs:
-              version: "$(dotnetSdkVersion)"
-
-          - task: DotNetCoreCLI@2
-            displayName: "Restore project dependencies"
-            inputs:
-              command: "restore"
-              projects: "$(apifolder)/*.csproj"
-
-          - task: DotNetCoreCLI@2
-            displayName: "Build the project - $(buildConfiguration)"
-            inputs:
-              command: "build"
-              arguments: "--no-restore --configuration $(buildConfiguration)"
-              projects: "$(apifolder)/*.csproj"
-
-          - task: DotNetCoreCLI@2
-            displayName: "Publish the project - $(buildConfiguration)"
-            inputs:
-              command: "publish"
-              projects: "$(apifolder)/*.csproj"
-              publishWebProjects: false
-              arguments: "--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)"
-              zipAfterPublish: true
-
-          - task: PublishBuildArtifacts@1
-            inputs:
-              PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-              ArtifactName: "drop"
-              publishLocation: "Container"
+          - template: templates/t-net-build.yaml
+            parameters:
+              cfg: $(buildConfiguration)
+              folder: $(folder)
       
       - job: Provision
 
         steps:
-        
         - task: AzureCLI@2
           displayName: 'Provision AppService'
           inputs:
@@ -74,7 +43,7 @@ stages:
             scriptType: 'bash'
             scriptLocation: 'scriptPath'
             scriptPath: '$(System.DefaultWorkingDirectory)/az-cli/create-api.sh'
-            arguments: '$(envflag)'
+            arguments: '$(env)'
 
   - stage: Deploy
     displayName: Deploy
@@ -101,5 +70,5 @@ stages:
                     ConnectionType: "AzureRM"
                     azureSubscription: $(azSubscription)
                     appType: "webApp"
-                    WebAppName: "$(appservice)-$(envflag)"
+                    WebAppName: "$(appservice)-$(env)"
                     packageForLinux: "$(System.ArtifactsDirectory)/**/*.zip"
