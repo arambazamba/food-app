@@ -1,4 +1,4 @@
-name: api-build-deploy-cli
+name: catalog-api-build-provision-deploy
 
 # trigger:
 #   branches:
@@ -6,7 +6,7 @@ name: api-build-deploy-cli
 #       - master
 #   paths:
 #     include:
-#       - food-api
+#       - apps/catalog-api/*
 
 trigger: none
 
