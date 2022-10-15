@@ -1,9 +1,5 @@
 name: catalog-api-cicd
 
-env:
-  appservice: catalog-api-github-actions
-  folder: apps/catalog-api/api/**
-
 on:
   push:
     branches:
@@ -30,7 +26,10 @@ on:
         description: 'Environment to run tests against'
         type: environment
         required: true       
-      
+env:
+  appservice: catalog-api-github-actions
+  folder: apps/catalog-api/api/**
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
