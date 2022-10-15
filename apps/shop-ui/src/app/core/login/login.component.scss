@@ -1,5 +1,6 @@
 mat-card img {
-  object-fit: contain;
+  margin-top: -120px;
+  object-fit: scale-down;
 }
 
 mat-card-title {
@@ -9,6 +10,15 @@ mat-card-title {
 
 mat-card-subtitle {
   text-align: center;
+}
+
+mat-card-content {
+  height: 450px;
+  background-color: lavender;
+}
+
+mat-card-footer {
+  margin-top: 1rem;
 }
 
 mat-card {
