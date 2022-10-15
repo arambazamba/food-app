@@ -40,7 +40,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v2
         with:
           find: "https://localhost:5001/"
-          replace: ${{ ApiUrl }}
+          replace: ${{ env.ApiUrl }}
           include: apps/shop-ui/src/assets/**
           regex: true
     
