@@ -60,6 +60,7 @@ export class MsalAuthFacade {
           AuthActions.loginsuccess({ authResponse: result.payload })
         );
         console.log(`MSAL Event ${result.eventType}`, result.payload);
+        //TODO: find if this is needed
         // let resp: MsalAuthResponse = result.payload;
         // this.store.dispatch(loginSuccess({ authResponse: resp }));
         // console.log(`MSAL Event ${result.eventType}`, result.payload);
