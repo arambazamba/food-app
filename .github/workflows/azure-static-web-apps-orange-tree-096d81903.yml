@@ -6,29 +6,6 @@ on:
       - master
     paths:
       - apps/shop-ui/**
-      
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning' 
-        type: choice
-        options:
-        - info
-        - warning
-        - debug 
-      tags:
-        description: 'Test scenario tags'
-        required: false 
-        type: boolean
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true        
-      
-env: 
-  ApiUrl: "https://fakeserver/"
 
 jobs:
   build_and_deploy_job:
@@ -36,14 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@v2
-        with:
-          find: "https://localhost:5001/"
-          replace: ${{ env.ApiUrl }}
-          include: apps/shop-ui/src/assets/**
-          regex: true
-    
       - uses: actions/checkout@v2
         with:
           submodules: true
