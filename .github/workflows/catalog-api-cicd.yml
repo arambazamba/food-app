@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - ${{folder}}
+      - apps/catalog-api/api/**
 
   workflow_dispatch:
     inputs:
@@ -27,8 +27,7 @@ on:
         type: environment
         required: true       
 env:
-  appservice: catalog-api-github-actions
-  folder: apps/catalog-api/api/**
+  Appservice: catalog-api-github-actions
 
 jobs:
   build-and-deploy:
@@ -51,6 +50,6 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{appservice}}
+          app-name: ${{ env.Appservice }}
           publish-profile: ${{ secrets.CATALOG_API_PROFILE }}
           package: ${{env.DOTNET_ROOT}}/api
