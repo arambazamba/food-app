@@ -12,13 +12,10 @@ trigger: none
 pr: none
 
 variables:
-  img: foodacrcontainer.azurecr.io/food-catalog-api:latest
+  img: arambazamba/food-catalog-api:latest
   dns: food-catalog-api
   azSubs: scFood
-  script: deploy/az-cli/create-container-instance.sh
-
-  # important !!!!
-  # set pipeline vars: username, password
+  script: deploy/az-cli/create-container-instance-dockerhub.sh
 
 pool:
   vmImage: ubuntu-latest
