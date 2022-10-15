@@ -1,12 +1,12 @@
 (function (window) {
   window["env"] = window["env"] || {};
-  window["env"].authEnabled = "${authEnabled}";
-  window["env"].api = "${apiUrl}";
-  window["env"].applicationInsights = "${applicationInsights}";
-  window["env"].signalREndpoint = "${signalREndpoint}";
-  window["env"].clientId = "${clientId}";
-  window["env"].authority = "${authority}";
-  window["env"].redirectUri = "${redirectUri}";
-  window["env"].scopes = "${scopes}";
-  window["env"].reactive = "${reactive}";
+  window["env"].authEnabled = "${ENV_AUTH_ENABLED}";
+  window["env"].api = "${ENV_API_URL}";
+  window["env"].applicationInsights = "${ENV_APP_INSIGHTS}";
+  window["env"].signalREndpoint = "${ENV_SIGNALR_ENDPOINT}";
+  window["env"].clientId = "${ENV_CLIENT_ID}";
+  window["env"].authority = "${ENV_AUTHORITY}";
+  window["env"].redirectUri = "${ENV_REDIRECT_URI}";
+  window["env"].scopes = "${ENV_SCOPES}";
+  window["env"].reactive = "${ENV_REACTIVE}";
 })(this);
