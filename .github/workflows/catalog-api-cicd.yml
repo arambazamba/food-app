@@ -1,11 +1,16 @@
 name: catalog-api-cicd
 
+env:
+  appservice: catalog-api-github-actions
+  folder: apps/catalog-api/api/**
+
 on:
   push:
     branches:
       - master
     paths:
-      - "apps/catalog-api/api/**"
+      - ${{folder}}
+
   workflow_dispatch:
     inputs:
       logLevel:
@@ -25,7 +30,7 @@ on:
         description: 'Environment to run tests against'
         type: environment
         required: true       
-
+      
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -47,6 +52,6 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: catalog-api-github-actions
+          app-name: ${{appservice}}
           publish-profile: ${{ secrets.CATALOG_API_PROFILE }}
           package: ${{env.DOTNET_ROOT}}/api
