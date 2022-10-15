@@ -1,14 +1,15 @@
+
 name: Export Issues to Azure DevOps Boards
 on:
   issues:
     types:
       [opened, edited, deleted, closed, reopened, labeled, unlabeled, assigned]
 jobs:
-  alert:
+  sync-issues:
     runs-on: ubuntu-latest
     steps:
       - name: GitHub Issues to Azure DevOps
-        uses: danhellem/github-actions-issue-to-work-item@v2.0
+        uses: danhellem/github-actions-issue-to-work-item@v2.1
         env:
           ado_token: "${{ secrets.ADO_SYNC_TOKEN }}"
           github_token: "${{ secrets.GH_SYNC_TOKEN }}"
