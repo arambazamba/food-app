@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: foodapi-github-actions
           slot-name: PRODUCTION
-          publish-profile: ${{ secrets.FOODAPIPROFILE }}
+          publish-profile: ${{ secrets.CATALOG_API_PROFILE }}
           package: ${{env.DOTNET_ROOT}}/api
