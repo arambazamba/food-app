@@ -1,5 +1,7 @@
 # FoodApp Sample
 
+[![Board Status](https://dev.azure.com/integrations-training/5904f8c2-e18a-4e6f-93c1-ee1b55c4f7d3/f6bfffef-c17d-4b7b-bb82-9b4c4f283ca8/_apis/work/boardbadge/759866e9-4cd5-41e5-bf89-4ba022495e82?columnOptions=1)](https://dev.azure.com/integrations-training/5904f8c2-e18a-4e6f-93c1-ee1b55c4f7d3/_boards/board/t/f6bfffef-c17d-4b7b-bb82-9b4c4f283ca8/Issues/)
+
 A food tracking app implemented as Cloud Native App deployed to Azure using Azure DevOps. [Installation Scripts](/az-cli/) and [yaml-pipelines](/az-pipelines/) are provided.
 
 - Base Infrastructure: KeyVault, App Configuration Service, Application Insights
