@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   MsalBroadcastService,
   MsalGuardConfiguration,
@@ -14,14 +14,12 @@ import {
   PublicClientApplication,
 } from '@azure/msal-browser';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
+import { combineLatestWith, filter, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { MsalAuthResponse } from '../auth.model';
 import { MsalBroadcastServiceMock } from '../mocks/MsalBroadcastService.mock';
 import { AuthActions } from './auth.actions';
-// import { loginSuccess, logout } from './auth.actions';
 import { MsalAuthState } from './auth.reducer';
-import { getUser, isAuthenticated } from './auth.selectors';
+import { getAuthEnabled, getLoggedIn, getUser } from './auth.selectors';
 
 @Injectable()
 export class MsalAuthFacade {
@@ -36,8 +34,13 @@ export class MsalAuthFacade {
     return this.store.select(getUser);
   }
 
-  isInitAndAuthenticated() {
-    return this.store.select(isAuthenticated);
+  isAuthenticated() {
+    return this.store.select(getLoggedIn).pipe(
+      combineLatestWith(this.store.select(getAuthEnabled)),
+      map(([loggedIn, authEnabled]) => {
+        return authEnabled == false || loggedIn;
+      })
+    );
   }
 
   handleLoginSuccess = (
@@ -57,6 +60,7 @@ export class MsalAuthFacade {
           AuthActions.loginsuccess({ authResponse: result.payload })
         );
         console.log(`MSAL Event ${result.eventType}`, result.payload);
+        //TODO: find if this is needed
         // let resp: MsalAuthResponse = result.payload;
         // this.store.dispatch(loginSuccess({ authResponse: resp }));
         // console.log(`MSAL Event ${result.eventType}`, result.payload);

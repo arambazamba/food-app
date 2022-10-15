@@ -7,12 +7,12 @@ export const authFeatureKey = 'auth';
 
 export interface MsalAuthState {
   authResponse: MsalAuthResponse | null;
-  authenticated: boolean;
+  authEnabled: boolean;
 }
 
 const initialState: MsalAuthState = {
   authResponse: null,
-  authenticated: !environment.authEnabled,
+  authEnabled: environment.authEnabled,
 };
 
 export const authReducer = createReducer(
