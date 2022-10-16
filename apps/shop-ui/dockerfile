@@ -24,8 +24,5 @@ CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.template.js
 # docker tag food-shop-ui arambazamba/food-shop-ui
 # docker push arambazamba/food-shop-ui
 
-# Injecting environment variables into the container
-# docker run -it --rm -p 5051:80 food-shop-ui -e "ENV_AUTH_ENABLED"="false" "ENV_API_URL"="https://apiurl/"
-
 # Browse using: 
 # http://localhost:5052/
