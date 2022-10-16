@@ -1,32 +1,18 @@
-declare global {
-  interface Window {
-    env: any;
-  }
-}
-
 export const environment = {
   production: true,
   authEnabled: false,
-  api: window['env'].api,
+  api: (<any>window)['env'].api,
   azure: {
-    applicationInsights: window['env'].applicationInsights,
-    signalREndpoint: window['env'].signalREndpoint,
+    applicationInsights: (<any>window)['env'].applicationInsights,
+    signalREndpoint: (<any>window)['env'].signalREndpoint,
     appReg: {
-      clientId: window['env'].clientId,
-      authority: window['env'].authority,
-      redirectUri: window['env'].redirectUri,
-      scopes: window['env'].scopes,
+      clientId: (<any>window)['env'].clientId,
+      authority: (<any>window)['env'].authority,
+      redirectUri: (<any>window)['env'].redirectUri,
+      scopes: (<any>window)['env'].scopes,
     },
   },
   features: {
-    reactive: window['env'].reactive,
+    reactive: (<any>window)['env'].reactive,
   },
 };
-
-export function getBooleanEnv(val: any): boolean {
-  if (val && val == 'true') {
-    return true;
-  } else {
-    return false;
-  }
-}

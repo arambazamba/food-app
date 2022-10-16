@@ -1,4 +1,4 @@
-context('Demos', () => {
+context('Simple e2e tests', () => {
   beforeEach(() => {
     cy.visit('http://localhost:4200/food');
   });
