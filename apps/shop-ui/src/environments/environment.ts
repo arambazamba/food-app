@@ -1,32 +1,25 @@
-declare global {
-  interface Window {
-    env: any;
-  }
-}
-
 export const environment = {
   production: false,
   authEnabled: false,
-  api: window['env'].api,
+  api: 'https://localhost:5001/',
   azure: {
-    applicationInsights: window['env'].applicationInsights,
-    signalREndpoint: window['env'].signalREndpoint,
+    applicationInsights: '',
+    signalREndpoint: '',
     appReg: {
-      clientId: window['env'].clientId,
-      authority: window['env'].authority,
-      redirectUri: window['env'].redirectUri,
-      scopes: window['env'].scopes,
+      clientId: 'd23642f7-9ccf-4165-92e7-919f625a5acc',
+      authority:
+        'https://login.microsoftonline.comd/92b247e-90e0-4469-a129-6a32866c0d0a/',
+      redirectUri: 'http://localhost:4200/',
+      scopes: [
+        ['https://graph.microsoft.com/v1.0/me', ['user.read']],
+        [
+          'https://localhost:5001/food',
+          ['api://b509d389-361a-447b-afb2-97cc8131dad6/access_as_user'],
+        ],
+      ],
     },
   },
   features: {
-    reactive: getBooleanEnv(window['env'].reactive),
+    reactive: false,
   },
 };
-
-export function getBooleanEnv(val: any): boolean {
-  if (val && val == 'true') {
-    return true;
-  } else {
-    return false;
-  }
-}

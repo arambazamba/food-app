@@ -1,11 +1,5 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": false,
-    "cache": {
-      "enabled": false
-    }
-  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -14,9 +8,6 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
-        },
-        "@schematics/angular:application": {
-          "strict": true
         }
       },
       "root": "",
@@ -50,8 +41,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "4mb"
+                  "maximumWarning": "1.5mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -119,6 +110,12 @@
           }
         }
       }
+    }
+  },
+  "cli": {
+    "analytics": "c3b5fd73-4358-48ba-89c4-f54edacf1b34",
+    "cache": {
+      "enabled": false
     }
   }
 }
