@@ -13,8 +13,8 @@ trigger: none
 variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: "Release"
-  apifolder: food-api
-  apitestfolder: food-api-test
+  folder: apps/catalog-api/api/
+  testfolder: apps/catalog-api/api-tests/
   sonarcon: conSonarCloud
 
 pool:
@@ -55,7 +55,7 @@ steps:
     inputs:
       command: "build"
       arguments: "--no-restore --configuration $(buildConfiguration)"
-      projects: "$(apifolder)/*.csproj"
+      projects: "$(folder)/*.csproj"
 
   - task: DotNetCoreCLI@2
     displayName: "Install ReportGenerator"
@@ -70,7 +70,7 @@ steps:
       command: "test"
       arguments: '--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
       publishTestResults: true
-      projects: "apitestfolder/*.csproj"
+      projects: "testfolder/*.csproj"
 
   - task: CmdLine@2
     inputs:
@@ -96,7 +96,7 @@ steps:
     displayName: "Publish the project - $(buildConfiguration)"
     inputs:
       command: "publish"
-      projects: "$(apifolder)/*.csproj"
+      projects: "$(folder)/*.csproj"
       publishWebProjects: false
       arguments: "--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)"
       zipAfterPublish: true
