@@ -1,21 +1,17 @@
-name: "food-api sonarcloud"
-
-# trigger:
-#   branches:
-#     include:
-#       - master
-#   paths:
-#     include:
-#       - food-api
+name: "catalog-api static analysis with sonarcloud"
 
 trigger: none
+pr: 
+  paths:
+    include:
+    - apps/catalog-api/*
 
 variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: "Release"
   folder: apps/catalog-api/api/
   testfolder: apps/catalog-api/api-tests/
-  sonarcon: conSonarCloud
+  con: scSonarCloud
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -40,7 +36,7 @@ steps:
   - task: SonarCloudPrepare@1
     displayName: "Prepare SonarCloud analysis"
     inputs:
-      SonarCloud: "$(sonarcon)"
+      SonarCloud: "$(con)"
       organization: "$(SonarOrganization)"
       scannerMode: "MSBuild"
       projectKey: "$(SonarProjectKey)"
