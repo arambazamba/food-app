@@ -27,18 +27,17 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: "AppConfig"
+  - stage: "CfgBuild"
     jobs:    
-      - job: AppConfig
+      - job: CfgBuild
+        displayName: "Replace Cfg and Build"
 
-        steps:
-        
+        steps:        
         - task: CmdLine@2
           displayName: Printing Env before
           inputs:
             script: |
               printenv
-
         - task: AzureAppConfiguration@5
           displayName: Read App Config
           inputs:
@@ -50,24 +49,17 @@ stages:
           inputs:
             script: |
               printenv
+        - task: FileTransform@1
+          displayName: Update Configuration
+          inputs:
+            folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
+            fileType: 'json'
+            targetFiles: '**/appsettings.json'
 
-  - stage: Build
-    displayName: Build and Provision      
-    
-    jobs:
-      - job: Build
-        steps:        
-          - task: FileTransform@1
-            displayName: Update Configuration
-            inputs:
-              folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
-              fileType: 'json'
-              targetFiles: '**/appsettings.json'
-
-          - template: templates/t-net-build.yaml
-            parameters:
-              cfg: $(buildConfiguration)
-              folder: $(folder)
+        - template: templates/t-net-build.yaml
+          parameters:
+            cfg: $(buildConfiguration)
+            folder: $(folder)
 
   - stage: Deploy
     displayName: Deploy
