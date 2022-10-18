@@ -58,20 +58,6 @@ stages:
         #     fileType: 'json'
         #     targetFiles: '**/appsettings.json'
         
-        - task: MagicChunks@2
-          inputs:
-            sourcePath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/appconfig.json'
-            sourcePathRecurse: true
-            fileType: 'Json'
-            targetPathType: 'source'
-            transformationType: 'json'
-            transformations: |
-              {
-                App: {
-                  AuthEnabled : "true"
-                }
-              }
-
         - template: templates/t-net-build.yaml
           parameters:
             cfg: $(buildConfiguration)
