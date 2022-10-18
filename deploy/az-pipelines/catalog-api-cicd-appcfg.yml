@@ -41,9 +41,10 @@ stages:
         - task: AzureAppConfiguration@5
           displayName: Read App Config
           inputs:
-            azureSubscription: $(azSubscription)
-            AppConfigurationEndpoint: $(cfgEP)
+            azureSubscription: '$(azSubscription)'
+            AppConfigurationEndpoint: '$(cfgEP)'
             KeyFilter: '*'
+            Label: 'production'
         - task: CmdLine@2
           displayName: Printing Env after
           inputs:
