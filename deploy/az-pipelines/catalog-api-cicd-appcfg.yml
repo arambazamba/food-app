@@ -14,55 +14,57 @@ variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: Release
   releaseBranchName: master
-  azSubscription: scPatterns
+  azSubscription: scFood
   folder: apps/catalog-api/api/
-  appservice: catalog-api-config
+  appservice: catalog-api-mi-18760
+  cfgEP: 'https://foodconfig-18760.azconfig.io'
   'App:UseKeyVaultWithMI': false
 
+####
+# assign permissions to service connection pricipal on app config service
 
 pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: "AppConfig"
+  - stage: CfgBuild
     jobs:    
-      - job: AppConfig
+      - job: CfgBuild
+        displayName: "Replace Cfg and Build"
 
-        steps:
-        - task: AzureAppConfiguration@5
-          displayName: Read App Config
-          inputs:
-            azureSubscription: $(azSubscription)
-            # assign permissions to service connections
-            AppConfigurationEndpoint: 'https://foodconfig-11246.azconfig.io'
-            KeyFilter: '*'
+        steps:        
         - task: CmdLine@2
-          displayName: Printing Env
+          displayName: Printing Env before
           inputs:
             script: |
               printenv
+        - task: AzureAppConfiguration@5
+          displayName: Read App Config
+          inputs:
+            azureSubscription: '$(azSubscription)'
+            AppConfigurationEndpoint: '$(cfgEP)'
+            KeyFilter: '*'
+            Label: 'production'
+        - task: CmdLine@2
+          displayName: Printing Env after
+          inputs:
+            script: |
+              printenv
+        - task: FileTransform@1
+          displayName: Update Configuration
+          inputs:
+            folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
+            fileType: 'json'
+            targetFiles: '**/appsettings.json'
 
-  - stage: Build
-    displayName: Build and Provision      
-    
-    jobs:
-      - job: Build
-        steps:        
-          - task: FileTransform@1
-            displayName: Update Configuration
-            inputs:
-              folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
-              fileType: 'json'
-              targetFiles: '**/appsettings.json'
-
-          - template: templates/t-net-build.yaml
-            parameters:
-              cfg: $(buildConfiguration)
-              folder: $(folder)
+        - template: templates/t-net-build.yaml
+          parameters:
+            cfg: $(buildConfiguration)
+            folder: $(folder)
 
   - stage: Deploy
     displayName: Deploy
-    dependsOn: Build
+    dependsOn: CfgBuild
     
     jobs:
       - deployment: DeployAppService
