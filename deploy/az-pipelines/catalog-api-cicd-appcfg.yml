@@ -57,20 +57,6 @@ stages:
         #     folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
         #     fileType: 'json'
         #     targetFiles: '**/appsettings.json'
-        
-        - task: MagicChunks@2
-          inputs:
-            sourcePath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/appconfig.json'
-            sourcePathRecurse: true
-            fileType: 'Json'
-            targetPathType: 'source'
-            transformationType: 'json'
-            transformations: |
-              {
-                App: {
-                  AuthEnabled : "true"
-                }
-              }
 
         - template: templates/t-net-build.yaml
           parameters:
@@ -96,11 +82,20 @@ stages:
                     artifactName: "drop"
                     downloadPath: "$(System.ArtifactsDirectory)"
 
-                - task: AzureRmWebAppDeployment@4
-                  displayName: "Azure App Service Deploy: $(appservice)"
+
+                - task: AzureAppConfiguration@5
+                  displayName: Read App Config
                   inputs:
-                    ConnectionType: "AzureRM"
-                    azureSubscription: $(azSubscription)
-                    appType: "webApp"
-                    WebAppName: $(appservice)
-                    packageForLinux: "$(System.ArtifactsDirectory)/**/*.zip"
+                    azureSubscription: '$(azSubscription)'
+                    AppConfigurationEndpoint: '$(cfgEP)'
+                    KeyFilter: '*'
+                    Label: 'production'
+
+                - task: AzureRmWebAppDeployment@4
+                  inputs:
+                    ConnectionType: 'AzureRM'
+                    azureSubscription: '$(azSubscription)'
+                    appType: 'webApp'
+                    WebAppName: '$(appservice)'
+                    packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
+                    JSONFiles: 'App.AuthEnabled=$(APP:AUTHENABLED)'
