@@ -68,7 +68,7 @@ stages:
             transformations: |
               {
                 App: {
-                  AuthEnabled" : "true"
+                  AuthEnabled : "true"
                 }
               }
 
