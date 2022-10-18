@@ -27,7 +27,7 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: "CfgBuild"
+  - stage: CfgBuild
     jobs:    
       - job: CfgBuild
         displayName: "Replace Cfg and Build"
@@ -63,7 +63,7 @@ stages:
 
   - stage: Deploy
     displayName: Deploy
-    dependsOn: Build
+    dependsOn: CfgBuild
     
     jobs:
       - deployment: DeployAppService
