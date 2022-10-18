@@ -14,11 +14,14 @@ variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: Release
   releaseBranchName: master
-  azSubscription: scPatterns
+  azSubscription: scFood
   folder: apps/catalog-api/api/
   appservice: catalog-api-config
+  cfgEP: 'https://foodconfig-18760.azconfig.io'
   'App:UseKeyVaultWithMI': false
 
+####
+# assign permissions to service connection pricipal on app config service
 
 pool:
   vmImage: ubuntu-latest
@@ -29,15 +32,21 @@ stages:
       - job: AppConfig
 
         steps:
+        
+        - task: CmdLine@2
+          displayName: Printing Env before
+          inputs:
+            script: |
+              printenv
+
         - task: AzureAppConfiguration@5
           displayName: Read App Config
           inputs:
             azureSubscription: $(azSubscription)
-            # assign permissions to service connections
-            AppConfigurationEndpoint: 'https://foodconfig-11246.azconfig.io'
+            AppConfigurationEndpoint: $(cfgEP)
             KeyFilter: '*'
         - task: CmdLine@2
-          displayName: Printing Env
+          displayName: Printing Env after
           inputs:
             script: |
               printenv
