@@ -67,7 +67,9 @@ stages:
             transformationType: 'json'
             transformations: |
               {
-                App:AuthEnabled" : "true"
+                App: {
+                  AuthEnabled" : "true"
+                }
               }
 
         - template: templates/t-net-build.yaml
