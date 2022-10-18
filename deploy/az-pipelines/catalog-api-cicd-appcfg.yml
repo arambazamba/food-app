@@ -16,7 +16,7 @@ variables:
   releaseBranchName: master
   azSubscription: scFood
   folder: apps/catalog-api/api/
-  appservice: catalog-api-config
+  appservice: catalog-api-mi-18760
   cfgEP: 'https://foodconfig-18760.azconfig.io'
   'App:UseKeyVaultWithMI': false
 
