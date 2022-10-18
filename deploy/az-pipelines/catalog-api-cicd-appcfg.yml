@@ -27,37 +27,10 @@ pool:
   vmImage: windows-latest
 
 stages:
-  - stage: CfgBuild
+  - stage: Build
     jobs:    
-      - job: CfgBuild
-        displayName: "Replace Cfg and Build"
-
-        steps:        
-        - task: CmdLine@2
-          displayName: Printing Env before
-          inputs:
-            script: |
-              printenv
-        - task: AzureAppConfiguration@5
-          displayName: Read App Config
-          inputs:
-            azureSubscription: '$(azSubscription)'
-            AppConfigurationEndpoint: '$(cfgEP)'
-            KeyFilter: '*'
-            Label: 'production'
-        - task: CmdLine@2
-          displayName: Printing Env after
-          inputs:
-            script: |
-              printenv
-
-        # - task: FileTransform@1
-        #   displayName: Update Configuration
-        #   inputs:
-        #     folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
-        #     fileType: 'json'
-        #     targetFiles: '**/appsettings.json'
-        
+      - job: Build
+        steps:                
         - template: templates/t-net-build.yaml
           parameters:
             cfg: $(buildConfiguration)
@@ -65,7 +38,7 @@ stages:
 
   - stage: Deploy
     displayName: Deploy
-    dependsOn: CfgBuild
+    dependsOn: Build
     
     jobs:
       - deployment: DeployAppService
@@ -81,6 +54,31 @@ stages:
                     downloadType: "single"
                     artifactName: "drop"
                     downloadPath: "$(System.ArtifactsDirectory)"
+                    
+                - task: CmdLine@2
+                  displayName: Printing Env before
+                  inputs:
+                    script: |
+                      printenv
+                - task: AzureAppConfiguration@5
+                  displayName: Read App Config
+                  inputs:
+                    azureSubscription: '$(azSubscription)'
+                    AppConfigurationEndpoint: '$(cfgEP)'
+                    KeyFilter: '*'
+                    Label: 'production'
+                - task: CmdLine@2
+                  displayName: Printing Env after
+                  inputs:
+                    script: |
+                      printenv
+
+                - task: FileTransform@1
+                  displayName: Update Configuration
+                  inputs:
+                    folderPath: '$(System.ArtifactsDirectory)/drop/'
+                    fileType: 'json'
+                    targetFiles: '**/appsettings.json'                    
 
                 - task: AzureRmWebAppDeployment@4
                   displayName: "Azure App Service Deploy: $(appservice)"
