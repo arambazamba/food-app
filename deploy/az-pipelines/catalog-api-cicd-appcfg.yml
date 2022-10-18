@@ -67,8 +67,8 @@ stages:
             transformationType: 'json'
             transformations: |
               {
-                App: {
-                  AuthEnabled : "true"
+                "App": {
+                  "AuthEnabled" : "true"
                 }
               }
 
