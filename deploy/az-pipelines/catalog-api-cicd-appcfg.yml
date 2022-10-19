@@ -18,7 +18,7 @@ variables:
   folder: apps/catalog-api/api/
   appservice: catalog-api-mi-18760
   cfgEP: 'https://foodconfig-18760.azconfig.io'
-  'UseKeyVaultWithMI': false
+  App.AuthEnabled: true
 
 ####
 # assign permissions to service connection pricipal on app config service
@@ -32,36 +32,41 @@ stages:
       - job: CfgBuild
         displayName: "Replace Cfg and Build"
 
-        steps:        
+        steps:                
+        
         - task: CmdLine@2
           displayName: Printing Env before
           inputs:
             script: |
-              printenv
+                printenv
+
         - task: AzureAppConfiguration@5
           displayName: Read App Config
           inputs:
-            azureSubscription: '$(azSubscription)'
-            AppConfigurationEndpoint: '$(cfgEP)'
-            KeyFilter: '*'
-            Label: 'production'
+           azureSubscription: '$(azSubscription)'
+           AppConfigurationEndpoint: '$(cfgEP)'
+           KeyFilter: '*'
+           Label: 'production'
+        
         - task: CmdLine@2
           displayName: Printing Env after
           inputs:
             script: |
-              printenv
+                printenv
 
-        # - task: FileTransform@1
-        #   displayName: Update Configuration
-        #   inputs:
-        #     folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/'
-        #     fileType: 'json'
-        #     targetFiles: '**/appsettings.json'
+        - task: FileTransform@1
+          displayName: Update Configuration
+          inputs:
+            folderPath: '$(System.DefaultWorkingDirectory)/apps/catalog-api/api/**/'
+            fileType: 'json'
+            targetFiles: '**/appsettings.json'
         
         - template: templates/t-net-build.yaml
           parameters:
             cfg: $(buildConfiguration)
             folder: $(folder)
+
+
 
   - stage: Deploy
     displayName: Deploy
@@ -80,7 +85,7 @@ stages:
                     buildType: "current"
                     downloadType: "single"
                     artifactName: "drop"
-                    downloadPath: "$(System.ArtifactsDirectory)"
+                    downloadPath: "$(System.ArtifactsDirectory)"                    
 
                 - task: AzureRmWebAppDeployment@4
                   displayName: "Azure App Service Deploy: $(appservice)"
