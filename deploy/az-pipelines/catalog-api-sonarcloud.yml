@@ -36,11 +36,11 @@ steps:
   - task: SonarCloudPrepare@1
     displayName: 'Prepare analysis configuration'
     inputs:
-      SonarCloud: 'scSonarCloud'
-      organization: 'integrations-training'
+      SonarCloud: $(con)
+      organization: $(SonarOrganization)
       scannerMode: 'MSBuild'
-      projectKey: 'integrations-training'
-      projectName: 'az-400'
+      projectKey: $(SonarProjectKey)
+      projectName: $(SonarProjectName)
 
   # - task: SonarCloudPrepare@1
   #   displayName: "Prepare SonarCloud analysis"
@@ -90,21 +90,6 @@ steps:
 
   - task: SonarCloudPublish@1
     displayName: "Publish SonarCloud quality gate results"
-
-  - task: PublishCodeCoverageResults@1
-    displayName: "Publish code coverage report"
-    inputs:
-      codeCoverageTool: "cobertura"
-      summaryFileLocation: "$(Build.SourcesDirectory)/**/coverage.cobertura.xml"
-
-  - task: DotNetCoreCLI@2
-    displayName: "Publish the project - $(buildConfiguration)"
-    inputs:
-      command: "publish"
-      projects: "$(folder)/*.csproj"
-      publishWebProjects: false
-      arguments: "--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)"
-      zipAfterPublish: true
 
   - task: PublishBuildArtifacts@1
     inputs:
