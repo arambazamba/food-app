@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 import { AboutComponent } from './about/about.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MsalAuthUtilModule } from './auth/auth.module';
+import { MsalAuthUtilModule } from './auth/msal-auth-util.module';
 import { CoreModule } from './core/core.module';
 import { ErrHandlerService } from './core/err-handler/err-handler.service';
 import { HomeComponent } from './home/home.component';
