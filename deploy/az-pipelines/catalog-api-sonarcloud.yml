@@ -77,14 +77,6 @@ steps:
       publishTestResults: true
       projects: "testfolder/*.csproj"
 
-  - task: CmdLine@2
-    inputs:
-      script: 'dir'
-
-  - script: |
-      reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
-    displayName: "Create code coverage report"
-
   - task: SonarCloudAnalyze@1
     displayName: "Run SonarCloud code analysis"
 
