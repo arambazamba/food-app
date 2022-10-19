@@ -53,6 +53,15 @@ stages:
           inputs:
             script: |
                 printenv
+        
+        - bash: |
+            echo "##vso[task.setvariable variable=App.AuthEnabled]$(APP.AUTHENABLED)"
+
+        - task: CmdLine@2
+          displayName: Printing Env after setting var
+          inputs:
+            script: |
+                printenv
 
         - task: FileTransform@1
           displayName: Update Configuration
