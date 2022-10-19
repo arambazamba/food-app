@@ -18,7 +18,6 @@ variables:
   folder: apps/catalog-api/api/
   appservice: catalog-api-mi-18760
   cfgEP: 'https://foodconfig-18760.azconfig.io'
-  App.AuthEnabled: true
 
 ####
 # assign permissions to service connection pricipal on app config service
