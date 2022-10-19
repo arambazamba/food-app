@@ -12,6 +12,10 @@ variables:
   folder: apps/catalog-api/api/
   testfolder: apps/catalog-api/api-tests/
   con: scSonarCloud
+  org: integrations-training
+  projKey: integrations-training_az-400
+  projName: az-400
+
 
 pool:
   vmImage: "ubuntu-20.04"
@@ -37,10 +41,10 @@ steps:
     displayName: 'Prepare analysis configuration'
     inputs:
       SonarCloud: $(con)
-      organization: 'integrations-training'
+      organization: $(org)
       scannerMode: 'MSBuild'
-      projectKey: 'integrations-training'
-      projectName: 'az-400'
+      projectKey: $(projKey)
+      projectName: $(projName)
 
   - task: DotNetCoreCLI@2
     displayName: "Build the project - $(buildConfiguration)"
