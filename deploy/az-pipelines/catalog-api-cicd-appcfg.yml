@@ -24,7 +24,7 @@ variables:
 # assign permissions to service connection pricipal on app config service
 
 pool:
-  vmImage: windows-latest
+  vmImage: ubuntu-latest
 
 stages:
   - stage: CfgBuild
