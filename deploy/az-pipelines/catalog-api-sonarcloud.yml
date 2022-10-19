@@ -1,0 +1,74 @@
+name: "catalog-api static analysis with sonarcloud"
+
+trigger: none
+pr: 
+  paths:
+    include:
+    - apps/catalog-api/*
+
+variables:
+  dotnetSdkVersion: "6.x"
+  buildConfiguration: "Release"
+  folder: apps/catalog-api/api/
+  testfolder: apps/catalog-api/api-tests/
+  con: scSonarCloud
+  org: integrations-training
+  projKey: integrations-training_az-400
+  projName: az-400
+
+
+pool:
+  vmImage: "ubuntu-20.04"
+
+steps:
+  - task: UseDotNet@2
+    displayName: "Use .NET Core SDK $(dotnetSdkVersion)"
+    inputs:
+      version: "$(dotnetSdkVersion)"
+  
+  - task: NuGetToolInstaller@0
+    displayName: 'Use NuGet 4.4.1'
+    inputs:
+      versionSpec: 4.4.1
+
+  - task: DotNetCoreCLI@2
+    displayName: "Restore project dependencies"
+    inputs:
+      command: "restore"
+      projects: "**/*.csproj"
+
+  - task: SonarCloudPrepare@1
+    displayName: 'Prepare analysis configuration'
+    inputs:
+      SonarCloud: $(con)
+      organization: $(org)
+      scannerMode: 'MSBuild'
+      projectKey: $(projKey)
+      projectName: $(projName)
+
+  - task: DotNetCoreCLI@2
+    displayName: "Build the project - $(buildConfiguration)"
+    inputs:
+      command: "build"
+      arguments: "--no-restore --configuration $(buildConfiguration)"
+      projects: "$(folder)/*.csproj"
+
+  - task: DotNetCoreCLI@2
+    displayName: "Run unit tests - $(buildConfiguration)"
+    inputs:
+      command: "test"
+      arguments: '--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
+      publishTestResults: true
+      projects: "testfolder/*.csproj"
+
+  - task: SonarCloudAnalyze@1
+    displayName: "Run SonarCloud code analysis"
+
+  - task: SonarCloudPublish@1
+    displayName: "Publish SonarCloud quality gate results"
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+      ArtifactName: "drop"
+      publishLocation: "Container"
