@@ -37,10 +37,10 @@ steps:
     displayName: 'Prepare analysis configuration'
     inputs:
       SonarCloud: $(con)
-      organization: $(SonarOrganization)
+      organization: 'integrations-training'
       scannerMode: 'MSBuild'
-      projectKey: $(SonarProjectKey)
-      projectName: $(SonarProjectName)
+      projectKey: 'integrations-training'
+      projectName: 'az-400'
 
   # - task: SonarCloudPrepare@1
   #   displayName: "Prepare SonarCloud analysis"
