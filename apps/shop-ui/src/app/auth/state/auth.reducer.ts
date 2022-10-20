@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
-import { MsalAuthResponse } from '../auth.model';
+import { MsalAuthResponse } from '../auth-response.model';
 import { AuthActions } from './auth.actions';
 
 export const authFeatureKey = 'auth';

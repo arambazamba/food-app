@@ -23,18 +23,21 @@ import { StoreModule } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { MsalBroadcastServiceMock } from './mocks/MsalBroadcastService.mock';
 import { authFeatureKey, authReducer } from './state/auth.reducer';
+import { EffectsModule } from '@ngrx/effects';
 
 const modules = environment.authEnabled
   ? [
       CommonModule,
       HttpClientModule,
       StoreModule.forFeature(authFeatureKey, authReducer),
+      EffectsModule.forFeature([]),
       MsalModule,
     ]
   : [
       CommonModule,
       HttpClientModule,
       StoreModule.forFeature(authFeatureKey, authReducer),
+      EffectsModule.forFeature([]),
     ];
 
 const providers = environment.authEnabled
