@@ -1,11 +1,11 @@
 import { ErrorHandler, Injectable } from '@angular/core';
-import { AppInsightsService } from '../../app-insights/app-insights.service';
+import { LoggerService } from '../../app-insights/logger.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ErrHandlerService extends ErrorHandler {
-  constructor(private ai: AppInsightsService) {
+  constructor(private ai: LoggerService) {
     super();
   }
   override handleError(error: Error) {
