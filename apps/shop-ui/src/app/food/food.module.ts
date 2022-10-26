@@ -13,7 +13,7 @@ import { FoodContainerComponent } from './admin/food-container/food-container.co
 import { FoodEditComponent } from './admin/food-edit/food-edit.component';
 import { FoodListComponent } from './admin/food-list/food-list.component';
 import { FoodRoutingModule } from './food-routing.module';
-import { FoodShopContaienerComponent } from './shop/food-shop-contaiener/food-shop-contaiener.component';
+import { FoodShopContaienerComponent } from './shop/food-shop-container/food-shop-container.component';
 import { NumberPickerComponent } from './shop/number-picker/number-picker.component';
 import { ShopListComponent } from './shop/shop-list/shop-list.component';
 import { CustomurlHttpGenerator } from './state/custom-url-generator';

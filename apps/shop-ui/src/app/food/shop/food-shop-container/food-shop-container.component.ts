@@ -3,8 +3,8 @@ import { FoodEntityService } from '../../state/food-entity.service';
 
 @Component({
   selector: 'app-food-shop-contaiener',
-  templateUrl: './food-shop-contaiener.component.html',
-  styleUrls: ['./food-shop-contaiener.component.scss'],
+  templateUrl: './food-shop-container.component.html',
+  styleUrls: ['./food-shop-container.component.scss'],
 })
 export class FoodShopContaienerComponent implements OnInit {
   food = this.foodService.entities$;

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FoodContainerComponent } from './admin/food-container/food-container.component';
-import { FoodShopContaienerComponent } from './shop/food-shop-contaiener/food-shop-contaiener.component';
+import { FoodShopContaienerComponent } from './shop/food-shop-container/food-shop-container.component';
 
 const routes: Routes = [
   { path: '', component: FoodShopContaienerComponent },
