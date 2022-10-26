@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FoodContainerComponent } from './admin/food-container/food-container.component';
+import { FoodContainerComponent } from './catalog/food-container/food-container.component';
+import { CheckoutComponent } from './shop/checkout/checkout.component';
 import { FoodShopContaienerComponent } from './shop/food-shop-container/food-shop-container.component';
-import { CheckoutComponent } from './checkout/checkout.component';
 
 const routes: Routes = [
   { path: '', component: FoodShopContaienerComponent },

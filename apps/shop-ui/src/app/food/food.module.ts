@@ -9,19 +9,19 @@ import {
 } from '@ngrx/data';
 import { FoodEntityService } from '../../../dist/food-shop-ui/src/app/food/state/food-entity.service';
 import { MaterialModule } from '../material.module';
-import { FoodContainerComponent } from './admin/food-container/food-container.component';
-import { FoodEditComponent } from './admin/food-edit/food-edit.component';
-import { FoodListComponent } from './admin/food-list/food-list.component';
+import { StoreModule } from '@ngrx/store';
+import { FoodContainerComponent } from './catalog/food-container/food-container.component';
+import { FoodEditComponent } from './catalog/food-edit/food-edit.component';
+import { FoodListComponent } from './catalog/food-list/food-list.component';
+import { CheckoutComponent } from './shop/checkout/checkout.component';
 import { FoodRoutingModule } from './food-routing.module';
 import { FoodShopContaienerComponent } from './shop/food-shop-container/food-shop-container.component';
 import { NumberPickerComponent } from './shop/number-picker/number-picker.component';
-import { CustomurlHttpGenerator } from './state/custom-url-generator';
-import { entityMetadata } from './state/catalog/entity-metadata';
 import { ShopItemComponent } from './shop/shop-item/shop-item.component';
-import { StoreModule } from '@ngrx/store';
 import { cartFeatureKey, cartReducer } from './state/cart/cart.reducer';
-import { CheckoutComponent } from './checkout/checkout.component';
+import { entityMetadata } from './state/catalog/entity-metadata';
 import { FoodDataService } from './state/catalog/food-data.service';
+import { CustomurlHttpGenerator } from './state/custom-url-generator';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,7 @@ import { FoodDataService } from './state/catalog/food-data.service';
     ShopItemComponent,
     CheckoutComponent,
   ],
+
   imports: [
     CommonModule,
     FoodRoutingModule,

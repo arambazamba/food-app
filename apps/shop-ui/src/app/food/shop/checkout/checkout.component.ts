@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { CartFacade } from '../state/cart/cart.facade';
+import { CartFacade } from '../../state/cart/cart.facade';
 import { OrderItem } from './order-item.model';
 
 @Component({
