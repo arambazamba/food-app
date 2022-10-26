@@ -1,6 +1,6 @@
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-import { LoggerService } from '../app-insights/logger.service';
+import { AILoggerService } from '../log/ailogger.service';
 import * as fromMenu from './menu/menu.reducer';
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 
@@ -12,9 +12,8 @@ export interface State {
 // console.log all actions
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state, action) {
-    console.log('state', state);
-    console.log('action', action);
-    var ai = LoggerService.getInstance();
+    console.log('ngrx', state, action);
+    var ai: ApplicationInsights = AILoggerService.getInstance();
     ai.trackEvent({ name: action.type, properties: action });
     return reducer(state, action);
   };
