@@ -10,7 +10,7 @@ import { OrderItem } from './order-item.model';
 })
 export class CheckoutComponent implements OnInit {
   items = this.cart.getItems();
-  mockCheckout: FormControl = new FormControl(true);
+  mockCheckout: FormControl = new FormControl(false);
   order: OrderItem = new OrderItem();
 
   constructor(private cart: CartFacade) {}

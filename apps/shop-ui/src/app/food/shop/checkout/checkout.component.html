@@ -1,5 +1,19 @@
 <div fxLayout="column" fxLayoutGap="0.5rem">
-  <h2>Checkout</h2>
+  <mat-toolbar >
+    <span>Checkout</span
+    ><mat-slide-toggle [formControl]="mockCheckout" color="primary"
+      >Mock Checkout</mat-slide-toggle
+    >
+  </mat-toolbar>
+
+  <div fxLayout="column">
+    <mat-form-field>
+      <input matInput placeholder="Name" formControlName="name" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Address" formControlName="address" />
+    </mat-form-field>
+  </div>
   <mat-list>
     <mat-list-item *ngFor="let item of items | async">
       <mat-icon mat-list-icon>shopping_cart</mat-icon>
@@ -9,8 +23,6 @@
       <p mat-line>Total: {{ item.price * item.quantity }}</p>
     </mat-list-item>
   </mat-list>
-
-  <mat-slide-toggle [formControl]="mockCheckout" color="primary">Mock Checkout</mat-slide-toggle>
 
   <button mat-raised-button (click)="completeCheckout()" color="primary">
     Complete Checkout
