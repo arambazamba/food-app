@@ -1,18 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material.module';
-import { FooterComponent } from './footer/footer.component';
+import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { RouterModule } from '@angular/router';
 
-const comps = [
-  LoginComponent,
-  FooterComponent,
-  NavbarComponent,
-  SidebarComponent,
-];
+const comps = [LoginComponent, NavbarComponent, SidebarComponent];
 
 @NgModule({
   declarations: comps,

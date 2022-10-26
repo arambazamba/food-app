@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuFacade } from '../../state/menu/menu.facade';
 import { MsalAuthFacade } from 'src/app/auth/state/auth.facade';
+import { CartFacade } from '../../food/state/cart/cart.facade';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,7 +12,11 @@ import { MsalAuthFacade } from 'src/app/auth/state/auth.facade';
 export class SidebarComponent implements OnInit {
   user = this.auth.getUser();
 
-  constructor(public mf: MenuFacade, public auth: MsalAuthFacade) {}
+  constructor(
+    public auth: MsalAuthFacade,
+    public cart: CartFacade,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -18,5 +24,7 @@ export class SidebarComponent implements OnInit {
     this.auth.logout();
   }
 
-  doCheckout() {}
+  doCheckout() {
+    this.router.navigate(['/food/checkout']);
+  }
 }

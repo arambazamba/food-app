@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { CartItem } from '../../shop/cart-item.model';
 import { CartActions } from './cart.actions';
 import { CartState } from './cart.reducer';
+import { getItems } from './cart.selector';
 
 @Injectable({
   providedIn: 'root',
@@ -16,5 +17,9 @@ export class CartFacade {
 
   set(item: CartItem) {
     this.store.dispatch(CartActions.setitem({ item }));
+  }
+
+  getItems() {
+    return this.store.select(getItems);
   }
 }

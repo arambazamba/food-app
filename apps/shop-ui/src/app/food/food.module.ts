@@ -21,6 +21,7 @@ import { FoodDataService } from './state/food-data.service';
 import { ShopItemComponent } from './shop/shop-item/shop-item.component';
 import { StoreModule } from '@ngrx/store';
 import { cartFeatureKey, cartReducer } from './state/cart/cart.reducer';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { cartFeatureKey, cartReducer } from './state/cart/cart.reducer';
     FoodShopContaienerComponent,
     NumberPickerComponent,
     ShopItemComponent,
+    CheckoutComponent,
   ],
   imports: [
     CommonModule,
