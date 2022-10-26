@@ -3,22 +3,22 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  EntityDefinitionService,
   EntityDataService,
+  EntityDefinitionService,
   HttpUrlGenerator,
 } from '@ngrx/data';
+import { FoodEntityService } from '../../../dist/food-shop-ui/src/app/food/state/food-entity.service';
 import { MaterialModule } from '../material.module';
-import { FoodContainerComponent } from './food-container/food-container.component';
-import { FoodEditComponent } from './food-edit/food-edit.component';
-import { FoodListComponent } from './food-list/food-list.component';
+import { FoodContainerComponent } from './admin/food-container/food-container.component';
+import { FoodEditComponent } from './admin/food-edit/food-edit.component';
+import { FoodListComponent } from './admin/food-list/food-list.component';
 import { FoodRoutingModule } from './food-routing.module';
+import { FoodShopContaienerComponent } from './shop/food-shop-contaiener/food-shop-contaiener.component';
+import { NumberPickerComponent } from './shop/number-picker/number-picker.component';
+import { ShopListComponent } from './shop/shop-list/shop-list.component';
+import { CustomurlHttpGenerator } from './state/custom-url-generator';
 import { entityMetadata } from './state/entity-metadata';
 import { FoodDataService } from './state/food-data.service';
-import { FoodEntityService } from '../../../dist/food-shop-ui/src/app/food/state/food-entity.service';
-import { CustomurlHttpGenerator } from './state/custom-url-generator';
-import { FoodShopContaienerComponent } from './food-shop-contaiener/food-shop-contaiener.component';
-import { ShopListComponent } from './shop-list/shop-list.component';
-import { NumberPickerComponent } from './number-picker/number-picker.component';
 
 @NgModule({
   declarations: [

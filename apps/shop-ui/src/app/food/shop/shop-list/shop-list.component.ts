@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FoodItem } from '../food-item.model';
+import { FoodStockItem } from '../../food-stock.model';
 
 @Component({
   selector: 'app-shop-list',
@@ -7,7 +7,7 @@ import { FoodItem } from '../food-item.model';
   styleUrls: ['./shop-list.component.scss'],
 })
 export class ShopListComponent implements OnInit {
-  @Input() food: FoodItem[] | null = [];
+  @Input() food: FoodStockItem[] | null = [];
 
   constructor() {}
 

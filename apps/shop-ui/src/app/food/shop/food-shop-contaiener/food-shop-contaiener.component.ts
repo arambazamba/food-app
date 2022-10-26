@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FoodEntityService } from '../state/food-entity.service';
+import { FoodEntityService } from '../../state/food-entity.service';
 
 @Component({
   selector: 'app-food-shop-contaiener',
