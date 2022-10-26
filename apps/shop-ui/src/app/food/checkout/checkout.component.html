@@ -10,7 +10,7 @@
     </mat-list-item>
   </mat-list>
 
-  <mat-slide-toggle color="primary">Mock Pay</mat-slide-toggle>
+  <mat-slide-toggle [formControl]="mockCheckout" color="primary">Mock Checkout</mat-slide-toggle>
 
   <button mat-raised-button (click)="completeCheckout()" color="primary">
     Complete Checkout

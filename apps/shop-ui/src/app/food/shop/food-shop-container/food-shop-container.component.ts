@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FoodEntityService } from '../../state/food-entity.service';
 import { CartItem } from '../cart-item.model';
 import { CartFacade } from '../../state/cart/cart.facade';
+import { FoodEntityService } from '../../state/catalog/food-entity.service';
 
 @Component({
   selector: 'app-food-shop-contaiener',

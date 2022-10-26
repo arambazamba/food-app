@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FoodStockItem } from '../../food-stock.model';
-import { FoodEntityService } from '../../state/food-entity.service';
+import { FoodEntityService } from '../../state/catalog/food-entity.service';
 
 @Component({
   selector: 'app-food-container',

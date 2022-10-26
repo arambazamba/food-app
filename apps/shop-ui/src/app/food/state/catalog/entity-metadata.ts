@@ -1,5 +1,5 @@
 import { EntityMetadataMap, EntityDataModuleConfig } from '@ngrx/data';
-import { FoodStockItem } from '../food-stock.model';
+import { FoodStockItem } from '../../food-stock.model';
 
 export function sortByName(a: FoodStockItem, b: FoodStockItem): number {
   let comp = a.name.localeCompare(b.name);

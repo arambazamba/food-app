@@ -3,7 +3,7 @@ import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
 } from '@ngrx/data';
-import { FoodStockItem } from '../food-stock.model';
+import { FoodStockItem } from '../../food-stock.model';
 
 @Injectable({
   providedIn: 'root',

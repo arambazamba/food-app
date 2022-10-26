@@ -16,12 +16,12 @@ import { FoodRoutingModule } from './food-routing.module';
 import { FoodShopContaienerComponent } from './shop/food-shop-container/food-shop-container.component';
 import { NumberPickerComponent } from './shop/number-picker/number-picker.component';
 import { CustomurlHttpGenerator } from './state/custom-url-generator';
-import { entityMetadata } from './state/entity-metadata';
-import { FoodDataService } from './state/food-data.service';
+import { entityMetadata } from './state/catalog/entity-metadata';
 import { ShopItemComponent } from './shop/shop-item/shop-item.component';
 import { StoreModule } from '@ngrx/store';
 import { cartFeatureKey, cartReducer } from './state/cart/cart.reducer';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { FoodDataService } from './state/catalog/food-data.service';
 
 @NgModule({
   declarations: [
