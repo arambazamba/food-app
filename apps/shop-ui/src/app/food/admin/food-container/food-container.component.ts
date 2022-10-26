@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FoodStockItem } from '../../food-stock.model';
+import { FoodCatalogItem } from '../../food-catalog.model';
 import { FoodEntityService } from '../../state/catalog/food-entity.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { FoodEntityService } from '../../state/catalog/food-entity.service';
 })
 export class FoodContainerComponent implements OnInit {
   food = this.foodService.entities$;
-  selected: FoodStockItem | null = null;
+  selected: FoodCatalogItem | null = null;
 
   constructor(private foodService: FoodEntityService) {}
 
@@ -21,19 +21,19 @@ export class FoodContainerComponent implements OnInit {
     });
   }
 
-  addFood(item: FoodStockItem) {
+  addFood(item: FoodCatalogItem) {
     this.selected = item;
   }
 
-  selectFood(f: FoodStockItem) {
+  selectFood(f: FoodCatalogItem) {
     this.selected = { ...f };
   }
 
-  deleteFood(f: FoodStockItem) {
+  deleteFood(f: FoodCatalogItem) {
     this.foodService.delete(f.id);
   }
 
-  foodSaved(f: FoodStockItem) {
+  foodSaved(f: FoodCatalogItem) {
     if (f.id == 0) {
       this.foodService.add(f);
     } else {
