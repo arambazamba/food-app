@@ -4,6 +4,7 @@ import { CartItem } from '../../shop/cart-item.model';
 import { CartActions } from './cart.actions';
 import { CartState } from './cart.reducer';
 import { getItems } from './cart.selector';
+import { OrderItem } from '../../shop/checkout/order-item.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,9 @@ export class CartFacade {
 
   getItems() {
     return this.store.select(getItems);
+  }
+
+  checkout(order: OrderItem) {
+    this.store.dispatch(CartActions.checkout({ item: order }));
   }
 }

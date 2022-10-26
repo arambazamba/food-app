@@ -16,8 +16,8 @@ export class CheckoutComponent implements OnInit {
   constructor(private cart: CartFacade) {}
 
   ngOnInit(): void {
-    this.mockCheckout.valueChanges.subscribe((value) => {
-      if (value) {
+    this.mockCheckout.valueChanges.subscribe((isMock) => {
+      if (isMock) {
         this.order.name = 'John Doe';
         this.order.address = '123 Main St';
         this.order.payment = 'PayPal';
@@ -26,6 +26,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   completeCheckout() {
-    // this.order.items = this.items;
+    this.cart.checkout(this.order);
   }
 }
