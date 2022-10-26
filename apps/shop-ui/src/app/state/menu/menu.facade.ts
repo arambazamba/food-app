@@ -47,8 +47,9 @@ export class MenuFacade {
         ? 'side'
         : 'over';
 
-      this.store.dispatch(SideNavActions.setsidenavposition({ position }));
+      console.log('visible', visible);
       this.store.dispatch(SideNavActions.setsidenavvisible({ visible }));
+      this.store.dispatch(SideNavActions.setsidenavposition({ position }));
     });
   }
 

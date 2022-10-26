@@ -24,9 +24,9 @@ export const reducer = createReducer(
     sideNavEnabled: action.enabled,
     sideNavVisible: action.enabled,
   })),
-  on(SideNavActions.setsidenavvisible, (state) => ({
+  on(SideNavActions.setsidenavvisible, (state, action) => ({
     ...state,
-    sideNavVisible: !state.sideNavVisible,
+    sideNavVisible: action.visible,
   })),
   on(SideNavActions.setsidenavposition, (state, action) => ({
     ...state,
