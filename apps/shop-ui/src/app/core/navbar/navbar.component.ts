@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   menuItems: NavItem[] = [
     { title: 'Home', url: '/' },
     { title: 'Food', url: '/food' },
+    { title: 'Admin', url: '/food/admin' },
     { title: 'About', url: '/about' },
   ];
 

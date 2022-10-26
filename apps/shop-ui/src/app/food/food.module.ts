@@ -16,9 +16,10 @@ import { entityMetadata } from './state/entity-metadata';
 import { FoodDataService } from './state/food-data.service';
 import { FoodEntityService } from '../../../dist/food-shop-ui/src/app/food/state/food-entity.service';
 import { CustomurlHttpGenerator } from './state/custom-url-generator';
+import { FoodShopContaienerComponent } from './food-shop-contaiener/food-shop-contaiener.component';
 
 @NgModule({
-  declarations: [FoodContainerComponent, FoodListComponent, FoodEditComponent],
+  declarations: [FoodContainerComponent, FoodListComponent, FoodEditComponent, FoodShopContaienerComponent],
   imports: [
     CommonModule,
     FoodRoutingModule,
