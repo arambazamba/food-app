@@ -18,6 +18,7 @@ import { FoodEntityService } from '../../../dist/food-shop-ui/src/app/food/state
 import { CustomurlHttpGenerator } from './state/custom-url-generator';
 import { FoodShopContaienerComponent } from './food-shop-contaiener/food-shop-contaiener.component';
 import { ShopListComponent } from './shop-list/shop-list.component';
+import { NumberPickerComponent } from './number-picker/number-picker.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ShopListComponent } from './shop-list/shop-list.component';
     FoodEditComponent,
     FoodShopContaienerComponent,
     ShopListComponent,
+    NumberPickerComponent,
   ],
   imports: [
     CommonModule,
