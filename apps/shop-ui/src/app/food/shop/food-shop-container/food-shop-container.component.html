@@ -1,3 +1,3 @@
 <div class="box">
-    <app-shop-list [food]="food | async"></app-shop-list>
+    <app-shop-item *ngFor="let f of food | async" [food]="f" (amountChange)="handleChange($event)" ></app-shop-item>
 </div>
