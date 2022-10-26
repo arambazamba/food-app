@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FoodItem } from '../food-item.model';
-import { FoodService } from '../food.service';
+import { FoodEntityService } from '../state/food-entity.service';
 
 @Component({
   selector: 'app-food-container',
@@ -8,13 +8,13 @@ import { FoodService } from '../food.service';
   styleUrls: ['./food-container.component.scss'],
 })
 export class FoodContainerComponent implements OnInit {
-  food: FoodItem[] = [];
+  food = this.foodService.entities$;
   selected: FoodItem | null = null;
 
-  constructor(private fs: FoodService) {}
+  constructor(private foodService: FoodEntityService) {}
 
   ngOnInit() {
-    this.fs.getFood().subscribe((data) => (this.food = data));
+    this.foodService.getAll();
   }
 
   addFood(item: FoodItem) {
@@ -26,28 +26,14 @@ export class FoodContainerComponent implements OnInit {
   }
 
   deleteFood(f: FoodItem) {
-    this.fs.deleteFood(f.id).subscribe(() => {
-      let deleted = this.food.filter((item) => item.id != f.id);
-      this.food = [...deleted];
-      this.selected = null;
-    });
+    this.foodService.delete(f.id);
   }
 
   foodSaved(f: FoodItem) {
-    if (f.id > 0) {
-      this.fs.updateFood(f).subscribe((result) => {
-        let existing = this.food.find((f) => f.id == result.id);
-        if (existing) {
-          Object.assign(existing, result);
-          this.food = [...this.food];
-        }
-      });
+    if (f.id == 0) {
+      this.foodService.add(f);
     } else {
-      this.fs.addFood(f).subscribe((result) => {
-        this.food.push(result);
-        this.food = [...this.food];
-      });
+      this.foodService.update(f);
     }
-    this.selected = null;
   }
 }

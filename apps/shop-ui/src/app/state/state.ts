@@ -1,5 +1,5 @@
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
-import { routerReducer, RouterReducerState } from '@ngrx/router-store';
+// import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { AILoggerService } from '../log/ailogger.service';
 import * as fromMenu from './menu/menu.reducer';
