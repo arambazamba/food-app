@@ -18,22 +18,27 @@ export const cartReducer = createReducer(
     ...state,
     items: [],
   })),
-  on(CartActions.setitem, (state, action) => {
-    let cart: CartItem[] = [...state.items];
-    if (cart.length == 0) {
-      cart.push(action.item);
-    } else {
-      let idx = cart.findIndex((item) => item.id == action.item.id);
-      if (idx > -1) {
-        if (action.item.quantity == 0) {
-          cart = cart.filter((item) => item.id != action.item.id);
-        } else {
-          cart[idx] = { ...action.item };
-        }
-      } else {
-        cart.push(action.item);
-      }
-    }
+  on(CartActions.updatecart, (state, action) => {
+    let cart: CartItem[] = updateCart(state.items, action.item);
     return { ...state, items: [...cart] };
   })
 );
+
+function updateCart(state: CartItem[], item: CartItem): CartItem[] {
+  let cart: CartItem[] = [...state];
+  if (cart.length == 0) {
+    cart.push(item);
+  } else {
+    let idx = cart.findIndex((i) => i.id == item.id);
+    if (idx > -1) {
+      if (item.quantity == 0) {
+        cart = cart.filter((i) => i.id != item.id);
+      } else {
+        cart[idx] = { ...item };
+      }
+    } else {
+      cart.push(item);
+    }
+  }
+  return cart;
+}

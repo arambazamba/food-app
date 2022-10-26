@@ -16,7 +16,7 @@ export class CartFacade {
   }
 
   set(item: CartItem) {
-    this.store.dispatch(CartActions.setitem({ item }));
+    this.store.dispatch(CartActions.updatecart({ item }));
   }
 
   getItems() {
