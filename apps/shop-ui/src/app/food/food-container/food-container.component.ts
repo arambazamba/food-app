@@ -14,7 +14,11 @@ export class FoodContainerComponent implements OnInit {
   constructor(private foodService: FoodEntityService) {}
 
   ngOnInit() {
-    this.foodService.getAll();
+    this.foodService.loaded$.subscribe((loaded) => {
+      if (!loaded) {
+        this.foodService.getAll();
+      }
+    });
   }
 
   addFood(item: FoodItem) {
