@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MsalRedirectComponent } from '@azure/msal-angular';
 import { EntityDataModule } from '@ngrx/data';
 import { EffectsModule } from '@ngrx/effects';
+import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
@@ -46,6 +47,9 @@ const bootstrap = environment.authEnabled
         strictStateImmutability: true,
         strictActionImmutability: true,
       },
+    }),
+    StoreRouterConnectingModule.forRoot({
+      routerState: RouterState.Full,
     }),
     EffectsModule.forRoot([]),
     EntityDataModule.forRoot({}),

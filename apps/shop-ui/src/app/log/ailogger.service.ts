@@ -6,34 +6,39 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class LoggerService implements OnDestroy {
+export class AILoggerService implements OnDestroy {
   private routerSubscription!: Subscription;
 
-  private static appInsights: ApplicationInsights;
+  private static logger: ApplicationInsights;
 
   static getInstance(): ApplicationInsights {
     this.initAppInsights();
-    return this.appInsights;
+    return this.logger;
   }
 
   constructor() {
-    LoggerService.initAppInsights();
+    AILoggerService.initAppInsights();
   }
 
   static initAppInsights() {
     if (environment.azure.applicationInsights != '') {
-      this.appInsights = new ApplicationInsights({
+      this.logger = new ApplicationInsights({
         config: {
           instrumentationKey: environment.azure.applicationInsights,
           enableAutoRouteTracking: true,
         },
       });
-      this.appInsights.loadAppInsights();
+      this.logger.loadAppInsights();
+      this.logger.trackEvent({ name: 'app instance started' });
     }
   }
 
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
+  }
+
+  logEvent(name: string, properties?: { [key: string]: any }) {
+    AILoggerService.getInstance().trackEvent({ name: name }, properties);
   }
 
   // setUserId(userId: string) {
@@ -45,8 +50,4 @@ export class LoggerService implements OnDestroy {
   // logPageView(name?: string, uri?: string) {
   //   .trackPageView({ name, uri });
   // }
-
-  logEvent(name: string, properties?: { [key: string]: any }) {
-    LoggerService.getInstance().trackEvent({ name: name }, properties);
-  }
 }

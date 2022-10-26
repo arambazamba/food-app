@@ -3,7 +3,7 @@ export const environment = {
   authEnabled: false,
   api: 'https://localhost:5001/',
   azure: {
-    applicationInsights: '',
+    applicationInsights: '0fb02d37-e5be-4ad1-846e-f5a7b378a200',
     signalREndpoint: '',
     appReg: {
       clientId: 'd23642f7-9ccf-4165-92e7-919f625a5acc',
