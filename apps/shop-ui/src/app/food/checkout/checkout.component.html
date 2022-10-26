@@ -1,15 +1,18 @@
-<h2>Checkout</h2>
+<div fxLayout="column" fxLayoutGap="0.5rem">
+  <h2>Checkout</h2>
+  <mat-list>
+    <mat-list-item *ngFor="let item of items | async">
+      <mat-icon mat-list-icon>shopping_cart</mat-icon>
+      <h4 mat-line>{{ item.name }}</h4>
+      <p mat-line>Price: {{ item.price }}</p>
+      <p mat-line>Quantity: {{ item.quantity }}</p>
+      <p mat-line>Total: {{ item.price * item.quantity }}</p>
+    </mat-list-item>
+  </mat-list>
 
-<mat-list>
-  <mat-list-item *ngFor="let item of items | async">
-    <mat-icon mat-list-icon>shopping_cart</mat-icon>
-    <h4 mat-line>{{ item.name }}</h4>
-    <p mat-line>Price: {{ item.price }}</p>
-    <p mat-line>Quantity: {{ item.quantity }}</p>
-    <p mat-line>Total: {{ item.price * item.quantity }}</p>
-  </mat-list-item>
-</mat-list>
+  <mat-slide-toggle color="primary">Mock Pay</mat-slide-toggle>
 
-<mat-slide-toggle>Mock Pay</mat-slide-toggle>
-
-<button mat-raised-button (click)="completeCheckout()">Complete Checkout</button>
+  <button mat-raised-button (click)="completeCheckout()" color="primary">
+    Complete Checkout
+  </button>
+</div>
