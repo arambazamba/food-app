@@ -17,6 +17,6 @@
     </div>
   </mat-card-content>
   <mat-card-actions align="end">
-    <app-number-picker></app-number-picker>
+    <app-number-picker (amountChanged)="handleAmountChange($event)"></app-number-picker>
   </mat-card-actions>
 </mat-card>

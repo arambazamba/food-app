@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -30,6 +30,7 @@ export class NumberPickerComponent implements ControlValueAccessor, Validator {
 
   @Input() increment: number = 1;
   @Input() label: string = '';
+  @Output() amountChanged: EventEmitter<number> = new EventEmitter<number>();
 
   onChange = (quantity: number) => {};
 
@@ -44,14 +45,16 @@ export class NumberPickerComponent implements ControlValueAccessor, Validator {
     if (!this.disabled) {
       this.quantity += this.increment;
       this.onChange(this.quantity);
+      this.amountChanged.emit(this.quantity);
     }
   }
 
   onRemove() {
     this.markAsTouched();
-    if (!this.disabled) {
+    if (!this.disabled && this.quantity > 0) {
       this.quantity -= this.increment;
       this.onChange(this.quantity);
+      this.amountChanged.emit(this.quantity);
     }
   }
 

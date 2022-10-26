@@ -57,16 +57,8 @@ export class MenuFacade {
   }
 
   adjustSidenavToScreen(mq: string): boolean {
-    switch (mq) {
-      case 'xs':
-        return false;
-      case 'sm':
-        return false;
-      case 'md':
-        return false;
-      default:
-        return true;
-    }
+    console.log(mq);
+    return mq == 'xs' ? false : true;
   }
 
   toggleMenuVisibility() {

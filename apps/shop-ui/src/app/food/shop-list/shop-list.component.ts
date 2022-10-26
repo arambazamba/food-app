@@ -12,4 +12,8 @@ export class ShopListComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  handleAmountChange(amount: number) {
+    console.log('amount changed', amount);
+  }
 }
