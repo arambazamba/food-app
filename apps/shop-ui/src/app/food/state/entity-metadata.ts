@@ -13,9 +13,9 @@ export const entityMetadata: EntityMetadataMap = {
   },
 };
 
-export const pluralNames = {};
+// export const pluralNames = {};
 
 export const entityConfig: EntityDataModuleConfig = {
   entityMetadata,
-  pluralNames,
+  // pluralNames,
 };

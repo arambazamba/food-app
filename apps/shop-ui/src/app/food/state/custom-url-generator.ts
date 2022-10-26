@@ -18,8 +18,8 @@ export class CustomurlHttpGenerator extends DefaultHttpUrlGenerator {
     let resourceURLs = this.knownHttpResourceUrls[entityName];
     if (entityName == 'Food') {
       resourceURLs = {
-        collectionResourceUrl: 'http://localhost:5001/food/',
-        entityResourceUrl: 'http://localhost:5001/food/',
+        collectionResourceUrl: 'https://localhost:5001/food/',
+        entityResourceUrl: 'https://localhost:5001/food/',
       };
       this.registerHttpResourceUrls({ [entityName]: resourceURLs });
     }

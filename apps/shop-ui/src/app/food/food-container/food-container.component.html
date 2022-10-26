@@ -1,6 +1,6 @@
 <div>
   <app-food-list
-    [food]="food"
+    [food]="food | async"
     (foodSelected)="selectFood($event)"
     (foodDeleted)="deleteFood($event)"
     (foodAdding)="addFood($event)"

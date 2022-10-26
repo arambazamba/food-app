@@ -18,7 +18,7 @@ import { FoodItem } from '../food-item.model';
 export class FoodListComponent implements OnInit, OnChanges {
   constructor() {}
 
-  @Input() food: FoodItem[] = [];
+  @Input() food: FoodItem[] | null = [];
   @Output() foodSelected: EventEmitter<FoodItem> = new EventEmitter<FoodItem>();
   @Output()
   foodDeleted: EventEmitter<FoodItem> = new EventEmitter<FoodItem>();
