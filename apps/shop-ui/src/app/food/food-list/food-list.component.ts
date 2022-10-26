@@ -16,15 +16,12 @@ import { FoodItem } from '../food-item.model';
   styleUrls: ['./food-list.component.scss'],
 })
 export class FoodListComponent implements OnInit, OnChanges {
-  constructor() {}
-
   @Input() food: FoodItem[] | null = [];
   @Output() foodSelected: EventEmitter<FoodItem> = new EventEmitter<FoodItem>();
   @Output()
   foodDeleted: EventEmitter<FoodItem> = new EventEmitter<FoodItem>();
   @Output()
   foodAdding: EventEmitter<FoodItem> = new EventEmitter<FoodItem>();
-
   displayedColumns: string[] = [
     'id',
     'name',
@@ -34,6 +31,8 @@ export class FoodListComponent implements OnInit, OnChanges {
     'editItem',
   ];
   dataSource = new MatTableDataSource([]);
+
+  constructor() {}
 
   ngOnInit() {}
 
