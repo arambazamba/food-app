@@ -7,7 +7,7 @@ import { RouterStateUrl } from './router/router.reducer';
 
 export interface State {
   menu: fromMenu.MenuState;
-  routerReducer: RouterReducerState<RouterStateUrl>;
+  // routerReducer: RouterReducerState<RouterStateUrl>;
   // food: FoodState; -> from lazy loaded module
 }
 
@@ -23,7 +23,7 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
 
 export const reducers: ActionReducerMap<State> = {
   menu: fromMenu.reducer,
-  routerReducer: routerReducer,
+  // routerReducer: routerReducer,
   // food: foodReducer; -> from lazy loaded module
 };
 
