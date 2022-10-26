@@ -29,6 +29,7 @@
     "@ngrx/data": "^14.3.1",
     "@ngrx/effects": "^14.3.1",
     "@ngrx/entity": "^14.3.1",
+    "@ngrx/router-store": "^14.3.2",
     "@ngrx/schematics": "^14.3.1",
     "@ngrx/store": "^14.3.1",
     "rxjs": "~7.5.0",
