@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FoodItem } from '../food-item.model';
+import { FoodStockItem } from '../../food-stock.model';
 
 @Component({
   selector: 'app-food-edit',
@@ -14,8 +14,8 @@ import { FoodItem } from '../food-item.model';
   styleUrls: ['./food-edit.component.scss'],
 })
 export class FoodEditComponent {
-  @Input() food: FoodItem = new FoodItem();
-  @Output() saveFood: EventEmitter<FoodItem> = new EventEmitter();
+  @Input() food: FoodStockItem = new FoodStockItem();
+  @Output() saveFood: EventEmitter<FoodStockItem> = new EventEmitter();
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {

@@ -3,12 +3,12 @@ import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
 } from '@ngrx/data';
-import { FoodItem } from '../food-item.model';
+import { FoodStockItem } from '../food-stock.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FoodEntityService extends EntityCollectionServiceBase<FoodItem> {
+export class FoodEntityService extends EntityCollectionServiceBase<FoodStockItem> {
   constructor(factory: EntityCollectionServiceElementsFactory) {
     super('Food', factory);
   }

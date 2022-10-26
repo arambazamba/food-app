@@ -21,5 +21,6 @@ export const environment = {
   },
   features: {
     reactive: false,
+    logging: false,
   },
 };

@@ -47,8 +47,9 @@ export class MenuFacade {
         ? 'side'
         : 'over';
 
-      this.store.dispatch(SideNavActions.setsidenavposition({ position }));
+      console.log('visible', visible);
       this.store.dispatch(SideNavActions.setsidenavvisible({ visible }));
+      this.store.dispatch(SideNavActions.setsidenavposition({ position }));
     });
   }
 
@@ -57,16 +58,8 @@ export class MenuFacade {
   }
 
   adjustSidenavToScreen(mq: string): boolean {
-    switch (mq) {
-      case 'xs':
-        return false;
-      case 'sm':
-        return false;
-      case 'md':
-        return false;
-      default:
-        return true;
-    }
+    console.log(mq);
+    return mq == 'xs' ? false : true;
   }
 
   toggleMenuVisibility() {
