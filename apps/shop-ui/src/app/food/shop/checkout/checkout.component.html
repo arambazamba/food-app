@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutGap="0.5rem">
-  <mat-toolbar >
+  <mat-toolbar>
     <span>Checkout</span
     ><mat-slide-toggle [formControl]="mockCheckout" color="primary"
       >Mock Checkout</mat-slide-toggle
@@ -18,9 +18,11 @@
     <mat-list-item *ngFor="let item of items | async">
       <mat-icon mat-list-icon>shopping_cart</mat-icon>
       <h4 mat-line>{{ item.name }}</h4>
-      <p mat-line>Price: {{ item.price }}</p>
-      <p mat-line>Quantity: {{ item.quantity }}</p>
-      <p mat-line>Total: {{ item.price * item.quantity }}</p>
+      <div fxLayout="row">
+        <div>Price: {{ item.price }}</div>
+        <div>Quantity: {{ item.quantity }}</div>
+        <div>Total: {{ item.price * item.quantity }}</div>
+      </div>
     </mat-list-item>
   </mat-list>
 
