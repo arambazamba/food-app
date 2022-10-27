@@ -1,4 +1,4 @@
-export class FoodStockItem {
+export class CatalogItem {
   id: number = 0;
   name: string = '';
   price: number = 0;

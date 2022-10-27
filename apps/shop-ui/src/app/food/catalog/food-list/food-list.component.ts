@@ -8,7 +8,7 @@ import {
   OnChanges,
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { FoodStockItem } from '../../food-stock.model';
+import { CatalogItem } from '../../food-catalog.model';
 
 @Component({
   selector: 'app-food-list',
@@ -16,13 +16,13 @@ import { FoodStockItem } from '../../food-stock.model';
   styleUrls: ['./food-list.component.scss'],
 })
 export class FoodListComponent implements OnInit, OnChanges {
-  @Input() food: FoodStockItem[] | null = [];
-  @Output() foodSelected: EventEmitter<FoodStockItem> =
-    new EventEmitter<FoodStockItem>();
+  @Input() food: CatalogItem[] | null = [];
+  @Output() foodSelected: EventEmitter<CatalogItem> =
+    new EventEmitter<CatalogItem>();
   @Output()
-  foodDeleted: EventEmitter<FoodStockItem> = new EventEmitter<FoodStockItem>();
+  foodDeleted: EventEmitter<CatalogItem> = new EventEmitter<CatalogItem>();
   @Output()
-  foodAdding: EventEmitter<FoodStockItem> = new EventEmitter<FoodStockItem>();
+  foodAdding: EventEmitter<CatalogItem> = new EventEmitter<CatalogItem>();
   displayedColumns: string[] = [
     'id',
     'name',
@@ -45,15 +45,15 @@ export class FoodListComponent implements OnInit, OnChanges {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  selectFood(p: FoodStockItem) {
+  selectFood(p: CatalogItem) {
     this.foodSelected.emit(p);
   }
 
-  deleteFood(item: FoodStockItem) {
+  deleteFood(item: CatalogItem) {
     this.foodDeleted.emit(item);
   }
 
   addFood() {
-    this.foodAdding.emit(new FoodStockItem());
+    this.foodAdding.emit(new CatalogItem());
   }
 }

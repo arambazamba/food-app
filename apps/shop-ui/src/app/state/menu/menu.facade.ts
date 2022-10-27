@@ -47,7 +47,6 @@ export class MenuFacade {
         ? 'side'
         : 'over';
 
-      console.log('visible', visible);
       this.store.dispatch(SideNavActions.setsidenavvisible({ visible }));
       this.store.dispatch(SideNavActions.setsidenavposition({ position }));
     });
@@ -58,7 +57,6 @@ export class MenuFacade {
   }
 
   adjustSidenavToScreen(mq: string): boolean {
-    console.log(mq);
     return mq == 'xs' ? false : true;
   }
 

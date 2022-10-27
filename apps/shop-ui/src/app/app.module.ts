@@ -16,11 +16,11 @@ import { AboutComponent } from './about/about.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MsalAuthUtilModule } from './auth/msal-auth-util.module';
-import { CoreModule } from './core/core.module';
-import { ErrHandlerService } from './core/err-handler/err-handler.service';
+import { ErrHandlerService } from './common/err-handler/err-handler.service';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material.module';
 import { metaReducers, reducers } from './state/state';
+import { MenusModule } from './menus/menus.module';
 
 registerLocaleData(localeDe);
 
@@ -31,7 +31,6 @@ const bootstrap = environment.authEnabled
 @NgModule({
   declarations: [AppComponent, AboutComponent, HomeComponent],
   imports: [
-    CoreModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -51,6 +50,7 @@ const bootstrap = environment.authEnabled
     EntityDataModule.forRoot({}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     MsalAuthUtilModule,
+    MenusModule,
   ],
   providers: [
     { provide: ErrorHandler, useClass: ErrHandlerService },

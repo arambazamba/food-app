@@ -89,16 +89,6 @@ namespace FoodApi
             return Ok();
         }
 
-        // http://localhost:PORT/food/env
-        [HttpGet()]
-        [Route("env")]
-        public object GetConfig()
-        {
-            verfiyScope();
-            var val = Environment.GetEnvironmentVariables();
-            return val;
-        }
-
         //TODO: Refactor to filter
         [NonAction]
         public void verfiyScope()

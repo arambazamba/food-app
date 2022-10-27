@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartItem } from '../cart-item.model';
-import { FoodStockItem } from '../../food-stock.model';
+import { CatalogItem } from '../../food-catalog.model';
 
 @Component({
   selector: 'app-shop-item',
@@ -8,7 +8,7 @@ import { FoodStockItem } from '../../food-stock.model';
   styleUrls: ['./shop-item.component.scss'],
 })
 export class ShopItemComponent implements OnInit {
-  @Input() food: FoodStockItem = new FoodStockItem();
+  @Input() food: CatalogItem = new CatalogItem();
   @Output() amountChange: EventEmitter<CartItem> = new EventEmitter<CartItem>();
 
   constructor() {}

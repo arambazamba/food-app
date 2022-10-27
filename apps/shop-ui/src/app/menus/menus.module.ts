@@ -2,15 +2,15 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material.module';
-import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
-const comps = [LoginComponent, NavbarComponent, SidebarComponent];
+const comps = [NavbarComponent, SidebarComponent];
 
 @NgModule({
   declarations: comps,
   exports: comps,
-  imports: [CommonModule, MaterialModule, RouterModule],
+  imports: [CommonModule, MaterialModule, RouterModule, ReactiveFormsModule],
 })
-export class CoreModule {}
+export class MenusModule {}
