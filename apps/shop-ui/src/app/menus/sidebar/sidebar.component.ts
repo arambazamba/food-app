@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuFacade } from '../../state/menu/menu.facade';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MsalAuthFacade } from 'src/app/auth/state/auth.facade';
 import { CartFacade } from '../../food/state/cart/cart.facade';
-import { Router } from '@angular/router';
+import { getPersist } from '../../food/state/cart/cart.selector';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,6 +12,9 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
   user = this.auth.getUser();
+  ct = this.cart.getItemsCount();
+  total = this.cart.getSumTotal();
+  fcSaveCart = new FormControl(getPersist);
 
   constructor(
     public auth: MsalAuthFacade,
@@ -18,7 +22,11 @@ export class SidebarComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fcSaveCart.valueChanges.subscribe((isPersisted) => {
+      this.cart.togglePersist();
+    });
+  }
 
   logout() {
     this.auth.logout();

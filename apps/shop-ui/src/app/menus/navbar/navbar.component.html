@@ -4,7 +4,7 @@
       <mat-icon color="accent" class="clickable">menu</mat-icon>
     </div>
     <div
-        *ngFor="let mi of menuItems "
+        *ngFor="let mi of menuItems | async"
         routerLink="{{ '/' + mi.url }}"
         routerLinkActive="navLink-active"
         [routerLinkActiveOptions]="{ exact: true }"

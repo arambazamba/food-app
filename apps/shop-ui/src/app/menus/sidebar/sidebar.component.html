@@ -1,11 +1,23 @@
-<mat-toolbar color="primary">
-  Actions
-</mat-toolbar>
+<mat-toolbar color="primary"> Actions </mat-toolbar>
 
 <button mat-raised-button (click)="logout()">
   <mat-icon>logout</mat-icon><span>Logout</span>
 </button>
 
-<button mat-raised-button (click)="doCheckout()" *ngIf="cart.getItems() | async as arritems" [disabled]="arritems.length==0">
-  <mat-icon>shopping_cart_checkout</mat-icon><span>Checkout</span>
-</button>
+<ng-container *ngIf="this.cart.getItems() | async as items">
+  <button
+    mat-raised-button
+    (click)="doCheckout()"
+    [disabled]="items.length == 0"
+  >
+    <mat-icon>shopping_cart_checkout</mat-icon><span>Checkout</span>
+  </button>
+
+  <div class="info">
+    <h3>{{ ct | async }} items in cart</h3>
+    <h3>Sum Total: {{ total | async | number: '2.2-2' }} €</h3>
+    <mat-slide-toggle [formControl]="fcSaveCart" color="accent"
+      >Keep cart
+    </mat-slide-toggle>
+  </div>
+</ng-container>

@@ -6,14 +6,20 @@ export const cartFeatureKey = 'cart';
 
 export interface CartState {
   items: CartItem[];
+  persist: boolean;
 }
 
 const initialState: CartState = {
   items: [],
+  persist: true,
 };
 
 export const cartReducer = createReducer(
   initialState,
+  on(CartActions.toogglepersist, (state) => ({
+    ...state,
+    persist: !state.persist,
+  })),
   on(CartActions.clear, (state) => ({
     ...state,
     items: [],

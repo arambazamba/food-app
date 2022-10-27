@@ -22,6 +22,9 @@ export class FoodShopContaienerComponent implements OnInit {
         this.foodService.getAll();
       }
     });
+    this.cart.getItems().subscribe((items) => {
+      console.log('items', items);
+    });
   }
 
   handleChange(f: CartItem) {

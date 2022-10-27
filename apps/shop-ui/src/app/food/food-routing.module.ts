@@ -7,7 +7,7 @@ import { FoodShopContaienerComponent } from './shop/shop-container/food-shop-con
 const routes: Routes = [
   { path: '', component: FoodShopContaienerComponent },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'admin', component: FoodContainerComponent },
+  { path: 'catalog', component: FoodContainerComponent },
 ];
 
 @NgModule({

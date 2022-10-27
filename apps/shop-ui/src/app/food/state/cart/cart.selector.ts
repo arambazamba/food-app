@@ -7,3 +7,8 @@ export const getItems = createSelector(
   getCartState,
   (state: CartState) => state.items
 );
+
+export const getPersist = createSelector(
+  getCartState,
+  (state: CartState) => state.persist
+);
