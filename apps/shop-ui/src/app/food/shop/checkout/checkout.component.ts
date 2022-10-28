@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CartFacade } from '../../state/cart/cart.facade';
 import { OrderItem } from './order-item.model';
 
@@ -10,17 +10,29 @@ import { OrderItem } from './order-item.model';
 })
 export class CheckoutComponent implements OnInit {
   items = this.cart.getItems();
-  mockCheckout: FormControl = new FormControl(false);
   order: OrderItem = new OrderItem();
+  mockCheckout: FormControl = new FormControl(false);
 
-  constructor(private cart: CartFacade) {}
+  checkoutForm = this.fb.group({
+    name: [this.order.name, { validators: [Validators.required] }],
+    email: [
+      this.order.email,
+      { validators: [Validators.email, Validators.required] },
+    ],
+    address: [this.order.address, { validators: [Validators.required] }],
+    payment: [this.order.payment, { validators: [Validators.required] }],
+  });
+
+  constructor(private cart: CartFacade, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.mockCheckout.valueChanges.subscribe((isMock) => {
       if (isMock) {
         this.order.name = 'John Doe';
+        this.order.email = 'johne@doe.com';
         this.order.address = '123 Main St';
-        this.order.payment = 'PayPal';
+        this.order.payment = 'PayPal, abcd...';
+        this.checkoutForm.patchValue(this.order);
       }
     });
   }
