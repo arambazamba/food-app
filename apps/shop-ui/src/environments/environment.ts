@@ -23,4 +23,5 @@ export const environment = {
     reactive: false,
     logging: false,
   },
+  testuser: 'alexander.pajer@integrations.at',
 };
