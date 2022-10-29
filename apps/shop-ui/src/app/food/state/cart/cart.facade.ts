@@ -5,7 +5,7 @@ import { CartActions } from './cart.actions';
 import { CartState } from './cart.reducer';
 import { getItems, getPersist } from './cart.selector';
 import { OrderItem } from '../../shop/checkout/order-item.model';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, tap, combineLatestWith } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,7 @@ export class CartFacade {
 
   clear() {
     this.store.dispatch(CartActions.clear());
+    this.store.dispatch(CartActions.clearstorage());
   }
 
   set(item: CartItem) {
@@ -22,7 +23,14 @@ export class CartFacade {
   }
 
   togglePersist() {
-    this.store.dispatch(CartActions.toogglepersist());
+    let persitOps = this.store.select(getPersist).pipe(
+      combineLatestWith(this.store.select(getItems)),
+      map(([persist, items]) => {
+        return persist
+          ? CartActions.savetostorage({ cart: items })
+          : CartActions.clearstorage();
+      })
+    );
   }
 
   getPersist() {

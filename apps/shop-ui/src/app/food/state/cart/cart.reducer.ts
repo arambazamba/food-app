@@ -11,7 +11,7 @@ export interface CartState {
 
 const initialState: CartState = {
   items: [],
-  persist: true,
+  persist: false,
 };
 
 export const cartReducer = createReducer(
