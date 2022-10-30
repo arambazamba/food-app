@@ -27,8 +27,8 @@
           <h4 mat-line>{{ item.name }}</h4>
           <div class="info">
             <div>Quantity: {{ item.quantity }}</div>
-            <div>Price: {{ item.price }}</div>
-            <div>Total: {{ item.price * item.quantity }}</div>
+            <div>Price: {{ item.price | toEuro}}</div>
+            <div>Total: {{( item.price * item.quantity)| toEuro }}</div>
           </div>
         </mat-list-item>
         <mat-list-item class="sum">

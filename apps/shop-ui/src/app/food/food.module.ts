@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, Inject } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -11,6 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { FoodEntityService } from '../../../dist/food-shop-ui/src/app/food/state/food-entity.service';
 import { MaterialModule } from '../material.module';
+import { UtilsModule } from '../utils/utils.module';
 import { FoodContainerComponent } from './catalog/catalog-container/food-container.component';
 import { FoodEditComponent } from './catalog/food-edit/food-edit.component';
 import { FoodListComponent } from './catalog/food-list/food-list.component';
@@ -24,7 +25,6 @@ import { cartFeatureKey, cartReducer } from './state/cart/cart.reducer';
 import { entityMetadata } from './state/catalog/entity-metadata';
 import { FoodDataService } from './state/catalog/food-data.service';
 import { CustomurlHttpGenerator } from './state/custom-url-generator';
-import { CartFacade } from './state/cart/cart.facade';
 
 @NgModule({
   declarations: [
@@ -44,6 +44,7 @@ import { CartFacade } from './state/cart/cart.facade';
     ReactiveFormsModule,
     FormsModule,
     FlexLayoutModule,
+    UtilsModule,
     StoreModule.forFeature(cartFeatureKey, cartReducer),
     EffectsModule.forFeature([CartEffects]),
   ],
