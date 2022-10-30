@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, Inject } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -24,6 +24,7 @@ import { cartFeatureKey, cartReducer } from './state/cart/cart.reducer';
 import { entityMetadata } from './state/catalog/entity-metadata';
 import { FoodDataService } from './state/catalog/food-data.service';
 import { CustomurlHttpGenerator } from './state/custom-url-generator';
+import { CartFacade } from './state/cart/cart.facade';
 
 @NgModule({
   declarations: [

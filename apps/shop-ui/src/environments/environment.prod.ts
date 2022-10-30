@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  title: 'Passion for Food!',
   authEnabled: false,
   api: (<any>window)['env'].api,
   azure: {

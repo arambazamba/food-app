@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { map, startWith } from 'rxjs/operators';
 import { CartItem } from '../../shop/cart-item.model';
+import { OrderItem } from '../../shop/checkout/order-item.model';
 import { CartActions } from './cart.actions';
 import { CartState } from './cart.reducer';
 import { getItems, getPersist } from './cart.selector';
-import { OrderItem } from '../../shop/checkout/order-item.model';
-import { map, startWith, tap, combineLatestWith } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -25,10 +25,6 @@ export class CartFacade {
   togglePersist(persist: boolean) {
     if (!persist) {
       this.store.dispatch(CartActions.clearstorage());
-    } else {
-      this.store.select(getItems).subscribe((items) => {
-        this.store.dispatch(CartActions.savetostorage({ cart: items }));
-      });
     }
   }
 
@@ -62,5 +58,13 @@ export class CartFacade {
 
   checkout(order: OrderItem) {
     this.store.dispatch(CartActions.checkout({ item: order }));
+  }
+
+  saveToStorage(cart: CartItem[]) {
+    this.store.dispatch(CartActions.savetostorage({ cart }));
+  }
+
+  loadFromStorage() {
+    this.store.dispatch(CartActions.loadfromstorage());
   }
 }

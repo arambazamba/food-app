@@ -13,7 +13,7 @@ export const CartActions = createActionGroup({
     loadFromStorageSuccess: props<{ items: CartItem[] | null }>(),
     clearStorage: emptyProps(),
     saveToStorage: props<{ cart: CartItem[] }>(),
-    cartSuccess: props<{ status: boolean }>(),
-    cartFailure: props<{ err: Error }>(),
+    storageActionSuccess: props<{ status: boolean }>(),
+    storageActionFailure: props<{ err: Error }>(),
   },
 });

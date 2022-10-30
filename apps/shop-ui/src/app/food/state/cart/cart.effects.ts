@@ -14,8 +14,10 @@ export class CartEffects {
       ofType(CartActions.clearstorage),
       mergeMap(() =>
         this.service.clearStorage().pipe(
-          map((resp: boolean) => CartActions.cartsuccess({ status: resp })),
-          catchError((err) => of(CartActions.cartfailure({ err })))
+          map((resp: boolean) =>
+            CartActions.storageactionsuccess({ status: resp })
+          ),
+          catchError((err) => of(CartActions.storageactionfailure({ err })))
         )
       )
     )
@@ -29,7 +31,7 @@ export class CartEffects {
           map((resp: CartItem[] | null) =>
             CartActions.loadfromstoragesuccess({ items: resp })
           ),
-          catchError((err) => of(CartActions.cartfailure({ err })))
+          catchError((err) => of(CartActions.storageactionfailure({ err })))
         )
       )
     )
@@ -40,8 +42,10 @@ export class CartEffects {
       ofType(CartActions.savetostorage),
       mergeMap((action) =>
         this.service.saveToStorage(action.cart).pipe(
-          map((resp: boolean) => CartActions.cartsuccess({ status: resp })),
-          catchError((err) => of(CartActions.cartfailure({ err })))
+          map((resp: boolean) =>
+            CartActions.storageactionsuccess({ status: resp })
+          ),
+          catchError((err) => of(CartActions.storageactionfailure({ err })))
         )
       )
     )

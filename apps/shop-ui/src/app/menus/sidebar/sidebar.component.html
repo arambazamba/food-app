@@ -16,7 +16,7 @@
   <div class="info">
     <h3>{{ ct | async }} items in cart</h3>
     <h3>Sum Total: {{ total | async | number: '2.2-2' }} €</h3>
-    <mat-slide-toggle [formControl]="fcSaveCart" color="accent"
+    <mat-slide-toggle *ngIf="persistCart" [formControl]="fcSaveCart" color="accent"
       >Keep cart
     </mat-slide-toggle>
   </div>

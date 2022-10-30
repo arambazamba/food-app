@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDrawerMode } from '@angular/material/sidenav';
+import { environment } from 'src/environments/environment';
 import { MsalAuthFacade } from './auth/state/auth.facade';
 import { MenuFacade } from './state/menu/menu.facade';
 
@@ -9,7 +10,7 @@ import { MenuFacade } from './state/menu/menu.facade';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'Passion for Food!';
+  title = environment.title;
   authenticated: boolean = false;
   sidenavMode: MatDrawerMode = 'side';
   sidenavVisible = this.mf.sideNavVisible;
