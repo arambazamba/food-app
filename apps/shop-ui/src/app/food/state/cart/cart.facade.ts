@@ -22,15 +22,14 @@ export class CartFacade {
     this.store.dispatch(CartActions.updatecart({ item }));
   }
 
-  togglePersist() {
-    let persitOps = this.store.select(getPersist).pipe(
-      combineLatestWith(this.store.select(getItems)),
-      map(([persist, items]) => {
-        return persist
-          ? CartActions.savetostorage({ cart: items })
-          : CartActions.clearstorage();
-      })
-    );
+  togglePersist(persist: boolean) {
+    if (!persist) {
+      this.store.dispatch(CartActions.clearstorage());
+    } else {
+      this.store.select(getItems).subscribe((items) => {
+        this.store.dispatch(CartActions.savetostorage({ cart: items }));
+      });
+    }
   }
 
   getPersist() {

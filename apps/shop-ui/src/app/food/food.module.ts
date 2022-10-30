@@ -7,17 +7,19 @@ import {
   EntityDefinitionService,
   HttpUrlGenerator,
 } from '@ngrx/data';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { FoodEntityService } from '../../../dist/food-shop-ui/src/app/food/state/food-entity.service';
 import { MaterialModule } from '../material.module';
-import { StoreModule } from '@ngrx/store';
 import { FoodContainerComponent } from './catalog/catalog-container/food-container.component';
 import { FoodEditComponent } from './catalog/food-edit/food-edit.component';
 import { FoodListComponent } from './catalog/food-list/food-list.component';
-import { CheckoutComponent } from './shop/checkout/checkout.component';
 import { FoodRoutingModule } from './food-routing.module';
-import { FoodShopContaienerComponent } from './shop/shop-container/food-shop-container.component';
+import { CheckoutComponent } from './shop/checkout/checkout.component';
 import { NumberPickerComponent } from './shop/number-picker/number-picker.component';
+import { FoodShopContaienerComponent } from './shop/shop-container/food-shop-container.component';
 import { ShopItemComponent } from './shop/shop-item/shop-item.component';
+import { CartEffects } from './state/cart/cart.effects';
 import { cartFeatureKey, cartReducer } from './state/cart/cart.reducer';
 import { entityMetadata } from './state/catalog/entity-metadata';
 import { FoodDataService } from './state/catalog/food-data.service';
@@ -42,6 +44,7 @@ import { CustomurlHttpGenerator } from './state/custom-url-generator';
     FormsModule,
     FlexLayoutModule,
     StoreModule.forFeature(cartFeatureKey, cartReducer),
+    EffectsModule.forFeature([CartEffects]),
   ],
   providers: [
     {

@@ -22,6 +22,7 @@ export class CheckoutComponent implements OnInit {
     ],
     address: [this.order.address, { validators: [Validators.required] }],
     payment: [this.order.payment, { validators: [Validators.required] }],
+    items: this.fb.array([]),
   });
 
   constructor(private cart: CartFacade, private fb: FormBuilder) {}
