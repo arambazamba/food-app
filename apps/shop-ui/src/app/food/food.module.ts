@@ -25,6 +25,7 @@ import { cartFeatureKey, cartReducer } from './state/cart/cart.reducer';
 import { entityMetadata } from './state/catalog/entity-metadata';
 import { FoodDataService } from './state/catalog/food-data.service';
 import { CustomurlHttpGenerator } from './state/custom-url-generator';
+import { StatusComponent } from './shop/status/status.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { CustomurlHttpGenerator } from './state/custom-url-generator';
     NumberPickerComponent,
     ShopItemComponent,
     CheckoutComponent,
+    StatusComponent,
   ],
 
   imports: [
