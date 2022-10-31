@@ -11,7 +11,7 @@ export interface CartState {
 
 const initialState: CartState = {
   items: [],
-  persist: false,
+  persist: true,
 };
 
 export const cartReducer = createReducer(
@@ -23,6 +23,10 @@ export const cartReducer = createReducer(
   on(CartActions.clear, (state) => ({
     ...state,
     items: [],
+  })),
+  on(CartActions.loadfromstoragesuccess, (state, action) => ({
+    ...state,
+    items: action.items || [],
   })),
   on(CartActions.updatecart, (state, action) => {
     let cart: CartItem[] = updateCart(state.items, action.item);

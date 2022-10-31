@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  title: 'Passion for Food!',
   authEnabled: false,
   api: 'https://localhost:5001/',
   azure: {
@@ -22,6 +23,7 @@ export const environment = {
   features: {
     reactive: false,
     logging: false,
+    persistCart: false,
   },
   testuser: 'alexander.pajer@integrations.at',
 };

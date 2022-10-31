@@ -30,6 +30,7 @@ const bootstrap = environment.authEnabled
 
 @NgModule({
   declarations: [AppComponent, AboutComponent, HomeComponent],
+
   imports: [
     BrowserModule,
     AppRoutingModule,

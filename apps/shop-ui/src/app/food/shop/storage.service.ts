@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CartItem } from './cart-item.model';
 import { of } from 'rxjs';
+import { CartItem } from './cart-item.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +14,11 @@ export class StorageService {
   }
 
   loadFromStorage() {
-    const cart = localStorage.getItem('cart') as CartItem | null;
+    const cart = localStorage.getItem('cart') as CartItem[] | null;
     return of(cart);
   }
 
-  saveToStorage(cart: CartItem) {
+  saveToStorage(cart: CartItem[]) {
     localStorage.setItem('cart', JSON.stringify(cart));
     return of(true);
   }

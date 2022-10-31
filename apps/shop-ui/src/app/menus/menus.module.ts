@@ -5,12 +5,19 @@ import { MaterialModule } from '../material.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UtilsModule } from '../utils/utils.module';
 
 const comps = [NavbarComponent, SidebarComponent];
 
 @NgModule({
   declarations: comps,
   exports: comps,
-  imports: [CommonModule, MaterialModule, RouterModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    RouterModule,
+    ReactiveFormsModule,
+    UtilsModule,
+  ],
 })
 export class MenusModule {}
