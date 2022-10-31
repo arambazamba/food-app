@@ -32,7 +32,7 @@
           </div>
         </mat-list-item>
         <mat-list-item class="sum">
-          <div>Total: SUM TOTAL</div>
+          <div>Total: {{ total | async | toEuro}}</div>
         </mat-list-item>
       </mat-list>
     </div>

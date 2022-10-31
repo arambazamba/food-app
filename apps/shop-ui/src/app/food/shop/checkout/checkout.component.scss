@@ -20,6 +20,12 @@
     justify-content: space-between;
 }
 
+.sum{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
 mat-list-item span{
     display: flex;
     flex-direction: row;

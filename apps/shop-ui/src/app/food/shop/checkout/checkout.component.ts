@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 import { CartFacade } from '../../state/cart/cart.facade';
 import { OrderItem } from './order-item.model';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-checkout',
@@ -13,6 +13,7 @@ export class CheckoutComponent implements OnInit {
   items = this.cart.getItems();
   order: OrderItem = new OrderItem();
   mockCheckout: FormControl = new FormControl(false);
+  total = this.cart.getSumTotal();
 
   checkoutForm = this.fb.group({
     name: [this.order.name, { validators: [Validators.required] }],
@@ -40,6 +41,9 @@ export class CheckoutComponent implements OnInit {
   }
 
   completeCheckout() {
-    this.cart.checkout(this.order);
+    this.items.subscribe((items) => {
+      this.order.items = items;
+      this.cart.checkout(this.order);
+    });
   }
 }
