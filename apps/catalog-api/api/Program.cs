@@ -22,8 +22,6 @@ IConfiguration Configuration = builder.Configuration;
 builder.Services.AddSingleton<IConfiguration>(Configuration);
 var cfg = Configuration.Get<FoodConfig>();
 
-
-
 // App insights using Feature Flag
 if (cfg.FeatureManagement.UseApplicationInsights)
 {

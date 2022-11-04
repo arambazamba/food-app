@@ -14,7 +14,7 @@ import {
   PublicClientApplication,
 } from '@azure/msal-browser';
 import { Store } from '@ngrx/store';
-import { combineLatestWith, filter, map } from 'rxjs/operators';
+import { combineLatestWith, filter, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { MsalBroadcastServiceMock } from '../mocks/MsalBroadcastService.mock';
 import { AuthActions } from './auth.actions';
@@ -48,6 +48,7 @@ export class MsalAuthFacade {
   ) => {
     return broadcast.msalSubject$
       .pipe(
+        tap((msg: EventMessage) => console.log(msg)),
         filter(
           (msg: EventMessage) =>
             msg.eventType === EventType.LOGIN_SUCCESS ||

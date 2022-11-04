@@ -18,7 +18,6 @@ import {
   MSAL_INSTANCE,
   MSAL_INTERCEPTOR_CONFIG,
 } from '@azure/msal-angular';
-
 import { StoreModule } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { MsalBroadcastServiceMock } from './mocks/MsalBroadcastService.mock';
