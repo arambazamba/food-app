@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import {
   MsalGuardConfiguration,
   MsalService,
