@@ -21,6 +21,7 @@ import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material.module';
 import { metaReducers, reducers } from './state/state';
 import { MenusModule } from './menus/menus.module';
+import { ReservationComponent } from './reservation/reservation.component';
 
 registerLocaleData(localeDe);
 
@@ -29,7 +30,7 @@ const bootstrap = environment.authEnabled
   : [AppComponent];
 
 @NgModule({
-  declarations: [AppComponent, AboutComponent, HomeComponent],
+  declarations: [AppComponent, AboutComponent, HomeComponent, ReservationComponent],
 
   imports: [
     BrowserModule,
