@@ -12,6 +12,7 @@ export class AuthEffects {
 
   req: SilentRequest = {
     scopes: ['user.read'],
+    account: this.msal.instance.getAllAccounts()[0],
   };
 
   tryLoginSilent$ = createEffect(() =>
