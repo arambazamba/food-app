@@ -48,23 +48,21 @@ export class MsalAuthFacade {
   ) => {
     return broadcast.msalSubject$
       .pipe(
-        tap((msg: EventMessage) => console.log(msg)),
+        tap((msg: EventMessage) => console.log('MSAL Event', msg)),
         filter(
           (msg: EventMessage) =>
             msg.eventType === EventType.LOGIN_SUCCESS ||
             msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS
+        ),
+        tap((msg: EventMessage) =>
+          console.log('LOGIN_SUCCESS or ACQUIRE_TOKEN_SUCCESS', msg)
         )
       )
       .subscribe((result: EventMessage) => {
-        //TODO: handle broadcast
         this.store.dispatch(
           AuthActions.loginsuccess({ authResponse: result.payload })
         );
         console.log(`MSAL Event ${result.eventType}`, result.payload);
-        //TODO: find if this is needed
-        // let resp: MsalAuthResponse = result.payload;
-        // this.store.dispatch(loginSuccess({ authResponse: resp }));
-        // console.log(`MSAL Event ${result.eventType}`, result.payload);
       });
   };
 
@@ -82,6 +80,7 @@ export const loggerCallback = (logLevel: LogLevel, message: string) => {
   console.log(logLevel, message);
 };
 
+//https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/initialization.md
 export function MSALInstanceFactory(): IPublicClientApplication {
   let config = {
     auth: {
