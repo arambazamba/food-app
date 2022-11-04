@@ -1,24 +1,32 @@
-button{
-    width: 100%;
-    margin-bottom: 0.7rem;
+button {
+  width: 100%;
+  margin-bottom: 0.7rem;
 }
 
-span{
-    margin-left: 0.5rem;
+mat-toolbar {
+  margin-bottom: 0px;
 }
 
-div{
-    font-size: 0.8rem;
+.toolbar {
+  margin: auto;
 }
 
-.mat-raised-button.mat-button-disabled.mat-button-disabled{
-    background-color: #e0e0e0;
-    color: #9e9e9e;
+span {
+  margin-left: 0.5rem;
 }
 
-.info{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+div {
+  font-size: 0.8rem;
+}
+
+.mat-raised-button.mat-button-disabled.mat-button-disabled {
+  background-color: #e0e0e0;
+  color: #9e9e9e;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -22,10 +22,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MaterialModule } from '../../../dist/food-shop-ui/src/app/material.module';
 import { environment } from '../../environments/environment';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { MsalBroadcastServiceMock } from './mocks/MsalBroadcastService.mock';
 import { AuthEffects } from './state/auth.effects';
 import { authFeatureKey, authReducer } from './state/auth.reducer';
+import { CurrentUserComponent } from './components/current-user/current-user.component';
 
 const modules = environment.authEnabled
   ? [
@@ -41,7 +42,7 @@ const modules = environment.authEnabled
       MaterialModule,
       HttpClientModule,
       StoreModule.forFeature(authFeatureKey, authReducer),
-      EffectsModule.forFeature([AuthEffects]),
+      EffectsModule.forFeature([]),
     ];
 
 const providers = environment.authEnabled
@@ -74,8 +75,8 @@ const providers = environment.authEnabled
     ];
 
 @NgModule({
-  declarations: [LoginComponent],
-  exports: [LoginComponent],
+  declarations: [LoginComponent, CurrentUserComponent],
+  exports: [LoginComponent, CurrentUserComponent],
   imports: modules,
   providers: providers,
 })

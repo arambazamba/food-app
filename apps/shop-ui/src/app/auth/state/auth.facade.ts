@@ -34,6 +34,10 @@ export class MsalAuthFacade {
     return this.store.select(getUser);
   }
 
+  getAuthEnabled() {
+    return this.store.select(getAuthEnabled);
+  }
+
   isAuthenticated() {
     return this.store.select(getLoggedIn).pipe(
       combineLatestWith(this.store.select(getAuthEnabled)),

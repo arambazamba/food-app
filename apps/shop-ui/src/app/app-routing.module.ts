@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MsalGuard } from '@azure/msal-angular';
 import { environment } from 'src/environments/environment';
 import { AboutComponent } from './about/about.component';
-import { LoginComponent } from './auth/login/login.component';
+import { LoginComponent } from './auth/components/login/login.component';
 import { HomeComponent } from './home/home.component';
 
 //allow disabling auth for e2e tests
