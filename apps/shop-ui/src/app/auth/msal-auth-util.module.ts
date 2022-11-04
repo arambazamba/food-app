@@ -42,7 +42,7 @@ const modules = environment.authEnabled
       MaterialModule,
       HttpClientModule,
       StoreModule.forFeature(authFeatureKey, authReducer),
-      EffectsModule.forFeature([AuthEffects]),
+      EffectsModule.forFeature([]),
     ];
 
 const providers = environment.authEnabled

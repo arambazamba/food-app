@@ -3,10 +3,12 @@
 </mat-toolbar>
 
 <div class="info">
-  <app-current-user></app-current-user>
-  <button mat-raised-button (click)="logout()">
-    <mat-icon>logout</mat-icon><span>Logout</span>
-  </button>
+  <ng-container *ngIf="authEnabled | async">
+    <app-current-user></app-current-user>
+    <button mat-raised-button (click)="logout()">
+      <mat-icon>logout</mat-icon><span>Logout</span>
+    </button>
+  </ng-container>
 
   <ng-container *ngIf="this.cart.getItems() | async as items">
     <button

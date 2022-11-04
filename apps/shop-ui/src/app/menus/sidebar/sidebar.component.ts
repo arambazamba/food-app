@@ -18,6 +18,7 @@ export class SidebarComponent {
   total = this.cart.getSumTotal();
   persistToCart = this.cart.getPersist();
   items = this.cart.getItems();
+  authEnabled = this.auth.getAuthEnabled();
 
   persistCart = environment.features.persistCart;
   fcSaveCart: FormControl<boolean> = new FormControl();
