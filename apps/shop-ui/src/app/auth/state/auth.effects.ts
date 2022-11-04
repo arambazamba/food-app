@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MsalService } from '@azure/msal-angular';
+import { SilentRequest } from '@azure/msal-browser';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
@@ -9,14 +10,21 @@ import { AuthActions } from '../../../../dist/food-shop-ui/src/app/auth/state/au
 export class AuthEffects {
   constructor(private actions$: Actions, private msal: MsalService) {}
 
-  //   tryLoginSilent$ = createEffect(() =>
-  //     this.actions$.pipe(
-  //       ofType('[MSAL Auth] Try Login Silent'),
-  //       mergeMap(() => {
-  //         this.msals.acquireTokenSilent(null);
-  //       })
-  //     )
-  //   );
+  req: SilentRequest = {
+    scopes: ['user.read'],
+  };
+
+  tryLoginSilent$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.tryloginsilent),
+      mergeMap(() =>
+        this.msal.acquireTokenSilent(this.req).pipe(
+          map((resp) => AuthActions.loginsuccess({ authResponse: resp })),
+          catchError((err) => of(AuthActions.autherror({ err })))
+        )
+      )
+    )
+  );
 
   logout$ = createEffect(() =>
     this.actions$.pipe(
