@@ -32,7 +32,9 @@
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["/theme/"]
+              "includePaths": [
+                "/theme/"
+              ]
             },
             "scripts": []
           },
@@ -104,9 +106,20 @@
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["/theme/"]
+              "includePaths": [
+                "/theme/"
+              ]
             },
             "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
@@ -116,6 +129,9 @@
     "analytics": "c3b5fd73-4358-48ba-89c4-f54edacf1b34",
     "cache": {
       "enabled": false
-    }
+    },
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

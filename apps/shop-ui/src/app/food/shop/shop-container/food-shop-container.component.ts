@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   combineLatestWith,
   map,
@@ -18,7 +18,7 @@ import { CartItem } from '../cart-item.model';
   templateUrl: './food-shop-container.component.html',
   styleUrls: ['./food-shop-container.component.scss'],
 })
-export class FoodShopContaienerComponent implements OnInit {
+export class FoodShopContaienerComponent implements OnInit, OnDestroy {
   food = this.foodService.entities$;
   cartSubs: Subscription | null = null;
   persistCart = environment.features.persistCart;

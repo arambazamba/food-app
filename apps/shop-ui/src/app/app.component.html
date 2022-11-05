@@ -1,5 +1,5 @@
 <div
-  *ngIf="!authenticated"
+  *ngIf="(authenticated |async) === false"
   fxLayout="column"
   fxLayoutAlign="center center"
   class="loginsplash"
@@ -7,7 +7,7 @@
   <app-login></app-login>
 </div>
 <div
-  *ngIf="authenticated "
+  *ngIf="(authenticated |async) === true"
   gdAreas="navbar | mainrow"
   gdAreas.lt-md="navbar  | mainrow"
   gdRows="80px auto"

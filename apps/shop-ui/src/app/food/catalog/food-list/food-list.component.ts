@@ -1,11 +1,10 @@
 import {
   Component,
-  OnInit,
-  Input,
-  Output,
   EventEmitter,
-  SimpleChanges,
+  Input,
   OnChanges,
+  Output,
+  SimpleChanges,
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { CatalogItem } from '../../food-catalog.model';
@@ -15,7 +14,7 @@ import { CatalogItem } from '../../food-catalog.model';
   templateUrl: './food-list.component.html',
   styleUrls: ['./food-list.component.scss'],
 })
-export class FoodListComponent implements OnInit, OnChanges {
+export class FoodListComponent implements OnChanges {
   @Input() food: CatalogItem[] | null = [];
   @Output() foodSelected: EventEmitter<CatalogItem> =
     new EventEmitter<CatalogItem>();
@@ -34,8 +33,6 @@ export class FoodListComponent implements OnInit, OnChanges {
   dataSource = new MatTableDataSource([]);
 
   constructor() {}
-
-  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
     this.dataSource = new MatTableDataSource(changes['food'].currentValue);
