@@ -1,19 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CartItem } from '../cart-item.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CatalogItem } from '../../food-catalog.model';
+import { CartItem } from '../cart-item.model';
 
 @Component({
   selector: 'app-shop-item',
   templateUrl: './shop-item.component.html',
   styleUrls: ['./shop-item.component.scss'],
 })
-export class ShopItemComponent implements OnInit {
+export class ShopItemComponent {
   @Input() food: CatalogItem = new CatalogItem();
   @Output() amountChange: EventEmitter<CartItem> = new EventEmitter<CartItem>();
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   handleAmountChange(amount: number) {
     let ci: CartItem = {

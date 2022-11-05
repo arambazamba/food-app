@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 import { SideNavActions } from './menu.actions';
 import { MenuState } from './menu.reducer';
+import { MatDrawerMode } from '@angular/material/sidenav';
 import {
   getSideNavEnabled,
   getSideNavVisible,

@@ -1,17 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { environment } from '../../../../environments/environment';
 import {
   MsalGuardConfiguration,
   MsalService,
   MSAL_GUARD_CONFIG,
 } from '@azure/msal-angular';
 import {
+  AuthenticationResult,
   InteractionType,
   PopupRequest,
-  AuthenticationResult,
   RedirectRequest,
 } from '@azure/msal-browser';
-import { MsalAuthFacade } from 'src/app/auth/state/auth.facade';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -24,8 +23,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
-    private authService: MsalService,
-    private af: MsalAuthFacade
+    private authService: MsalService
   ) {}
 
   ngOnInit(): void {

@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -13,7 +14,7 @@ import { CatalogItem } from '../../food-catalog.model';
   templateUrl: './food-edit.component.html',
   styleUrls: ['./food-edit.component.scss'],
 })
-export class FoodEditComponent {
+export class FoodEditComponent implements OnChanges {
   @Input() food: CatalogItem = new CatalogItem();
   @Output() saveFood: EventEmitter<CatalogItem> = new EventEmitter();
   form: FormGroup;

@@ -19,8 +19,8 @@ import { MsalAuthUtilModule } from './auth/msal-auth-util.module';
 import { ErrHandlerService } from './common/err-handler/err-handler.service';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material.module';
-import { metaReducers, reducers } from './state/state';
 import { MenusModule } from './menus/menus.module';
+import { metaReducers, reducers } from './state/state';
 
 registerLocaleData(localeDe);
 

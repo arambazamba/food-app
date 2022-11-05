@@ -14,7 +14,7 @@
     <button
       mat-raised-button
       (click)="doCheckout()"
-      [disabled]="items.length == 0"
+      [disabled]="items.length === 0"
     >
       <mat-icon>shopping_cart_checkout</mat-icon><span>Checkout</span>
     </button>
