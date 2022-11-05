@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,5 +9,7 @@ import { environment } from 'src/environments/environment';
 export class AboutComponent {
   config = environment;
 
-  constructor() {}
+  constructor() {
+    console.log('AboutComponent');
+  }
 }
