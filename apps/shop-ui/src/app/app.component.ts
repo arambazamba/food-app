@@ -5,6 +5,7 @@ import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MsalAuthFacade } from './auth/state/auth.facade';
 import { MenuFacade } from './state/menu/menu.facade';
+import { map, startWith, tap, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -13,11 +14,21 @@ import { MenuFacade } from './state/menu/menu.facade';
 })
 export class AppComponent implements OnDestroy {
   title = environment.title;
-  authenticated = this.af.isAuthenticated();
-  publicRoute: boolean = false;
   sidenavMode: MatDrawerMode = 'side';
   sidenavVisible = this.mf.sideNavVisible;
   isIframe = window !== window.parent && !window.opener;
+
+  authenticated = this.af.isAuthenticated();
+  publicRoute = this.router.events.pipe(
+    startWith(false),
+    filter((e) => e instanceof NavigationEnd),
+    map((event) => {
+      return event instanceof NavigationEnd && event.url.includes('about');
+    }),
+    tap((result) => {
+      console.log('publicRoute', result);
+    })
+  );
 
   private destroy$ = new Subject();
 
@@ -26,11 +37,6 @@ export class AppComponent implements OnDestroy {
     public mf: MenuFacade,
     private router: Router
   ) {
-    // this.router.events.subscribe((event) => {
-    //   if (event instanceof NavigationEnd && event.url.includes('reservation')) {
-    //     console.log('route', event.url);
-    //   }
-    // });
     this.mf.sideNavPosition
       .pipe(takeUntil(this.destroy$))
       .subscribe((mode: string) => {
