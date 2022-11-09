@@ -1,25 +1,27 @@
-.container{
-    width: 120px;
-    display: flex
-}
-
-mat-icon{
-    cursor: pointer;
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100px;
+  align-items: center;
 }
 
 .mat-icon {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    -webkit-user-select: none;
-    user-select: none;
-    background-repeat: no-repeat;
-    fill: currentColor;
-    height: 36px;
-    width: 36px;
-    overflow: hidden;
+  fill: currentColor;
+  cursor: pointer;
 }
 
-.quantity{
-    font-size: 34px;
+.material-icons {
+  font-size: 26px;
+}
+
+.quantity {
+  font-size: 34px;
+}
+
+.icon {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  justify-content: center;
 }
