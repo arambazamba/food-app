@@ -4,7 +4,7 @@ import { SilentRequest } from '@azure/msal-browser';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { AuthActions } from '../../../../dist/food-shop-ui/src/app/auth/state/auth.actions';
+import { AuthActions } from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
