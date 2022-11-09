@@ -16,7 +16,7 @@
   </mat-card-content>
   <mat-card-actions align="end">
     <app-number-picker
-      (amountChanged)="handleAmountChange($event)"
+      (amountChanged)="handleAmountChange($event)" [formControl]="nbrPicker"
     ></app-number-picker>
   </mat-card-actions>
 </mat-card>

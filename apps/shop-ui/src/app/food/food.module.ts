@@ -11,13 +11,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { FoodEntityService } from '../../../dist/food-shop-ui/src/app/food/state/food-entity.service';
 import { MaterialModule } from '../material.module';
-import { UtilsModule } from '../utils/utils.module';
+import { UtilsModule } from '../extensions/utils.module';
 import { FoodContainerComponent } from './catalog/catalog-container/food-container.component';
 import { FoodEditComponent } from './catalog/food-edit/food-edit.component';
 import { FoodListComponent } from './catalog/food-list/food-list.component';
 import { FoodRoutingModule } from './food-routing.module';
 import { CheckoutComponent } from './shop/checkout/checkout.component';
-import { NumberPickerComponent } from './shop/number-picker/number-picker.component';
 import { FoodShopContaienerComponent } from './shop/shop-container/food-shop-container.component';
 import { ShopItemComponent } from './shop/shop-item/shop-item.component';
 import { CartEffects } from './state/cart/cart.effects';
@@ -33,7 +32,6 @@ import { StatusComponent } from './shop/status/status.component';
     FoodListComponent,
     FoodEditComponent,
     FoodShopContaienerComponent,
-    NumberPickerComponent,
     ShopItemComponent,
     CheckoutComponent,
     StatusComponent,

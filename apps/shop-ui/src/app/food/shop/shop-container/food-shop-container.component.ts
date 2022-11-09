@@ -20,6 +20,8 @@ import { CartItem } from '../cart-item.model';
 })
 export class FoodShopContaienerComponent implements OnInit, OnDestroy {
   food = this.foodService.entities$;
+  cartItems = this.cart.getItems();
+
   cartSubs: Subscription | null = null;
   persistCart = environment.features.persistCart;
 
@@ -32,6 +34,34 @@ export class FoodShopContaienerComponent implements OnInit, OnDestroy {
     if (this.persistCart) {
       this.ensureStorageFeature();
     }
+  }
+
+  ngOnInit(): void {
+    this.foodService.loaded$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((loaded) => {
+        if (!loaded) {
+          this.foodService.getAll();
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.complete();
+  }
+
+  getItemsInCart(id: number) {
+    return this.cartItems.pipe(
+      map((items) => {
+        let ct = items.find((i) => i.id === id);
+        return ct ? ct.quantity : 0;
+      })
+    );
+  }
+
+  updateCart(f: CartItem) {
+    this.cart.set(f);
   }
 
   ensureStorageFeature() {
@@ -57,24 +87,5 @@ export class FoodShopContaienerComponent implements OnInit, OnDestroy {
           this.cart.loadFromStorage();
         }
       });
-  }
-
-  ngOnInit(): void {
-    this.foodService.loaded$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((loaded) => {
-        if (!loaded) {
-          this.foodService.getAll();
-        }
-      });
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.complete();
-  }
-
-  handleChange(f: CartItem) {
-    this.cart.set(f);
   }
 }

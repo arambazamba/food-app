@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -27,12 +33,14 @@ import {
 })
 export class NumberPickerComponent implements ControlValueAccessor, Validator {
   quantity = 0;
-
+  
   @Input() increment: number = 1;
-  @Input() label: string = '';
+  
   @Output() amountChanged: EventEmitter<number> = new EventEmitter<number>();
 
-  onChange = (quantity: number) => {};
+  onChange = (quantity: number) => {
+    console.log('onChange', quantity);
+  };
 
   onTouched = () => {};
 
@@ -60,6 +68,7 @@ export class NumberPickerComponent implements ControlValueAccessor, Validator {
 
   writeValue(quantity: number) {
     this.quantity = quantity;
+    console.log('writeValue', quantity);
   }
 
   registerOnChange(onChange: any) {
@@ -74,6 +83,7 @@ export class NumberPickerComponent implements ControlValueAccessor, Validator {
     if (!this.touched) {
       this.onTouched();
       this.touched = true;
+      console.log('markAsTouched');
     }
   }
 

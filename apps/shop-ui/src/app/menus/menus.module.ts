@@ -5,7 +5,7 @@ import { MaterialModule } from '../material.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { UtilsModule } from '../utils/utils.module';
+import { UtilsModule } from '../extensions/utils.module';
 import { MsalAuthUtilModule } from '../auth/msal-auth-util.module';
 
 const comps = [NavbarComponent, SidebarComponent];
