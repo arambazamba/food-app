@@ -9,7 +9,7 @@ import {
 } from '@ngrx/data';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { FoodEntityService } from '../../../dist/food-shop-ui/src/app/food/state/food-entity.service';
+
 import { MaterialModule } from '../material.module';
 import { UtilsModule } from '../extensions/utils.module';
 import { FoodContainerComponent } from './catalog/catalog-container/food-container.component';
@@ -25,6 +25,7 @@ import { entityMetadata } from './state/catalog/entity-metadata';
 import { FoodDataService } from './state/catalog/food-data.service';
 import { CustomurlHttpGenerator } from './state/custom-url-generator';
 import { StatusComponent } from './shop/status/status.component';
+import { FoodEntityService } from './state/catalog/food-entity.service';
 
 @NgModule({
   declarations: [

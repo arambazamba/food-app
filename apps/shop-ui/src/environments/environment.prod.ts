@@ -15,5 +15,7 @@ export const environment = {
   },
   features: {
     reactive: (<any>window)['env'].reactive,
+    logging: (<any>window)['env'].logging,
+    persistCart: (<any>window)['env'].persistCart,
   },
 };

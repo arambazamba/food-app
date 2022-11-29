@@ -20,13 +20,14 @@ import {
 } from '@azure/msal-angular';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { MaterialModule } from '../../../dist/food-shop-ui/src/app/material.module';
+
 import { environment } from '../../environments/environment';
 import { LoginComponent } from './components/login/login.component';
 import { MsalBroadcastServiceMock } from './mocks/MsalBroadcastService.mock';
 import { AuthEffects } from './state/auth.effects';
 import { authFeatureKey, authReducer } from './state/auth.reducer';
 import { CurrentUserComponent } from './components/current-user/current-user.component';
+import { MaterialModule } from '../material.module';
 
 const modules = environment.authEnabled
   ? [

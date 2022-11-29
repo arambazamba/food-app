@@ -9,4 +9,6 @@
   window["env"].redirectUri = "${ENV_REDIRECT_URI}";
   window["env"].scopes = "${ENV_SCOPES}";
   window["env"].reactive = "${ENV_REACTIVE}";
+  window["env"].logging = "${ENV_LOGGING}";
+  window["env"].persistCart = "${ENV_PERSISTCART}";
 })(this);
