@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { environment } from '../../../../environments/environment';
 import { CartFacade } from '../../state/cart/cart.facade';
 import { OrderItem } from './order-item.model';
 
@@ -32,7 +31,7 @@ export class CheckoutComponent implements OnInit {
     this.mockCheckout.valueChanges.subscribe((isMock) => {
       if (isMock) {
         this.order.name = 'John Doe';
-        this.order.email = environment.testuser;
+        this.order.email = 'alexander.pajer@integrations.at';
         this.order.address = '123 Main St';
         this.order.payment = 'PayPal, abcd...';
         this.checkoutForm.patchValue(this.order);

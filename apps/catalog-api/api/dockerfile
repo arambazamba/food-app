@@ -20,7 +20,7 @@ ENTRYPOINT ["dotnet", "catalog-api.dll"]
 # docker push arambazamba/food-catalog-api
 
 # Injecting environment variables into the container
-# docker run -it --rm -p 5051:80 food-catalog-api -e "Azure__0__TenantId"="d92b247e-90e0-4469-a129-6a32866c0d0a" "Azure__0__ApplicationInsights"="da2aaf3f-cfcd-4741-a0f0-b6b15a0ff47c"
+# docker run -it --rm -p 5051:80 food-catalog-api -e "Azure__0__TenantId"="d92b247e-90e0-4469-a129-6a32866c0d0a" "ApplicationInsights"="da2aaf3f-cfcd-4741-a0f0-b6b15a0ff47c"
 
 # Browse using: 
 # http://localhost:5051

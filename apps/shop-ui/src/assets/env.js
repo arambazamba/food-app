@@ -15,4 +15,6 @@
     ],
   ];
   window["env"].reactive = "false";
+  window["env"].logging = "false";
+  window["env"].persistCart = "false";
 })(this);
