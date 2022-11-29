@@ -33,10 +33,9 @@ stages:
           - task: Docker@2
             displayName: Build and Push
             inputs:
-              repository: "$(imageName)"
-              command: "buildAndPush"
-              Dockerfile: "$(apiPath)dockerfile"
-              tags: $(Build.BuildId)              
+              repository: '$(imageName)'
+              command: 'buildAndPush'
+              Dockerfile: '$(apiPath)dockerfile'
 
           - task: Docker@2
             displayName: Logout of ACR
