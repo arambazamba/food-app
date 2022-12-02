@@ -1,0 +1,27 @@
+{
+    "name": "cypress-standalone-e2e",
+    "keywords": [],
+    "author": {
+        "name": "Alexander Pajer",
+        "email": "alexander.pajer@integrations.at"
+    },
+    "license": "MIT",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "cypress": "cypress open",
+        "electron-test": "cypress run",
+        "postelectron-test": "jrm ./results/combined-report.xml \"./results/results-*.xml\"",
+        "script-electron": "npm run electron-test || npm run postelectron-test",
+        "chrome-test": "cypress run --browser chrome --headless",
+        "postchrome-test": "jrm ./results/combined-report.xml \"./results/results-*.xml\"",
+        "script-chrome": "npm run chrome-test || npm run postchrome-test"
+    },
+    "dependencies": {
+        "cypress": "^10.10.0"
+    },
+    "devDependencies": {
+        "junit-report-merger": "^3.0.1"
+    }
+}
