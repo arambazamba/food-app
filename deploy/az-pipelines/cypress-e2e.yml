@@ -12,28 +12,27 @@ stages:
     displayName: "Execute End to End tests"
     jobs:
       - job: cypress-e2e
+        steps:
+        - task: NodeTool@0
+          displayName: 'Use Node 16.x'
+          inputs:
+            versionSpec: 16.x
 
-    steps:
-    - task: NodeTool@0
-      displayName: 'Use Node 16.x'
-      inputs:
-        versionSpec: 16.x
+        - task: Npm@1
+          displayName: 'npm install'
+          inputs:
+            workingDir: '$(System.DefaultWorkingDirectory)/cypress-e2e/cypress'
+            verbose: false
 
-    - task: Npm@1
-      displayName: 'npm install'
-      inputs:
-        workingDir: '$(System.DefaultWorkingDirectory)/cypress-e2e/cypress'
-        verbose: false
+        - task: Npm@1
+          displayName: 'run electron tests'
+          inputs:
+            command: custom
+            workingDir: '$(System.DefaultWorkingDirectory)/cypress-e2e/cypress'
+            verbose: false
+            customCommand: 'run script-electron'
 
-    - task: Npm@1
-      displayName: 'run electron tests'
-      inputs:
-        command: custom
-        workingDir: '$(System.DefaultWorkingDirectory)/cypress-e2e/cypress'
-        verbose: false
-        customCommand: 'run script-electron'
-
-    - task: PublishTestResults@2
-      displayName: 'Publish Test Results'
-      inputs:
-      testResultsFiles: '**/combined-report.xml'
+        - task: PublishTestResults@2
+          displayName: 'Publish Test Results'
+          inputs:
+          testResultsFiles: '**/combined-report.xml'
