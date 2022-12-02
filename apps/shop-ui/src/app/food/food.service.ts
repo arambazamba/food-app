@@ -8,6 +8,7 @@ export class FoodService {
   constructor(private http: HttpClient) {}
 
   execCheckout() {
-    return this.http.post('http://localhost:3000/checkout', checkoutItem);
+    let checkoutitem = {};
+    return this.http.post('http://localhost:3000/checkout', checkoutitem);
   }
 }

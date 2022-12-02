@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import {
   DefaultHttpUrlGenerator,
   HttpResourceUrls,
@@ -18,8 +19,8 @@ export class CustomurlHttpGenerator extends DefaultHttpUrlGenerator {
     let resourceURLs = this.knownHttpResourceUrls[entityName];
     if (entityName == 'Food') {
       resourceURLs = {
-        collectionResourceUrl: 'https://localhost:5001/food/',
-        entityResourceUrl: 'https://localhost:5001/food/',
+        collectionResourceUrl: `${environment.api}food/`,
+        entityResourceUrl: `${environment.api}food/`,
       };
       this.registerHttpResourceUrls({ [entityName]: resourceURLs });
     }
