@@ -13,6 +13,7 @@ context('Simple e2e tests', () => {
     });
 
     it('Shows render 3 rows', () => {
+      
       cy.get('app-shop-item').should('have.length', 3);
     });
   });

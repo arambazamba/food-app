@@ -8,7 +8,7 @@ module.exports = defineConfig({
   },
   video: false,
   e2e: {
-    baseUrl: 'http://food-shop-ui-e2e-tests.westeurope.azurecontainer.io/',
+    baseUrl: 'http://food-shop-ui-container.westeurope.azurecontainer.io/food',
     setupNodeEvents(on, config) {
       return require('./cypress/plugins/index.js')(on, config)
     },
