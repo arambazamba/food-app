@@ -8,14 +8,12 @@ context('Simple e2e tests', () => {
       cy.get('.clickable').first().click();
     });
 
-    it('Has 3 options in Testing menu', () => {
-      cy.get('.clickable').first().click();
-      cy.get('button.mat-raised-button').should('have.length', 3);
+    it('Has 4 links in the horizontal menu', () => {
+      cy.get('.navLink').should('have.length', 4);
     });
 
     it('Shows render 3 rows', () => {
-      cy.contains('Food').click({ force: true });
-      cy.get('.mat-row').should('have.length', 3);
+      cy.get('app-shop-item').should('have.length', 3);
     });
   });
 });

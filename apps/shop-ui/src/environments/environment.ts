@@ -1,10 +1,10 @@
 export const environment = {
   production: false,
   title: 'Passion for Food!',
-  authEnabled: true,
+  authEnabled: false,
   api: 'https://localhost:5001/',
   azure: {
-    applicationInsights: '0fb02d37-e5be-4ad1-846e-f5a7b378a200',
+    applicationInsights: '0a945124-73ac-4295-98b0-5116df276b7d',
     signalREndpoint: '',
     appReg: {
       clientId: 'd23642f7-9ccf-4165-92e7-919f625a5acc',
@@ -22,7 +22,7 @@ export const environment = {
   },
   features: {
     reactive: false,
-    logging: false,
+    logging: true,
     persistCart: false,
   },
   testuser: 'alexander.pajer@integrations.at',

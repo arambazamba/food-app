@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatDrawerMode } from '@angular/material/sidenav';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Observable, of, Subject, takeUntil } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { filter, map, startWith, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { MsalAuthFacade } from './auth/state/auth.facade';
 import { MenuFacade } from './state/menu/menu.facade';
-import { map, startWith, tap, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',

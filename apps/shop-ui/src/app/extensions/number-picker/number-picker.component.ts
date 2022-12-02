@@ -33,9 +33,9 @@ import {
 })
 export class NumberPickerComponent implements ControlValueAccessor, Validator {
   quantity = 0;
-  
+
   @Input() increment: number = 1;
-  
+
   @Output() amountChanged: EventEmitter<number> = new EventEmitter<number>();
 
   onChange = (quantity: number) => {
@@ -68,7 +68,6 @@ export class NumberPickerComponent implements ControlValueAccessor, Validator {
 
   writeValue(quantity: number) {
     this.quantity = quantity;
-    console.log('writeValue', quantity);
   }
 
   registerOnChange(onChange: any) {

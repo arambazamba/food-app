@@ -25,9 +25,9 @@ export class SidebarComponent {
   cartSetting: Subscription | null = null;
 
   constructor(
-    public auth: MsalAuthFacade,
     public cart: CartFacade,
-    private router: Router
+    private router: Router,
+    public auth: MsalAuthFacade
   ) {
     if (this.persistCart) {
       this.ensureStorageFeature();

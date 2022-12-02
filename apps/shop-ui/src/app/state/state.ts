@@ -11,6 +11,7 @@ export interface State {
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state, action) {
     var ai: ApplicationInsights = AILoggerService.getInstance();
+    console.log('ngrx', action.type);
     ai.trackEvent({ name: action.type, properties: action });
     return reducer(state, action);
   };
