@@ -11,7 +11,7 @@ stages:
   - stage: cypress
     displayName: "Execute End to End tests"
     jobs:
-      - job: cypress-e2e
+      - job: e2e
         steps:
         - task: NodeTool@0
           displayName: 'Use Node 16.x'
