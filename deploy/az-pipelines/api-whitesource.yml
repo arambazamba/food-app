@@ -13,7 +13,7 @@ trigger: none
 variables:
   dotnetSdkVersion: "6.x"
   buildConfiguration: "Release"
-  apifolder: "food-api"
+  apifolder: "apps/catalog-api/api"
 
 pool:
   vmImage: "ubuntu-20.04"
