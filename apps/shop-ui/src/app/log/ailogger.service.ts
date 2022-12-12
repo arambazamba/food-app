@@ -20,8 +20,15 @@ export class AILoggerService implements OnDestroy {
     AILoggerService.initAppInsights();
   }
 
+  static loggingEnabled(): boolean {
+    return (
+      environment.azure.applicationInsights != '' &&
+      environment.features.logging
+    );
+  }
+
   static initAppInsights() {
-    if (environment.azure.applicationInsights != '') {
+    if (AILoggerService.loggingEnabled()) {
       this.logger = new ApplicationInsights({
         config: {
           instrumentationKey: environment.azure.applicationInsights,
@@ -38,16 +45,8 @@ export class AILoggerService implements OnDestroy {
   }
 
   logEvent(name: string, properties?: { [key: string]: any }) {
-    AILoggerService.getInstance().trackEvent({ name: name }, properties);
+    if (AILoggerService.loggingEnabled()) {
+      AILoggerService.logger.trackEvent({ name, properties });
+    }
   }
-
-  // setUserId(userId: string) {
-  //   this.appInsights.setAuthenticatedUserContext(userId);
-  // }
-  // clearUserId() {
-  //   this.appInsights.clearAuthenticatedUserContext();
-  // }
-  // logPageView(name?: string, uri?: string) {
-  //   .trackPageView({ name, uri });
-  // }
 }
