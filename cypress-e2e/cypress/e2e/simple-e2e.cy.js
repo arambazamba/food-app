@@ -12,8 +12,7 @@ context('Simple e2e tests', () => {
       cy.get('.navLink').should('have.length', 4);
     });
 
-    it('Shows render 3 rows', () => {
-      
+    it('Shows render 3 rows', () => {      
       cy.get('app-shop-item').should('have.length', 3);
     });
   });
