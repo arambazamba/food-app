@@ -1,7 +1,5 @@
 <div
   *ngIf="(authenticated |async) === false && (publicRoute | async) === false"
-  fxLayout="column"
-  fxLayoutAlign="center center"
   class="loginsplash"
 >
   <app-login></app-login>
