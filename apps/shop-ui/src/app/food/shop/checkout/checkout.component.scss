@@ -34,3 +34,10 @@ mat-list-item span {
   flex-direction: row;
   justify-content: flex-end;
 }
+
+
+.mainDiv{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
