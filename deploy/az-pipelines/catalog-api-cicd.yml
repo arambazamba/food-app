@@ -17,7 +17,7 @@ variables:
   releaseBranchName: master
   azSubscription: scFood
   apifolder: apps/catalog-api/api/
-  appservice: food-catalog-api-prod
+  appservice: food-catalog-api-yaml
 
 pool:
   vmImage: "ubuntu-20.04"
