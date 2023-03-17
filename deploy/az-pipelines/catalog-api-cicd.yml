@@ -1,0 +1,85 @@
+name: catalog-api-cicd
+
+# trigger:
+#   branches:
+#     include:
+#       - master
+#   paths:
+#     include:
+#       - apps/catalog-api/*
+
+trigger: none
+pr: none
+
+variables:
+  dotnetSdkVersion: "6.x"
+  buildConfiguration: Release
+  releaseBranchName: master
+  azSubscription: scFood
+  apifolder: apps/catalog-api/api/
+  appservice: food-catalog-api-yaml
+
+pool:
+  vmImage: "ubuntu-20.04"
+
+stages:
+  - stage: "Build"
+    displayName: "Build"
+    jobs:
+      - job: "Build"
+        displayName: "Build job"
+
+        steps:
+          - task: UseDotNet@2
+            displayName: "Use .NET Core SDK $(dotnetSdkVersion)"
+            inputs:
+              version: "$(dotnetSdkVersion)"
+
+          - task: DotNetCoreCLI@2
+            displayName: "Restore project dependencies"
+            inputs:
+              command: "restore"
+              projects: "$(apifolder)/*.csproj"
+
+          - task: DotNetCoreCLI@2
+            displayName: "Build the project - $(buildConfiguration)"
+            inputs:
+              command: "build"
+              arguments: "--no-restore --configuration $(buildConfiguration)"
+              projects: "$(apifolder)/*.csproj"
+
+          - task: DotNetCoreCLI@2
+            displayName: "Publish the project - $(buildConfiguration)"
+            inputs:
+              command: "publish"
+              projects: "$(apifolder)/*.csproj"
+              publishWebProjects: false
+              arguments: "--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)"
+              zipAfterPublish: true
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+              ArtifactName: "drop"
+              publishLocation: "Container"  
+
+  - stage: "Deploy"
+    displayName: "Deploy"
+    dependsOn: [Build, Test]
+
+    jobs:
+      - deployment: DeployAppService
+        displayName: Deploy to prod Appservice
+        environment: catalog-api-production
+        strategy:
+          runOnce:
+            deploy:
+              steps:                          
+              - task: AzureRmWebAppDeployment@4
+                displayName: "Azure App Service Deploy: $(appservice)"
+                inputs:
+                  ConnectionType: "AzureRM"
+                  azureSubscription: $(azSubscription)
+                  appType: "webApp"
+                  WebAppName: $(appservice)
+                  packageForLinux: "$(Agent.BuildDirectory)/**/*.zip"
