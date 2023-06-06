@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   title: 'Passion for Food!',
   authEnabled: false,
   api: (<any>window)['env'].api,
