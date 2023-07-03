@@ -13,7 +13,7 @@ pr: none
 
 variables:
   azSubscription: scFood
-  uiPath: food-ui/
+  path: food-ui/
   env: 'file-replacement'
   appservice: 'foodui'
   # apiurl value will be used in FileTransform@1
@@ -31,8 +31,8 @@ stages:
         steps:
           - task: NodeTool@0
             inputs:
-              versionSpec: "14.x"
-            displayName: "Install Node 14"
+              versionSpec: "16.x"
+            displayName: "Install Node 16"
             
           - task: FileTransform@1
             displayName: Replace Api Url
@@ -46,22 +46,22 @@ stages:
             
           - task: Cache@2
             inputs:
-                key: '$(System.DefaultWorkingDirectory)/$(uiPath)/package-lock.json'
-                path: '$(System.DefaultWorkingDirectory)/$(uiPath)/node_modules'
+                key: '$(System.DefaultWorkingDirectory)/$(path)/package-lock.json'
+                path: '$(System.DefaultWorkingDirectory)/$(path)/node_modules'
                 cacheHitVar: 'ngCacheRestored'
 
           - script: npm i            
             displayName: "Install Dependencies"
-            workingDirectory: $(uiPath)
+            workingDirectory: $(path)
             condition: eq(variables['ngCacheRestored'],False)
 
           - script: ng b -c production
             displayName: "Create Build"
-            workingDirectory: $(uiPath)
+            workingDirectory: $(path)
 
           - task: PublishPipelineArtifact@1
             inputs:
-              targetPath: '$(System.DefaultWorkingDirectory)/$(uiPath)dist/'
+              targetPath: '$(System.DefaultWorkingDirectory)/$(path)dist/'
               ArtifactName: 'ngapp'
       
       - job: Provision

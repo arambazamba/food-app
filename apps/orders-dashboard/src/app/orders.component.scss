@@ -3,6 +3,10 @@
   justify-content: space-between;
 }
 
+button{
+  margin: 0 0.5rem;
+}
+
 .content {
   display: flex;
   margin: 32px auto;
@@ -32,6 +36,3 @@
   border-bottom: 1px dotted wheat;
 }
 
-button {
-  margin: 0 0.5rem;
-}
