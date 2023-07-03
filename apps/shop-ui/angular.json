@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
             "outputPath": "dist/food-shop-ui",
             "index": "src/index.html",
@@ -32,9 +32,7 @@
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "/theme/"
-              ]
+              "includePaths": ["src/theme"]
             },
             "scripts": []
           },
@@ -106,9 +104,7 @@
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "/theme/"
-              ]
+              "includePaths": ["src/theme"]
             },
             "scripts": []
           }

@@ -1,4 +1,9 @@
+declare global {
+  interface Window {
+    env: any;
+  }
+}
+
 export const environment = {
-  production: false,
-  funcEP: 'https://foodorders-28791.azurewebsites.net/api',
+  funcWebhookEP: window['env']["FUNC_EP"] || 'https://foodorders-14056.azurewebsites.net/api',
 };
