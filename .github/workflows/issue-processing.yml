@@ -32,11 +32,11 @@ jobs:
               labels: ['needs-classification']
             })
             
-  # auto-assign:
-  #       runs-on: ubuntu-latest
-  #       steps:
-  #           - name: 'Auto-assign issue'
-  #             uses: pozil/auto-assign-issue@v1
-  #             with:
-  #                 repo-token: ${{ secrets.GITHUB_TOKEN }}
-  #                 assignees: ${{ secrets.DEFAULT_ISSUE_ASSIGNEE }}
+  auto-assign:
+        runs-on: ubuntu-latest
+        steps:
+            - name: 'Auto-assign issue'
+              uses: pozil/auto-assign-issue@v1
+              with:
+                  repo-token: ${{ secrets.GITHUB_TOKEN }}
+                  assignees: ${{ secrets.DEFAULT_ISSUE_ASSIGNEE }}
