@@ -8,6 +8,9 @@ pool:
   demands:
     - npm  
 
+variables: 
+  cypath: '/cypress-e2e/cypress'    
+
 stages:
   - stage: cypress
     displayName: "Execute End to End tests"
@@ -22,14 +25,14 @@ stages:
         - task: Npm@1
           displayName: 'npm install'
           inputs:
-            workingDir: '$(System.DefaultWorkingDirectory)/cypress-e2e/cypress'
+            workingDir: '$(System.DefaultWorkingDirectory)/$(cypath)'
             verbose: false
 
         - task: Npm@1
           displayName: 'run electron tests'
           inputs:
             command: custom
-            workingDir: '$(System.DefaultWorkingDirectory)/cypress-e2e/cypress'
+            workingDir: '$(System.DefaultWorkingDirectory)/$(cypath)'
             verbose: false
             customCommand: 'run script-electron'
 
