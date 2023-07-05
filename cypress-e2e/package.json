@@ -19,9 +19,9 @@
         "script-chrome": "npm run chrome-test || npm run postchrome-test"
     },
     "dependencies": {
-        "cypress": "^10.10.0"
+        "cypress": "^10.11.0"
     },
     "devDependencies": {
-        "junit-report-merger": "^3.0.1"
+        "junit-report-merger": "^3.0.6"
     }
 }
