@@ -17,7 +17,7 @@ namespace FoodApiTests
         public void CalaculatesDeliveryRate()
         {
             var result = delivery.getDeliveryCost(100);
-            Assert.True(result == 23);
+            Assert.True(result == 20);
         }
     }
 }

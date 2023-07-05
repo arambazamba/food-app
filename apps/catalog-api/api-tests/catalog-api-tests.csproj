@@ -18,6 +18,6 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
-		<ProjectReference Include="../food-api/food-api.csproj" />
+		<ProjectReference Include="../api/catalog-api.csproj" />
 	</ItemGroup>
 </Project>
