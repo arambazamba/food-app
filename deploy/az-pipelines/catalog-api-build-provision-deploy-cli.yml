@@ -23,7 +23,7 @@ pool:
   vmImage: "ubuntu-20.04"
 
 stages:
-  - stage: Build
+  - stage: BuildProvision
     displayName: Build and Provision
     jobs:
       - job: Build
@@ -34,7 +34,6 @@ stages:
               folder: $(folder)
       
       - job: Provision
-
         steps:
         - task: AzureCLI@2
           displayName: 'Provision AppService'
