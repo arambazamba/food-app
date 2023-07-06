@@ -25,7 +25,7 @@ pool:
   vmImage: "ubuntu-20.04"
 
 stages:
-  - stage: Build
+  - stage: BuildProvision
     displayName: Build and Provision
     jobs:
       - job: Build
@@ -54,7 +54,7 @@ stages:
   
   - stage: Deploy
     displayName: Deploy
-    dependsOn: Build
+    dependsOn: BuildProvision
 
     jobs:
       - deployment: DeployAppService
