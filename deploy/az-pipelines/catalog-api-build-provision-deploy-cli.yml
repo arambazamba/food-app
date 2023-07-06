@@ -51,7 +51,7 @@ stages:
     jobs:
       - deployment: DeployAppService
         displayName: Deploy to Appservice
-        environment: prod
+        environment: catalog-api-prod
         strategy:
           runOnce:
             deploy:
