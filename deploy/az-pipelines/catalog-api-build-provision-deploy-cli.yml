@@ -46,7 +46,7 @@ stages:
 
   - stage: Deploy
     displayName: Deploy
-    dependsOn: Build
+    dependsOn: BuildProvision
 
     jobs:
       - deployment: DeployAppService
