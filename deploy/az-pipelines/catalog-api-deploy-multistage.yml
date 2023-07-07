@@ -1,0 +1,117 @@
+name: catalog-api-deploy-multistage
+
+# trigger:
+#   branches:
+#     include:
+#       - master
+#   paths:
+#     include:
+#       - apps/catalog-api/*
+
+trigger: none
+pr: none
+
+variables:
+  dotnetSdkVersion: "6.x"
+  buildConfiguration: Release
+  releaseBranchName: master
+  azSubscription: scIaC
+  folder: apps/catalog-api/api/
+  appservice: foodcatalog-bicep
+  rg: az400-m06-IaC
+  templateFile: deploy/bicep/webapp-windows.bicep
+
+pool:
+  vmImage: "ubuntu-20.04"
+
+stages:
+  - stage: BuildProvision
+    displayName: Build and Provision
+    jobs:
+      - job: Build
+        steps:
+          - template: templates/t-net-build.yaml
+            parameters:
+              cfg: $(buildConfiguration)
+              folder: $(folder)
+      
+      - job: Provision
+
+        steps:
+        - task: AzureCLI@2
+          displayName: 'Provision AppService'
+          inputs:
+            azureSubscription: '$(azSubscription)'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              az deployment group create --resource-group $(rg) \
+                --template-file $(templateFile) \
+                --parameters webAppName=$(appservice)-staging        
+        
+        - task: AzureCLI@2
+          displayName: 'Provision AppService'
+          inputs:
+            azureSubscription: '$(azSubscription)'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              az deployment group create --resource-group $(rg) \
+                --template-file $(templateFile) \
+                --parameters webAppName=$(appservice)-prod                
+
+  - stage: DeployStaging
+    displayName: Deploy to Staging
+    dependsOn: BuildProvision
+
+    jobs:
+      - deployment: DeployAppService
+        displayName: Deploy to Appservice
+        environment: catalog-api-staging
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DownloadBuildArtifacts@0
+                  inputs:
+                    buildType: "current"
+                    downloadType: "single"
+                    artifactName: "drop"
+                    downloadPath: "$(System.ArtifactsDirectory)"
+
+                - task: AzureRmWebAppDeployment@4
+                  displayName: "Azure App Service Deploy: $(appservice)"
+                  inputs:
+                    ConnectionType: "AzureRM"
+                    azureSubscription: $(azSubscription)
+                    appType: "webApp"
+                    WebAppName: $(appservice)-staging
+                    packageForLinux: "$(System.ArtifactsDirectory)/**/*.zip"
+
+  - stage: DeployProd
+    displayName: Deploy to Prod
+    dependsOn: DeployStaging
+
+    jobs:
+      - deployment: DeployAppService
+        displayName: Deploy to Appservice
+        environment: catalog-api-prod
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DownloadBuildArtifacts@0
+                  inputs:
+                    buildType: "current"
+                    downloadType: "single"
+                    artifactName: "drop"
+                    downloadPath: "$(System.ArtifactsDirectory)"
+
+                - task: AzureRmWebAppDeployment@4
+                  displayName: "Azure App Service Deploy: $(appservice)"
+                  inputs:
+                    ConnectionType: "AzureRM"
+                    azureSubscription: $(azSubscription)
+                    appType: "webApp"
+                    WebAppName: $(appservice)-prod
+                    packageForLinux: "$(System.ArtifactsDirectory)/**/*.zip"                    
