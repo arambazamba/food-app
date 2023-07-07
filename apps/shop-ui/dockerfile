@@ -1,5 +1,5 @@
 ##### Stage 1 - Create the build-image
-FROM node:16-alpine as build
+FROM node:18-alpine as build
 LABEL author="Alexander Pajer"
 
 WORKDIR /app
@@ -18,11 +18,11 @@ COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
 # Substitute environment vars
 CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
 
-# docker build --rm -f Dockerfile -t food-orders-ui .
-# docker run -d --rm -p 5052:80 --env ENV_API_URL="https://localhost:5001" food-orders-ui
+# docker build --rm -f Dockerfile -t food-shop-ui .
+# docker run -d --rm -p 5052:80 --env ENV_API_URL="https://localhost:5051" food-shop-ui
 
 # browse using http://localhost:5052/
 
 # Publish Image to dockerhub
-# docker tag food-orders-ui arambazamba/food-orders-ui
-# docker push arambazamba/food-orders-ui
+# docker tag food-shop-ui arambazamba/food-shop-ui
+# docker push arambazamba/food-shop-ui
