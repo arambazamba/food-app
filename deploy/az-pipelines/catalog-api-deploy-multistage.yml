@@ -39,7 +39,7 @@ stages:
 
         steps:
         - task: AzureCLI@2
-          displayName: 'Provision AppService'
+          displayName: 'Provision AppService staging'
           inputs:
             azureSubscription: '$(azSubscription)'
             scriptType: 'bash'
@@ -50,7 +50,7 @@ stages:
                 --parameters webAppName=$(appservice)-staging        
         
         - task: AzureCLI@2
-          displayName: 'Provision AppService'
+          displayName: 'Provision AppService prod'
           inputs:
             azureSubscription: '$(azSubscription)'
             scriptType: 'bash'
