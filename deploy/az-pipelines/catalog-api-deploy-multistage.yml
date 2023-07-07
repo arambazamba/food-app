@@ -16,9 +16,9 @@ variables:
   buildConfiguration: Release
   releaseBranchName: master
   azSubscription: scIaC
+  rg: foodapp
   folder: apps/catalog-api/api/
   appservice: foodcatalog-bicep
-  rg: az400-m06-IaC
   templateFile: deploy/bicep/webapp-windows.bicep
 
 pool:
