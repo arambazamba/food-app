@@ -1,16 +1,21 @@
+declare global {
+  interface Window {
+    env: any;
+  }
+}
+
 export const environment = {
-  production: false,
-  title: 'Passion for Food!',
-  authEnabled: false,
-  api: 'https://localhost:5001/',
+  production: true,
+  title: 'Food App',
+  authEnabled: true,
+  api: window['env'].API_URL || 'https://localhost:5001',
   azure: {
-    applicationInsights: '',
-    signalREndpoint: '',
+    applicationInsights: '7e9e5dc9-5621-44fb-9bd6-ce7db2a37a13',
     appReg: {
-      clientId: 'd23642f7-9ccf-4165-92e7-919f625a5acc',
+      clientId: window['env'].CLIENT_ID,
       authority:
-        'https://login.microsoftonline.com/d92b247e-90e0-4469-a129-6a32866c0d0a/',
-      redirectUri: 'http://localhost:4200/',
+        'https://login.microsoftonline.com/' + window['env'].AUTHORITY,
+      redirectUri: window['env'].REDIRECT_URI,
       scopes: [
         ['https://graph.microsoft.com/v1.0/me', ['user.read']],
         [
