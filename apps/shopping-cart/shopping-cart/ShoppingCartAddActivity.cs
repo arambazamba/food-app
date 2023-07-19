@@ -6,24 +6,24 @@ using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Integrations
+namespace FoodApp
 {
     public static class ShoppingCartAddActivity
     {
         [FunctionName(nameof(ShoppingCartAddActivity))]
         public static async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "foodcart/add")] HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "cart/add")] HttpRequestMessage req,
             [DurableClient] IDurableOrchestrationClient orchclient,
             ILogger logger)
         {
-            
-            var eventData = await req.Content.ReadAsAsync<FoodModel>();
-            string eventName = "AddFood";
+
+            var eventData = await req.Content.ReadAsAsync<OrderItem>();
+            string eventName = "AddToCart";
             await orchclient.RaiseEventAsync(
                 eventData.OrchestrationInstanceId,
                 eventName,
                 eventData);
-            return req.CreateResponse(HttpStatusCode.OK);
-        }    
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
     }
-}    
+}
