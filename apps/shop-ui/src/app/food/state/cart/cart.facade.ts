@@ -1,17 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, combineLatestWith } from 'rxjs/operators';
 import { CartItem } from '../../shop/cart-item.model';
-import { OrderItem } from '../../shop/checkout/order-item.model';
+import { Order } from '../../shop/order/order.model';
 import { CartActions } from './cart.actions';
 import { CartState } from './cart.reducer';
 import { getItems, getPersist } from './cart.selector';
+import { OrdersService } from '../../shop/order/orders.service';
+import { mockOrder } from './mock-data';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartFacade {
-  constructor(private store: Store<CartState>) { }
+  store = inject(Store<CartState>);
+  orders = inject(OrdersService);
 
   clear() {
     this.store.dispatch(CartActions.clear());
@@ -45,6 +49,14 @@ export class CartFacade {
     );
   }
 
+  getOrder() {
+    return this.store.select(getItems).pipe(
+      map((items) => {
+        let o = Object.assign(new Order(), items);
+        return o;
+      }))
+  };
+
   getSumTotal() {
     return this.store.select(getItems).pipe(
       map((items) =>
@@ -56,8 +68,11 @@ export class CartFacade {
     );
   }
 
-  checkout(order: OrderItem) {
-    this.store.dispatch(CartActions.checkout({ item: order }));
+  checkout(order: Order) {
+    // this.store.dispatch(CartActions.checkout({ item: order }));
+    this.orders.checkout(order).subscribe(() => {
+      console.log('Order placed successfully');
+    });
   }
 
   saveToStorage(cart: CartItem[]) {

@@ -1,48 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { combineLatest, map } from 'rxjs';
 import { CartFacade } from '../../state/cart/cart.facade';
-import { OrderItem } from './order-item.model';
+import { mockOrder } from '../../state/cart/mock-data';
+import { Order } from '../order/order.model';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
 })
-export class CheckoutComponent implements OnInit {
-  items = this.cart.getItems();
-  order: OrderItem = new OrderItem();
-  mockCheckout: FormControl = new FormControl(false);
-  total = this.cart.getSumTotal();
+export class CheckoutComponent {
+  fb = inject(FormBuilder);
+  cart = inject(CartFacade);
+  order: Order = new Order();
 
-  checkoutForm = this.fb.group({
-    name: [this.order.name, { validators: [Validators.required] }],
-    email: [
-      this.order.email,
-      { validators: [Validators.email, Validators.required] },
-    ],
-    address: [this.order.address, { validators: [Validators.required] }],
-    payment: [this.order.payment, { validators: [Validators.required] }],
-    items: this.fb.array([]),
-  });
-
-  constructor(private cart: CartFacade, private fb: FormBuilder) {}
-
-  ngOnInit(): void {
-    this.mockCheckout.valueChanges.subscribe((isMock) => {
-      if (isMock) {
-        this.order.name = 'John Doe';
-        this.order.email = 'alexander.pajer@integrations.at';
-        this.order.address = '123 Main St';
-        this.order.payment = 'PayPal, abcd...';
-        this.checkoutForm.patchValue(this.order);
-      }
-    });
+  constructor() {
+    combineLatest([this.cart.getItems(), this.cart.getSumTotal()]).pipe(
+      map(([items, total]) => {
+        return Object.assign(new Order(), mockOrder, { items: [...items] },
+          { Total: total })
+      })).subscribe(o => this.order = o);
   }
 
-  completeCheckout() {
-    this.items.subscribe((items) => {
-      this.order.items = items;
-      this.cart.checkout(this.order);
-    });
+  completeCheckout(o: Order) {
+    console.log(o);
+    this.cart.checkout(o);
   }
 }
