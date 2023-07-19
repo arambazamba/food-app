@@ -5,11 +5,6 @@
   justify-content: space-between;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-}
-
 .mdc-form-field > label {
   padding: 0 1rem;
   color: white !important;
@@ -28,16 +23,18 @@
   justify-content: flex-end;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
 mat-list-item span {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
 
-
 .mainDiv{
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+}
+
+.mdc-form-field>label {
+  color: white !important;
 }

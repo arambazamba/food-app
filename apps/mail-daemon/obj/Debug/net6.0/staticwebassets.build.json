@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "ukBIIY8AeicZ2b59WticaS1DTJXvLboAEbfKIQxhrgk=",
+  "Source": "mail-daemon",
+  "BasePath": "_content/mail-daemon",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
