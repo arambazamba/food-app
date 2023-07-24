@@ -27,7 +27,7 @@ on:
         type: environment
         required: true       
 env:
-  Appservice: catalog-api-github-actions
+  Appservice: catalog-api-staging
 
 jobs:
   build-and-deploy:
